@@ -6,7 +6,8 @@
     type message = {
         content?: string,
         myMessage?: boolean,
-        active?: boolean
+        active?: boolean,
+        error?: string
     }
 
     export let messages: message[] = [];
@@ -50,7 +51,7 @@
 <div class="flex flex-col h-full">
     <Card class="flex-grow max-w-full my-3 h-full dark:bg-gray-700">
         {#each messages as message}
-            <Message bind:value={message.content} myMessage={message.myMessage}/>
+            <Message bind:value={message.content} bind:error={message.error} myMessage={message.myMessage}/>
         {/each}
     </Card>
 

@@ -5,12 +5,12 @@
 
 <img
         src={UserIcon}
-        class="mr-3"
+        class="ml-3"
         alt="GPT Logo"
 />
 
 <style>
     img {
-        height: 3.5rem;
+        height: 2rem;
     }
 </style>
