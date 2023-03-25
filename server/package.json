@@ -12,6 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "@tinyhttp/app": "^2.0.29",
+    "@tinyhttp/cors": "^2.0.0",
+    "llama-node": "^0.0.6",
     "tinyws": "^0.1.0",
     "ws": "^8.13.0"
   }
