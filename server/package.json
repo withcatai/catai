@@ -16,5 +16,8 @@
     "llama-node": "^0.0.6",
     "tinyws": "^0.1.0",
     "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.10"
   }
 }

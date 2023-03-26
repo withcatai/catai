@@ -1,79 +1,41 @@
-import {LLamaClient} from 'llama-node';
-import {MODEL_PATH} from './const.js';
+import ChatThreads from './chat-threads.js';
 
-const llama = new LLamaClient({path: MODEL_PATH, numCtxTokens: 128}, true);
-
-function gptQuestion(callback) {
-    const messages = [];
-
-    let firstMessage = true;
-    return async (question) => {
-        messages.push({
-            role: "user",
-            content: question
-        });
-
-        let contentIncludeQuestion = false;
-        let allContent = "";
-        return await llama.createChatCompletion({
-            messages,
-            numPredict: BigInt(2048 * 1),
-            temp: 0.5,
-            topP: 0.8,
-            topK: BigInt(40 * 20),
-            repeatPenalty: 1,
-            repeatLastN: BigInt(1),
-        }, (res) => {
-            if (firstMessage) {
-                firstMessage = false;
-                messages.push({
-                    role: "assistant",
-                    content: ""
-                });
-            }
-
-            allContent += res.token;
-
-            if(!contentIncludeQuestion && allContent.includes(question)) {
-                contentIncludeQuestion = true;
-            } else if(!contentIncludeQuestion) {
-                return;
-            }
-
-            messages.at(-1).content += res.token;
-            callback(res.token);
-        });
-    };
-}
-
+const llama = new ChatThreads('./chat_mac', {ctx_size: 2048 * 3});
 /**
  *
  * @param socket {Awaited<ResponseType<import('tinyws')TinyWSRequest['ws']>>}
  * @return {Promise<void>}
  */
 export async function activateChat(socket) {
+    const sendJSON = data => socket.send(JSON.stringify(data));
 
-    const ask = gptQuestion(token => {
-        socket.send(JSON.stringify({
+    const onToken = token => {
+        sendJSON({
             type: 'token',
             value: token
-        }));
-    });
+        });
+    };
 
+    const onError = err => {
+        sendJSON({
+            type: 'error',
+            value: err
+        });
+    }
+
+    const llamaThread = llama.createThread(onToken, onError);
+
+    const ask = llamaThread.run();
 
     socket.on('message', async (message) => {
         const {question} = JSON.parse(message);
+        await ask(question);
+        sendJSON({
+            type: 'end'
+        });
+    });
 
-        try {
-            await ask(question);
-            socket.send(JSON.stringify({
-                type: 'end'
-            }));
-        } catch (err) {
-            socket.send(JSON.stringify({
-                type: 'error',
-                value: err.message
-            }));
-        }
+    socket.on('close', () => {
+        llamaThread.kill();
     });
 }
