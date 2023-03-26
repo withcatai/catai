@@ -5,7 +5,7 @@
 
 <img
         src={UserIcon}
-        class="ml-3"
+        class="mr-3"
         alt="GPT Logo"
 />
 

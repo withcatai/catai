@@ -1,17 +1,21 @@
+import {tick} from 'svelte';
+
 const socket = new WebSocket('ws://localhost:8080/ws');
 
-type ActiveMessage = { content: string, error?: string, active: boolean, update() };
-let activeMessage: ActiveMessage = {
-    content: '', active: false, update() {
-    }
-};
-
-export async function makeActiveMessage(question: string, message: ActiveMessage) {
-    activeMessage = message;
-    socket.send(JSON.stringify({question}));
+let update: () => void;
+export function setUpdate(fn: () => void) {
+    update = fn;
 }
 
-function onMessage(event: MessageEvent) {
+type ActiveMessage = { content: string, error?: string, active: boolean };
+let activeMessage: ActiveMessage = { content: '', active: false };
+
+export function makeActiveMessage(question: string, message: ActiveMessage) {
+    activeMessage = message;
+    question && socket.send(JSON.stringify({question}));
+}
+
+async function onMessage(event: MessageEvent) {
     const {type, value} = JSON.parse(event.data);
 
     switch (type) {
@@ -19,14 +23,15 @@ function onMessage(event: MessageEvent) {
             activeMessage.content += value;
             break;
         case 'error':
-            activeMessage.error = value;
+            activeMessage.error += value;
             break;
         case 'end':
             activeMessage.active = false;
             break;
     }
 
-    activeMessage.update();
+    await tick();
+    update();
 }
 
 socket.onmessage = onMessage;

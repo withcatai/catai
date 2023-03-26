@@ -10,7 +10,7 @@
 </script>
 
 <main>
-    <Navbar let:hidden let:toggle>
+    <Navbar let:hidden let:toggle class="bg-gray-100 shadow">
         <NavBrand href="/">
             <Logo/>
             <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
