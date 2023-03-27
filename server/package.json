@@ -1,5 +1,5 @@
 {
-  "name": "useai",
+  "name": "catai",
   "type": "module",
   "version": "0.0.1",
   "description": "Chat UI for the Alpaca models",
@@ -16,7 +16,7 @@
     "postinstall": "npm run download-alpaca-cpp",
     "prepack": "npm run build && cp ../README.md ./README.md"
   },
-  "keywords": ["alpaca", "chat", "ui", "web", "useai"],
+  "keywords": ["alpaca", "chat", "ui", "web", "catai"],
   "author": "Ido S.",
   "license": "MIT",
   "dependencies": {
@@ -38,11 +38,11 @@
     "@types/node": "^18.15.10"
   },
   "bin": {
-    "useai": "scripts/cli.js"
+    "catai": "scripts/cli.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ido-pluto/useai"
+    "url": "https://github.com/ido-pluto/catai"
   },
-  "homepage": "https://github.com/ido-pluto/useai"
+  "homepage": "https://github.com/ido-pluto/catai"
 }

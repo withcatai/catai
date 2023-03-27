@@ -6,7 +6,7 @@ const modelDir = path.join(__dirname, '..', 'models');
 
 const selectedModel = path.join(modelDir, use);
 if (!await fs.pathExists(selectedModel)) {
-    console.error("Model not found, install the model: useai install [MODEL]");
+    console.error("Model not found, install the model: catai install [MODEL]");
     process.exit(1);
 }
 

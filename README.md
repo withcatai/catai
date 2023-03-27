@@ -1,4 +1,8 @@
-# UseAI
+# CatAI
+
+[![npm version](https://badge.fury.io/js/catai.svg)](https://badge.fury.io/js/catai)
+[![npm downloads](https://img.shields.io/npm/dt/catai.svg)](https://www.npmjs.com/package/catai)
+[![GitHub license](https://img.shields.io/github/license/ido-pluto/catai)](./LICENSE)
 
 Run Alpaca model on your computer with a chat ui.
 
@@ -7,24 +11,24 @@ Inspired by [Dalai](https://github.com/cocktailpeanut/dalai) and [Alpaca.cpp](ht
 ## Installation & Use
 
 ```bash
-npm install -g useai
+npm install -g catai
 
-useai install 7B
-useai serve
+catai install 7B
+catai serve
 ```
 
-![useai](https://github.com/ido-pluto/useai/blob/main/demo/chat.gif)
+![catai](https://github.com/ido-pluto/catai/blob/main/demo/chat.gif)
 
 ## Intro
 
 You can use any Alpaca model as long as your computer can handle it.
 ```bash
-useai install 13B
+catai install 13B
 ```
 
-If you want to switch between models you can use `useai use` command.
+If you want to switch between models you can use `catai use` command.
 ```bash
-useai use 7B
+catai use 7B
 ```
 
 ### Cross-platform
