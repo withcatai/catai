@@ -23,7 +23,6 @@ class ChatThread {
             .replaceAll('[1m[32m[0m', '')
             .replaceAll('[0m', '')
             .replaceAll('[33m', '')
-            .replaceAll('/Users/idos./Documents/llama-ui/server/models/7B', '---hidden---')
             .replaceAll('', '');
     }
 
