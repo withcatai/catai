@@ -21,7 +21,10 @@
     "chat",
     "ui",
     "web",
-    "catai"
+    "catai",
+    "chatgpt",
+    "openai",
+    "llama"
   ],
   "author": "Ido S.",
   "license": "MIT",
