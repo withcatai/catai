@@ -6,5 +6,5 @@ await within(async () => {
     await $`npm run build`;
 });
 
-
+await fs.emptyDir('./www');
 await fs.copy('../client/dist', './www');
