@@ -22,4 +22,4 @@ app.use('/ws', async (req, res) => {
 app.use(sirv('www'));
 
 const listenPort = await getPort({port: PORT});
-app.listen(listenPort, () => console.log('Listening on port ' + listenPort));
+app.listen(listenPort, () => console.log(`Listening on http://127.0.0.1:${listenPort}`));
