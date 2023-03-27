@@ -13,7 +13,7 @@ useai install 7B
 useai serve
 ```
 
-![useai](./demo/chat.gif)
+![useai](https://github.com/ido-pluto/useai/blob/main/demo/chat.gif)
 
 ## Intro
 

@@ -14,7 +14,7 @@
     "download-alpaca-cpp": "zx scripts/download-alpaca-cpp.js",
     "use": "zx scripts/use.js",
     "postinstall": "npm run download-alpaca-cpp",
-    "prepack": "npm run build"
+    "prepack": "npm run build && cp ../README.md ./README.md"
   },
   "keywords": ["alpaca", "chat", "ui", "web", "useai"],
   "author": "Ido S.",
