@@ -13,7 +13,7 @@
 
     export let messages: message[] = [{
         content: '',
-        active: false,
+        active: true,
         error: ''
     }];
 
@@ -25,10 +25,9 @@
     });
 
     $: lastMessage = messages.at(-1);
-    let textArea = '';
 
-    async function sendMessage() {
-        const question = textArea.trim();
+    async function sendMessage(target: HTMLInputElement) {
+        const question = target.value.trim();
         if (lastMessage.active || !question) return;
 
         const aiMessage = {
@@ -41,7 +40,7 @@
 
         makeActiveMessage(question, aiMessage);
         messages = messages;
-        textArea = '';
+        target.value = '';
 
         await tick();
         scrollToEnd();
@@ -50,7 +49,7 @@
     function checkSendMessage(event: KeyboardEvent) {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
-            sendMessage();
+            sendMessage(event.target as any);
         }
     }
 
@@ -68,7 +67,7 @@
     </div>
 
     <div class="flex mb-5">
-        <Textarea bind:value={textArea} on:keypress={checkSendMessage} placeholder="Enter text to send..."></Textarea>
+        <Textarea on:keypress={checkSendMessage} placeholder="Enter text to send..."></Textarea>
         <Button disabled={lastMessage.active} class="ml-3" on:click={sendMessage}>Send</Button>
     </div>
 </div>

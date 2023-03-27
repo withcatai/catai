@@ -1,5 +1,7 @@
 import {spawn} from 'child_process';
 
+const NO_RESPONSE_TIMEOUT = 1000 * .5;
+const RESPONSE_END = '\n>';
 class ChatThread {
 
     timeout = 1000 * 60;
@@ -34,12 +36,13 @@ class ChatThread {
         );
 
         let dataCount = 0;
+        let lastResponse;
         this.child.stdout.on('data', data => {
-            console.log(data.toString());
             if (dataCount === -1) return;
 
             const content = ChatThread.#fixText(data.toString());
             content.trim() && dataCount++;
+            lastResponse = content;
 
             this.callback(content);
         });
@@ -58,23 +61,33 @@ class ChatThread {
             this.onerror?.('Thread closed!');
         });
 
-        return prompt => {
-            this.child.stdin.write(prompt.replaceAll('\n', '\\') + '\r\n');
-
+        const waitForResponse = () => {
             let lastDataCount = dataCount = 0;
             const startTime = Date.now();
+
             return new Promise(res => {
                 const interval = setInterval(() => {
-                    if (dataCount && (lastDataCount === dataCount) || Date.now() - startTime > this.timeout) {
+
+                    const responseClosed = dataCount && lastDataCount === dataCount && lastResponse.trimEnd() === RESPONSE_END;
+                    if (responseClosed || Date.now() - startTime > this.timeout) {
                         clearInterval(interval);
                         dataCount = -1;
                         res();
                     } else {
                         lastDataCount = dataCount;
                     }
-                }, 1500);
+                }, NO_RESPONSE_TIMEOUT);
             });
-        };
+        }
+
+        return {
+            prompt() {
+                const promptToProcessText = prompt.replaceAll('\n', '\\') + '\r\n';
+                this.child.stdin.write(promptToProcessText);
+                return waitForResponse();
+            },
+            waitForResponse
+        }
     }
 
     kill() {
