@@ -80,8 +80,8 @@ class ChatThread {
         }
 
         return {
-            prompt() {
-                const promptToProcessText = prompt.replaceAll('\n', '\\') + '\r\n';
+            prompt: question => {
+                const promptToProcessText = question.replaceAll('\n', '\\') + '\r\n';
                 this.child.stdin.write(promptToProcessText);
                 return waitForResponse();
             },
