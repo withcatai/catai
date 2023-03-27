@@ -1,23 +1,48 @@
 {
-  "name": "server",
+  "name": "useai",
   "type": "module",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Chat web ui for using Alpaca models",
   "main": "index.js",
-  "scripts": {
-    "start": "node src/index.js"
+  "engines": {
+    "node": ">=16.13.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "zx scripts/build.js",
+    "install-model": "zx scripts/install.js",
+    "download-alpaca-cpp": "zx scripts/download-alpaca-cpp.js",
+    "use": "zx scripts/use.js",
+    "postinstall": "npm run download-alpaca-cpp",
+    "prepack": "npm run build"
+  },
+  "keywords": ["alpaca", "chat", "ui", "web", "useai"],
+  "author": "Ido S.",
+  "license": "MIT",
   "dependencies": {
     "@tinyhttp/app": "^2.0.29",
     "@tinyhttp/cors": "^2.0.0",
-    "llama-node": "^0.0.6",
+    "commander": "^10.0.0",
+    "extract-zip": "^2.0.1",
+    "fs-extra": "^11.1.1",
+    "get-port": "^6.1.2",
+    "nodejs-file-downloader": "^4.10.6",
+    "sirv": "^2.0.2",
+    "terminal-kit": "^3.0.0",
     "tinyws": "^0.1.0",
-    "ws": "^8.13.0"
+    "wretch": "^2.5.1",
+    "ws": "^8.13.0",
+    "zx": "^7.2.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.10"
-  }
+  },
+  "bin": {
+    "useai": "scripts/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ido-pluto/useai"
+  },
+  "homepage": "https://github.com/ido-pluto/useai"
 }

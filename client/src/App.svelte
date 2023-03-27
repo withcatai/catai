@@ -14,7 +14,7 @@
         <NavBrand href="/">
             <Logo/>
             <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              GPT Chat
+              Alpaca Chat
             </span>
         </NavBrand>
         <DarkMode/>

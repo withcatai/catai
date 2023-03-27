@@ -314,3 +314,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/node,macos,windows,webstorm
+
+
+# Server
+server/www/
+server/models/

@@ -1,6 +1,8 @@
 import ChatThreads from './chat-threads.js';
+import {jsonModelSettings} from './model-settings.js';
 
-const llama = new ChatThreads('./chat_mac', {ctx_size: 2048 * 3});
+const llama = new ChatThreads(jsonModelSettings.exec, {ctx_size: 2048 * 3, model: jsonModelSettings.model});
+
 /**
  *
  * @param socket {Awaited<ResponseType<import('tinyws')TinyWSRequest['ws']>>}
@@ -21,7 +23,7 @@ export async function activateChat(socket) {
             type: 'error',
             value: err
         });
-    }
+    };
 
     const llamaThread = llama.createThread(onToken, onError);
 

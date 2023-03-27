@@ -16,11 +16,12 @@ class ChatThread {
         return Object.entries(this.settings).map(([key, value]) => [`--${key}`, `"${value.toString().replace(/"/g, '\\"')}"`]).flat();
     }
 
-    static #fixText(text){
+    static #fixText(text) {
         return text
             .replaceAll('[1m[32m[0m', '')
             .replaceAll('[0m', '')
             .replaceAll('[33m', '')
+            .replaceAll('/Users/idos./Documents/llama-ui/server/models/7B', '---hidden---')
             .replaceAll('', '');
     }
 
@@ -35,7 +36,7 @@ class ChatThread {
         let dataCount = 0;
         this.child.stdout.on('data', data => {
             console.log(data.toString());
-            if(dataCount === -1) return;
+            if (dataCount === -1) return;
 
             const content = ChatThread.#fixText(data.toString());
             content.trim() && dataCount++;
@@ -82,7 +83,7 @@ class ChatThread {
 }
 
 const defaultSettings = () => ({
-    model: 'ggml-alpaca-13b-q4.bin',
+    model: '',
     ctx_size: 2048,
     temp: 0.1,
     top_p: 0.9,

@@ -1,6 +1,7 @@
 import {tick} from 'svelte';
 
-const socket = new WebSocket('ws://localhost:8080/ws');
+const secure = location.protocol.startsWith("https") ? "s" : "";
+const socket = new WebSocket(`ws${secure}://${location.host}/ws`);
 
 let update: () => void;
 export function setUpdate(fn: () => void) {

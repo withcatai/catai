@@ -1,8 +1,9 @@
 {
-  "name": "myapp",
+  "name": "useai-ui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "Ido S.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
