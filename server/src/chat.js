@@ -1,7 +1,7 @@
 import ChatThreads from './chat-threads.js';
 import {jsonModelSettings} from './model-settings.js';
 
-const llama = new ChatThreads(jsonModelSettings.exec, {ctx_size: 2048 * 3, model: jsonModelSettings.model});
+const llama = new ChatThreads(jsonModelSettings.exec, {ctx_size: 2048 * 2, model: jsonModelSettings.model});
 
 /**
  *
@@ -25,16 +25,24 @@ export async function activateChat(socket) {
         });
     };
 
+    const sendClose = () => {
+        sendJSON({
+            type: 'end'
+        });
+    }
+
     const llamaThread = llama.createThread(onToken, onError);
 
     const ask = llamaThread.run();
 
+    // init process
+    await ask.waitForResponse();
+    sendClose(); // close init message
+
     socket.on('message', async (message) => {
         const {question} = JSON.parse(message);
-        await ask(question);
-        sendJSON({
-            type: 'end'
-        });
+        await ask.prompt(question);
+        sendClose();
     });
 
     socket.on('close', () => {
