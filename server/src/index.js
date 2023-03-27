@@ -5,6 +5,7 @@ import {activateChat} from './chat.js';
 import {cors} from '@tinyhttp/cors';
 import sirv from 'sirv';
 import getPort from 'get-port';
+import openurl from 'openurl';
 
 const app = new App();
 
@@ -22,4 +23,8 @@ app.use('/ws', async (req, res) => {
 app.use(sirv('www'));
 
 const listenPort = await getPort({port: PORT});
-app.listen(listenPort, () => console.log(`Listening on http://127.0.0.1:${listenPort}`));
+
+const browserURL = `http://127.0.0.1:${listenPort}`;
+app.listen(listenPort, () => console.log(`Listening on ${browserURL}`));
+
+openurl.open(browserURL);
