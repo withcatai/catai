@@ -2,7 +2,7 @@
   "name": "useai",
   "type": "module",
   "version": "0.0.1",
-  "description": "Chat web ui for using Alpaca models",
+  "description": "Chat UI for the Alpaca models",
   "main": "index.js",
   "engines": {
     "node": ">=16.13.0"
