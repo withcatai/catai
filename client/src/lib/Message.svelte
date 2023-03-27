@@ -20,7 +20,7 @@
             {/if}
 
             <div>
-                {#if !value}
+                {#if !value && !error}
                     <Spinner/>
                 {:else}
                     <Markdown {value}/>
