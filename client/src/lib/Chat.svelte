@@ -54,7 +54,7 @@
 <div class="flex flex-col h-full">
     <div bind:this={messagesContainer} class="flex-grow max-w-full my-3 h-full dark:bg-gray-700 overflow-auto rounded border dark:border-gray-500 messages-container">
         {#each messages as message}
-            <Message value={message.content} error={message.error} autoDetectLanguage={message.autoDetectLanguage} myMessage={message.myMessage}/>
+            <Message value={message.content} error={message.error} bind:autoDetectLanguage={message.autoDetectLanguage} myMessage={message.myMessage}/>
         {/each}
     </div>
 

@@ -1,9 +1,10 @@
-<script>
+<script lang="ts">
     import markdownIt from 'markdown-it';
     import '../assets/css/highlight.css';
     import '../assets/css/markdown.css';
     import HighlightJS from 'highlight.js';
     import {detect} from 'program-language-detector';
+    import {BAN_LANGUAGES} from '../utils/const.js';
 
     const md = markdownIt({
         html: true,
@@ -31,7 +32,7 @@
 
         if(autoDetectLanguage){
             const language = detect(value);
-            if(language !== 'Unknown'){
+            if(!BAN_LANGUAGES.includes(language)){
                 markedCode = `\`\`\`${language}\n${value}\n\`\`\``;
             }
         }
@@ -47,8 +48,9 @@
 <style global>
     .markdown-body {
         background-color: transparent !important;
-        white-space: pre-wrap;
         color: inherit !important;
+        font-size: inherit!important;
+        white-space: pre-wrap;
     }
 
     .markdown-body ol, ul, menu {

@@ -21,6 +21,12 @@ catai serve
 
 ![catai](https://github.com/ido-pluto/catai/blob/main/demo/chat.gif)
 
+## Features
+- Auto detect programming language 🧑‍💻
+- Auto detect code block 📃
+- Click on user icon to show original message 💬
+- Real time text streaming ⏱️
+
 ## Intro
 
 You can use any Alpaca model as long as your computer can handle it.

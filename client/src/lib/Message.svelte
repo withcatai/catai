@@ -9,7 +9,10 @@
     export let error = '';
     export let autoDetectLanguage = true;
 
+    let showOriginalCode = false;
+
     $: {
+        console.log(value);
         if(value.endsWith('\n> ')){
             value = value.slice(0, -3).trimEnd();
         }
@@ -17,20 +20,29 @@
 </script>
 
 <div class="flex">
-    <Alert class={`w-full p-4 alert-message rounded-none ${myMessage ? 'bg-transparent dark:bg-gray-600': 'dark:bg-gray-800'}`}
+    <Alert class={`w-full p-4 alert-message text-base rounded-none ${myMessage ? 'bg-transparent dark:bg-gray-600': 'dark:bg-gray-800'}`}
            color={myMessage ? 'dark': null}>
         <div class="flex w-full">
-            {#if !myMessage}
-                <Logo/>
-            {:else}
-                <UserIcon/>
-            {/if}
+            <div on:click={() => showOriginalCode = !showOriginalCode}>
+                {#if !myMessage}
+                    <Logo/>
+                {:else}
+                    <UserIcon/>
+                {/if}
+            </div>
+
 
             <div>
                 {#if !value && !error}
                     <Spinner/>
                 {:else}
-                    <Markdown {value} {autoDetectLanguage}/>
+                    {#if !showOriginalCode}
+                        <Markdown {value} {autoDetectLanguage}/>
+                    {:else}
+                        <div class="show-original">
+                            {value}
+                        </div>
+                    {/if}
                     {#if error}
                         <p class="text-red-500">Error: {error}</p>
                     {/if}
@@ -52,5 +64,9 @@
 
     .alert-message > div > div p:last-child {
         margin-bottom: auto;
+    }
+
+    .show-original {
+        white-space: pre-wrap;
     }
 </style>

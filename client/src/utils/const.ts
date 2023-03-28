@@ -1,0 +1,1 @@
+export const BAN_LANGUAGES = ['Unknown', 'HTML'];
