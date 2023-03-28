@@ -1,6 +1,10 @@
 import ChatThreads from './chat-threads.js';
 import {jsonModelSettings} from './model-settings.js';
 
+if(!jsonModelSettings.exec || !jsonModelSettings.model) {
+    throw new Error('Model not found, try re-downloading the model');
+}
+
 const llama = new ChatThreads(jsonModelSettings.exec, {ctx_size: 2048 * 2, model: jsonModelSettings.model});
 
 /**
