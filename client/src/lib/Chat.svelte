@@ -2,72 +2,64 @@
     import {Button, Textarea} from 'flowbite-svelte';
     import Message from './Message.svelte';
     import {onMount, tick} from 'svelte';
-    import {makeActiveMessage, setUpdate} from '../utils/chat.js';
+    import {makeActiveMessage, update} from '../utils/chat.js';
+    import scrollToEnd, {needScroll} from '../utils/scroll.js';
 
     type message = {
         content?: string,
+        autoDetectLanguage?: boolean,
         myMessage?: boolean,
         active?: boolean,
         error?: string
     }
 
-    export let messages: message[] = [{
-        content: '',
-        active: true,
-        error: ''
-    }];
-
+    export let messages: message[] = [{content: '', active: true, error: '', autoDetectLanguage: false}];
+    let textareaContent = '';
     let messagesContainer;
-    const scrollToEnd = () => messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    setUpdate(() => {
-        messages = messages;
-        scrollToEnd();
-    });
 
     $: lastMessage = messages.at(-1);
 
-    async function sendMessage(target: HTMLInputElement) {
-        const question = target.value.trim();
+    async function sendMessage() {
+        const question = textareaContent.trim();
         if (lastMessage.active || !question) return;
 
-        const aiMessage = {
-            content: '',
-            active: true,
-            error: ''
-        };
-
-        messages.push({ content: question, myMessage: true}, aiMessage);
+        const aiMessage = {content: '', active: true, error: ''};
+        messages.push({content: question, myMessage: true}, aiMessage);
+        await update.func();
 
         makeActiveMessage(question, aiMessage);
-        messages = messages;
-        target.value = '';
+        textareaContent = '';
 
-        await tick();
-        scrollToEnd();
     }
 
     function checkSendMessage(event: KeyboardEvent) {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
-            sendMessage(event.target as any);
+            sendMessage();
         }
     }
 
     onMount(() => {
         makeActiveMessage(null, lastMessage);
+
+        update.func = async () => {
+            const scroll = needScroll(messagesContainer);
+            messages = messages;
+            await tick();
+            scroll && scrollToEnd(messagesContainer);
+        };
     });
 </script>
 
 <div class="flex flex-col h-full">
-    <div bind:this={messagesContainer}
-         class="flex-grow max-w-full my-3 h-full dark:bg-gray-700 overflow-auto rounded border dark:border-gray-500 messages-container">
+    <div bind:this={messagesContainer} class="flex-grow max-w-full my-3 h-full dark:bg-gray-700 overflow-auto rounded border dark:border-gray-500 messages-container">
         {#each messages as message}
-            <Message bind:value={message.content} bind:error={message.error} myMessage={message.myMessage}/>
+            <Message value={message.content} error={message.error} autoDetectLanguage={message.autoDetectLanguage} myMessage={message.myMessage}/>
         {/each}
     </div>
 
     <div class="flex mb-5">
-        <Textarea on:keypress={checkSendMessage} placeholder="Enter text to send..."></Textarea>
+        <Textarea bind:value={textareaContent} on:keypress={checkSendMessage} placeholder="Enter text to send..."></Textarea>
         <Button disabled={lastMessage.active} class="ml-3" on:click={sendMessage}>Send</Button>
     </div>
 </div>

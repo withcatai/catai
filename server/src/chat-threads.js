@@ -69,7 +69,7 @@ class ChatThread {
             return new Promise(res => {
                 const interval = setInterval(() => {
 
-                    const responseClosed = dataCount && lastDataCount === dataCount && lastResponse.trimEnd() === RESPONSE_END;
+                    const responseClosed = this.killed || dataCount && lastDataCount === dataCount && lastResponse.trimEnd() === RESPONSE_END;
                     if (responseClosed || Date.now() - startTime > this.timeout) {
                         clearInterval(interval);
                         dataCount = -1;
@@ -87,7 +87,7 @@ class ChatThread {
                 this.child.stdin.write(promptToProcessText);
                 return waitForResponse();
             },
-            waitForResponse
+            waitInit: waitForResponse
         }
     }
 

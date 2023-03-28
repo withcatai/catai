@@ -9,40 +9,26 @@ const llama = new ChatThreads(jsonModelSettings.exec, {ctx_size: 2048 * 2, model
  * @return {Promise<void>}
  */
 export async function activateChat(socket) {
-    const sendJSON = data => socket.send(JSON.stringify(data));
-
-    const onToken = token => {
-        sendJSON({
-            type: 'token',
-            value: token
-        });
-    };
-
-    const onError = err => {
-        sendJSON({
-            type: 'error',
-            value: err
-        });
-    };
-
-    const sendClose = () => {
-        sendJSON({
-            type: 'end'
-        });
+    function sendJSON(type) {
+        return (value = null) => socket.send(
+            JSON.stringify({
+                type,
+                value
+            })
+        );
     }
+    const sendMessageEnd = sendJSON('end');
 
-    const llamaThread = llama.createThread(onToken, onError);
-
+    const llamaThread = llama.createThread(sendJSON('token'), sendJSON('error'));
     const ask = llamaThread.run();
 
-    // init process
-    await ask.waitForResponse();
-    sendClose(); // close init message
+    await ask.waitInit();
+    sendMessageEnd(); // close init message
 
     socket.on('message', async (message) => {
         const {question} = JSON.parse(message);
         await ask.prompt(question);
-        sendClose();
+        sendMessageEnd();
     });
 
     socket.on('close', () => {

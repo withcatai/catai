@@ -2,11 +2,18 @@
     import {Alert, Spinner} from 'flowbite-svelte';
     import Logo from './Logo.svelte';
     import UserIcon from './UserIcon.svelte';
-    import Markdown from './Markdown/Markdown.svelte';
+    import Markdown from './Markdown.svelte';
 
     export let value = '';
     export let myMessage = false;
     export let error = '';
+    export let autoDetectLanguage = true;
+
+    $: {
+        if(value.endsWith('\n> ')){
+            value = value.slice(0, -3).trimEnd();
+        }
+    }
 </script>
 
 <div class="flex">
@@ -23,7 +30,7 @@
                 {#if !value && !error}
                     <Spinner/>
                 {:else}
-                    <Markdown {value}/>
+                    <Markdown {value} {autoDetectLanguage}/>
                     {#if error}
                         <p class="text-red-500">Error: {error}</p>
                     {/if}
