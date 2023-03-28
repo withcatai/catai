@@ -5,6 +5,7 @@ const RESPONSE_END = '\n>';
 class ChatThread {
 
     timeout = 1000 * 60;
+    killed = false;
 
     constructor(execFile, settings, callback, onerror, onclose) {
         this.execFile = execFile;
@@ -55,9 +56,10 @@ class ChatThread {
         });
 
         this.child.on('close', code => {
-            code && this.onerror?.(errorMessage);
+            if(code || !this.killed){
+                this.onerror?.(errorMessage ||= 'Thread unexpected closed!');
+            }
             this.onclose?.(code);
-            this.onerror?.('Thread closed!');
         });
 
         const waitForResponse = () => {
@@ -68,7 +70,7 @@ class ChatThread {
                 const interval = setInterval(() => {
 
                     const responseClosed = dataCount && lastDataCount === dataCount && lastResponse.trimEnd() === RESPONSE_END;
-                    if (responseClosed || Date.now() - startTime > this.timeout) {
+                    if (errorMessage || responseClosed || Date.now() - startTime > this.timeout) {
                         clearInterval(interval);
                         dataCount = -1;
                         res();
@@ -90,6 +92,7 @@ class ChatThread {
     }
 
     kill() {
+        this.killed = true;
         this.child.kill();
     }
 }
