@@ -55,6 +55,5 @@
 
     .markdown-body ol, ul, menu {
         list-style: auto!important;
-        line-height: .8;
     }
 </style>
