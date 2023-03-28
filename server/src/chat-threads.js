@@ -57,7 +57,7 @@ class ChatThread {
 
         this.child.on('close', code => {
             if(code || !this.killed){
-                this.onerror?.(errorMessage ||= 'Thread unexpected closed!');
+                this.onerror?.(errorMessage += '\nThread unexpected closed!');
             }
             this.onclose?.(code);
         });
@@ -70,7 +70,7 @@ class ChatThread {
                 const interval = setInterval(() => {
 
                     const responseClosed = dataCount && lastDataCount === dataCount && lastResponse.trimEnd() === RESPONSE_END;
-                    if (errorMessage || responseClosed || Date.now() - startTime > this.timeout) {
+                    if (responseClosed || Date.now() - startTime > this.timeout) {
                         clearInterval(interval);
                         dataCount = -1;
                         res();
