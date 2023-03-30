@@ -1,5 +1,5 @@
 import {App} from '@tinyhttp/app';
-import {PORT} from './const.js';
+import {PORT} from './config.js';
 import {activateChat} from './chat.js';
 import {cors} from '@tinyhttp/cors';
 import sirv from 'sirv';

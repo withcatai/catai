@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
     import {Alert, Spinner} from 'flowbite-svelte';
     import Logo from './Logo.svelte';
     import UserIcon from './UserIcon.svelte';
     import Markdown from './Markdown.svelte';
+    import {MESSAGE_END} from '../utils/const.js';
 
     export let value = '';
     export let myMessage = false;
@@ -14,9 +15,11 @@
     $: {
         console.log(value);
 
-        value = value.trimEnd()
-        if(value.endsWith('<end>')){
-            value = value.slice(0, -5).trimEnd();
+        value = value.trimEnd();
+        const endMessage = MESSAGE_END.find(x => value.endsWith(x));
+        debugger
+        if(endMessage){
+            value = value.slice(0, -endMessage.length).trimEnd();
         }
     }
 </script>

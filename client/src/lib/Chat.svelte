@@ -11,13 +11,14 @@
         myMessage?: boolean,
         active?: boolean,
         error?: string
+        hide?: boolean
     }
 
-    export let messages: message[] = [];
+    export let messages: message[] = [{content: '', active: false, error: '', autoDetectLanguage: false, hide: true}];
     let textareaContent = '';
     let messagesContainer;
 
-    $: lastMessage = messages.at(-1) ?? {};
+    $: lastMessage = messages.at(-1);
 
     async function sendMessage() {
         const question = textareaContent.trim();
@@ -52,14 +53,19 @@
 </script>
 
 <div class="flex flex-col h-full">
-    <div bind:this={messagesContainer} class="flex-grow max-w-full my-3 h-full dark:bg-gray-700 overflow-auto rounded border dark:border-gray-500 messages-container">
+    <div bind:this={messagesContainer}
+         class="flex-grow max-w-full my-3 h-full dark:bg-gray-700 overflow-auto rounded border dark:border-gray-500 messages-container">
         {#each messages as message}
-            <Message value={message.content} error={message.error} bind:autoDetectLanguage={message.autoDetectLanguage} myMessage={message.myMessage}/>
+            {#if !message.hide}
+                <Message value={message.content} error={message.error}
+                         bind:autoDetectLanguage={message.autoDetectLanguage} myMessage={message.myMessage}/>
+            {/if}
         {/each}
     </div>
 
     <div class="flex mb-5">
-        <Textarea bind:value={textareaContent} on:keypress={checkSendMessage} placeholder="Enter text to send..."></Textarea>
+        <Textarea bind:value={textareaContent} on:keypress={checkSendMessage}
+                  placeholder="Enter text to send..."></Textarea>
         <Button disabled={lastMessage.active} class="ml-3" on:click={sendMessage}>Send</Button>
     </div>
 </div>

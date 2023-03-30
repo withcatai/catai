@@ -34,4 +34,24 @@ program.command('serve')
         runCommand(() => $`npm start`);
     });
 
+program.command('config')
+    .description('Change the server & model configuration')
+    .option('--edit [editor]', 'Open the config file with the specified editor')
+    .action(async ({edit}) => {
+        const configFile = path.join(__dirname, '..', 'src', 'config.js');
+
+        if(edit){
+            await $`${edit} "${configFile}"`;
+            return;
+        }
+
+        console.log(`
+To edit the config, open this file:
+${configFile}
+After you saved restart the server.
+
+To open with code editor run:
+catai config --edit [editor]`);
+    });
+
 program.parse();

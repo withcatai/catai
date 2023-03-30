@@ -1,4 +1,4 @@
-const DEFAULT_CONTEXT = `Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n`;
+const DEFAULT_CONTEXT = `Below is a history of instructions that describe tasks, paired with an input that provides further context. Write a response that appropriately completes the request by remembering the conversation history.\n\n`;
 
 const RESPONSE_END = '<end>';
 export default class BuildCtx {

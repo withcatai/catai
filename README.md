@@ -59,6 +59,17 @@ According to [a llama.cpp discussion thread](https://github.com/ggerganov/llama.
 - 13B => ~8 GB
 - 30B => ~16 GB
 
+### Configuration
+You can change the configuration by edition the `config.js` file.
+```bash
+catai config --editor [editor]
+```
+
+After you change the configuration, you need to restart the server.
+
+- 💡To increase the model understanding, try change the `context` size.
+- 💡To increase the model output, try change the `numPredict` size.
+
 ## Development
 
 If you want to run the source code locally, you can follow the steps below.
@@ -77,6 +88,20 @@ npm install
 npm run install-model 7B
 npm start
 ```
+
+## Troubleshooting
+
+### Error loading model OR executable error
+Try change the config:
+```js
+export const SELECTED_BINDING = 'node-llama';
+```
+
+It may be slower, but it has more chance to work.
+
+### Windows Subsystem for Linux has no installed distributions
+
+Problem with the dependency `zx`, try to run inside `git-bash`.
 
 ## License
 
