@@ -13,8 +13,10 @@
 
     $: {
         console.log(value);
-        if(value.endsWith('\n> ')){
-            value = value.slice(0, -3).trimEnd();
+
+        value = value.trimEnd()
+        if(value.endsWith('<end>')){
+            value = value.slice(0, -5).trimEnd();
         }
     }
 </script>
@@ -32,7 +34,7 @@
             </div>
 
 
-            <div>
+            <div class="w-full">
                 {#if !value && !error}
                     <Spinner/>
                 {:else}

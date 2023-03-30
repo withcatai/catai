@@ -10,6 +10,6 @@ if (!await fs.pathExists(selectedModel)) {
     process.exit(1);
 }
 
-jsonModelSettings.model = selectedModel;
+jsonModelSettings.model = path.join('models', use);
 await saveModelSettings();
 console.log("Model set to " + use);

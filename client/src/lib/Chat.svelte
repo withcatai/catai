@@ -13,11 +13,11 @@
         error?: string
     }
 
-    export let messages: message[] = [{content: '', active: true, error: '', autoDetectLanguage: false}];
+    export let messages: message[] = [];
     let textareaContent = '';
     let messagesContainer;
 
-    $: lastMessage = messages.at(-1);
+    $: lastMessage = messages.at(-1) ?? {};
 
     async function sendMessage() {
         const question = textareaContent.trim();

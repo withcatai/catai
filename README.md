@@ -42,6 +42,14 @@ catai use 7B
 ### Cross-platform
 You can use it on Windows, Linux and Mac.
 
+This package from version 1.6.0. demands on [llama-node](https://github.com/hlhr202/llama-node)
+Witch supports:
+
+- darwin-x64
+- darwin-arm64
+- linux-x64-gnu
+- win32-x64-msvc
+
 ### Memory usage
 Runs on most modern computers. Unless your computer is very very old, it should work.
 
