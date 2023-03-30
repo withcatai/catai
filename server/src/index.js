@@ -7,6 +7,7 @@ import getPort from 'get-port';
 import openurl from 'openurl';
 import {WebSocketServer} from 'ws';
 import http from 'http';
+import tryCatch from 'try-catch';
 
 const app = new App();
 const server = http.createServer(app.handler.bind(app));
@@ -20,4 +21,4 @@ ws.on('connection', activateChat);
 const listenPort = await getPort({port: PORT});
 const browserURL = `http://127.0.0.1:${listenPort}`;
 server.listen(listenPort, () => console.log(`Listening on ${browserURL}`));
-openurl.open(browserURL);
+tryCatch(() => openurl.open(browserURL));
