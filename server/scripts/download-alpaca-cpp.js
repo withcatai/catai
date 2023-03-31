@@ -1,8 +1,8 @@
 import 'zx/globals';
-import Downloader from 'nodejs-file-downloader';
 import wretch from 'wretch';
 import extract from 'extract-zip';
-import {jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
+import {DOWNLOAD_LOCATION, jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
+import FileDownloader from './utils/file-downloader.js';
 
 const ALPACA_RELEASES = "https://api.github.com/repos/antimatter15/alpaca.cpp/releases/latest";
 const {assets} = await wretch(ALPACA_RELEASES).get().json();
@@ -19,22 +19,24 @@ if (platform.startsWith("win")) {
 
 const downloadURL = assets.find(x => x.name.includes(platform)).browser_download_url;
 
-const downloadDir = path.join(__dirname, '..', "models", "executable");
+const downloadDir = path.join(DOWNLOAD_LOCATION, "executable");
+const filePath = path.join(downloadDir, "alpaca.zip");
 await fs.ensureDir(downloadDir);
 
-const downloader = new Downloader({
-    url: downloadURL,
-    directory: downloadDir
-});
+// download file
+const downloader = new FileDownloader(downloadURL, filePath);
+await downloader.prepare();
+await downloader.dlDownloader.wait();
 
-const {filePath} = await downloader.download();
+// extract file
 await extract(filePath, {dir: downloadDir});
 await fs.remove(filePath);
 
 const files = await fs.readdir(downloadDir, {withFileTypes: true});
 const executable = files.find(x => x.isFile());
 
-jsonModelSettings.exec = path.join("models", "executable", executable.name);
+// update model settings
+jsonModelSettings.exec = path.join("executable", executable.name);
 await saveModelSettings();
 
 console.log('Download complete');

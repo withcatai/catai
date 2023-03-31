@@ -1,8 +1,10 @@
 import 'zx/globals';
-import {jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
+import {DOWNLOAD_LOCATION, jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
+import path from 'path';
 
 const use = process.argv[3];
-const modelDir = path.join(__dirname, '..', 'models');
+const modelDir = path.join(DOWNLOAD_LOCATION, "models");
+
 
 const selectedModel = path.join(modelDir, use);
 if (!await fs.pathExists(selectedModel)) {

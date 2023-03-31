@@ -96,5 +96,6 @@ export default class ChatThread {
         this.killed = true;
         this.child.kill('SIGINT');
         this.child.kill('SIGINT');
+        this.child.kill('SIGKILL');
     }
 }

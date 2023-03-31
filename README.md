@@ -26,6 +26,7 @@ catai serve
 - Auto detect code block 📃
 - Click on user icon to show original message 💬
 - Real time text streaming ⏱️
+- Fast model downloads 🚀
 
 ## Intro
 
@@ -33,10 +34,15 @@ You can use any Alpaca model as long as your computer can handle it.
 ```bash
 catai install 13B
 ```
+You can also download a custom model like this:
+
+```bash
+catai install https://example.com/model.tar.bin --tag myModel
+```
 
 If you want to switch between models you can use `catai use` command.
 ```bash
-catai use 7B
+catai use 30B
 ```
 
 ### Cross-platform
@@ -69,6 +75,24 @@ After you change the configuration, you need to restart the server.
 
 - 💡To increase the model understanding, try change the `context` size.
 - 💡To increase the model output, try change the `numPredict` size.
+
+### List models
+You can list all the models that you have installed.
+```bash
+catai list
+```
+
+### Uninstall models
+You can uninstall models that you don't need.
+```bash
+catai remove 7B
+```
+### Uninstall package
+You can uninstall the package.
+```bash
+catai remove # remove all downloaded data
+npm uninstall -g catai
+```
 
 ## Development
 
