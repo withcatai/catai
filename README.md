@@ -90,7 +90,7 @@ catai remove 7B
 ### Uninstall package
 You can uninstall the package.
 ```bash
-catai remove # remove all downloaded data
+catai remove all # remove all downloaded data
 npm uninstall -g catai
 ```
 
