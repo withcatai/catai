@@ -94,6 +94,11 @@ catai remove # remove all downloaded data
 npm uninstall -g catai
 ```
 
+### Good to know
+- All download data will be downloaded at `~/.catai` folder.
+- The download is multi-threaded, so it may use a lot of bandwidth, but it will download faster!
+
+
 ## Development
 
 If you want to run the source code locally, you can follow the steps below.
