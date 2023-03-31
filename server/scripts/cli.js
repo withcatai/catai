@@ -24,7 +24,8 @@ program.command('install')
     .action((model, {tag}) => {
         process.argv[3] = model;
         process.argv[4] = tag;
-        import('./install.js');
+
+        runCommand(() => import('./install.js'));
     });
 
 program.command('use')

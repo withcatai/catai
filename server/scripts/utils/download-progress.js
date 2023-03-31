@@ -48,13 +48,16 @@ export default class CLIDownloadProgress {
         });
     }
 
-    startDownload(){
+    async startDownload(){
         this.progressBar.start(Infinity, 0, {
             speed: 'N/A',
             percentage: 0,
             timeLeft: 'N/A'
         });
 
-        return this.downloader.wait();
+        const response = await this.downloader.wait();
+        this.progressBar.stop();
+
+        return response;
     }
 }
