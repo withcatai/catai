@@ -95,7 +95,7 @@ npm uninstall -g catai
 ```
 
 ### Good to know
-- All download data will be downloaded at `~/.catai` folder.
+- All download data will be downloaded at `~/catai` folder.
 - The download is multi-threaded, so it may use a lot of bandwidth, but it will download faster!
 
 
