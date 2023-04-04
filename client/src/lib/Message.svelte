@@ -17,7 +17,7 @@
 
         value = value.trimEnd();
         const endMessage = MESSAGE_END.find(x => value.endsWith(x));
-        debugger
+
         if(endMessage){
             value = value.slice(0, -endMessage.length).trimEnd();
         }

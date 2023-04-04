@@ -1,8 +1,16 @@
-# CatAI
+<div style="display: flex; flex-direction: column; margin: auto; align-self: center; align-items: center; max-width: 360px;">
+    <img alt="CatAI Logo" src="./demo/logo.png" style="border-radius: 12px" width="360px" margin="auto" />
+    <h1 style="font-size: 48px; margin-top: -48px;">CatAI</h1>
+</div>
+
+<div style="text-align: center">
 
 [![npm version](https://badge.fury.io/js/catai.svg)](https://badge.fury.io/js/catai)
 [![npm downloads](https://img.shields.io/npm/dt/catai.svg)](https://www.npmjs.com/package/catai)
 [![GitHub license](https://img.shields.io/github/license/ido-pluto/catai)](./LICENSE)
+
+</div>
+<br />
 
 Run Alpaca model on your computer with a chat ui.
 
@@ -136,3 +144,12 @@ Problem with the dependency `zx`, try to run inside `git-bash`.
 
 This project use [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp) to run Alpaca models on your computer.
 So any license applied to Alpaca.cpp is also applied to this project.
+
+<br />
+<div style="display: flex; flex-direction: column; margin: auto; align-self: center; max-width: 360px;">
+    <img alt="Star please" src="./demo/star.please.png" style="border-radius: 12px" width="360px" margin="auto" />
+    <br/>
+    <di style="align-self: end">
+        <i>If you like this repo, star it ✨</i>
+    </di>
+</div>
