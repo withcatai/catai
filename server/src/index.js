@@ -1,5 +1,5 @@
 import {App} from '@tinyhttp/app';
-import {PORT} from './config.js';
+import {OPEN_IN_BROWSER, PORT} from './config.js';
 import {activateChat} from './chat.js';
 import {cors} from '@tinyhttp/cors';
 import sirv from 'sirv';
@@ -22,4 +22,4 @@ ws.on('connection', activateChat);
 const listenPort = await getPort({port: PORT});
 const browserURL = `http://127.0.0.1:${listenPort}`;
 server.listen(listenPort, () => console.log(`Listening on ${browserURL}`));
-PRODUCTION && tryCatch(() => openurl.open(browserURL));
+(PRODUCTION && OPEN_IN_BROWSER) && tryCatch(() => openurl.open(browserURL));
