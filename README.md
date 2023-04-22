@@ -16,7 +16,7 @@ Run Alpaca model on your computer with a chat ui.
 
 > Your own AI assistant run locally on your computer.
 
-Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [node-llama](https://github.com/Atome-FE/llama-node), [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
+Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https://github.com/Atome-FE/llama-node), [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
 
 ## Installation & Use
 

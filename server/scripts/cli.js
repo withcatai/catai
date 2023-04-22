@@ -50,7 +50,7 @@ program.command('list')
 
 program.command('serve')
     .description('Open the chat website')
-    .option('--ui', 'The ui to use')
+    .option('--ui [ui]', 'The ui to use')
     .action(({ui}) => {
         runCommand(() => $`npm start production ${ui || ''}`);
     });
