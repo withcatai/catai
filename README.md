@@ -16,15 +16,14 @@ Run Alpaca model on your computer with a chat ui.
 
 > Your own AI assistant run locally on your computer.
 
-Inspired by [Dalai](https://github.com/cocktailpeanut/dalai) and [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
-The frontend is built on top of the chatGPT [Frontend mimic](https://github.com/nisabmohd/ChatGPT)
+Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https://github.com/Atome-FE/llama-node), [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
 
 ## Installation & Use
 
 ```bash
 npm install -g catai
 
-catai install 7B
+catai install Vicuna-7B
 catai serve
 ```
 
@@ -41,7 +40,7 @@ catai serve
 
 You can use any Alpaca model as long as your computer can handle it.
 ```bash
-catai install 13B
+catai install Vicuna-13B
 ```
 You can also download a custom model like this:
 
@@ -51,7 +50,12 @@ catai install https://example.com/model.tar.bin --tag myModel
 
 If you want to switch between models you can use `catai use` command.
 ```bash
-catai use 30B
+catai use Vicuna-7B
+```
+
+You can use all the UIs from the `client` directory (default catai).
+```bash
+catai server --ui chatGPT
 ```
 
 ### Cross-platform
@@ -94,7 +98,7 @@ catai list
 ### Uninstall models
 You can uninstall models that you don't need.
 ```bash
-catai remove 7B
+catai remove Vicuna-7B
 ```
 ### Uninstall package
 You can uninstall the package.
@@ -114,7 +118,7 @@ If you want to run the source code locally, you can follow the steps below.
 
 To run the client.
 ```bash
-cd client
+cd client/catai
 npm install
 npm run dev
 ```
@@ -123,7 +127,7 @@ To run the server.
 ```bash
 cd server
 npm install
-npm run install-model 7B
+npm run install-model Vicuna-7B
 npm start
 ```
 
@@ -132,10 +136,10 @@ npm start
 ### Error loading model OR executable error
 Try change the config:
 ```js
-export const SELECTED_BINDING = 'node-llama';
+export const SELECTED_BINDING = 'alpaca-cpp';
 ```
 
-It may be slower, but it has more chance to work.
+It may be slower, but it has more chance to work with alpaca models.
 
 ### Windows Subsystem for Linux has no installed distributions
 
@@ -145,6 +149,10 @@ Problem with the dependency `zx`, try to run inside `git-bash`.
 
 This project use [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp) to run Alpaca models on your computer.
 So any license applied to Alpaca.cpp is also applied to this project.
+
+## Credits
+The GPT frontend is built on top of the chatGPT [Frontend mimic](https://github.com/nisabmohd/ChatGPT)
+
 
 <br />
 

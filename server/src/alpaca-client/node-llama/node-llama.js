@@ -1,12 +1,13 @@
-import {LLamaClient} from 'llama-node';
-import {CHAT_SETTINGS_NODE_LLAMA, SELECTED_BINDING} from '../../config.js';
+import {SELECTED_BINDING} from '../../config.js';
 import BuildCtx from './build-ctx.js';
 import {IAlpacaClient} from '../IAlpacaClient.js';
-import {MODEL_PATH} from '../../const.js';
+import NodeLlamaActivePull from './process-pull.js';
 
+
+const THIS_BINDING_SELECTED = SELECTED_BINDING === 'node-llama';
+const NodeLlamaPull = THIS_BINDING_SELECTED && new NodeLlamaActivePull();
 
 export default class NodeLlama extends IAlpacaClient {
-    static preloadLLamaClient = SELECTED_BINDING === 'node-llama' && NodeLlama.createLLamaClient();
 
     ctx = new BuildCtx();
     llama;
@@ -14,36 +15,34 @@ export default class NodeLlama extends IAlpacaClient {
     errorCallback;
     closeCallback
 
+    abortSignal = new AbortController();
+
     constructor(tokenCallback = null, errorCallback = null, closeCallback = null) {
         super();
         this.tokenCallback = tokenCallback;
         this.errorCallback = errorCallback;
         this.closeCallback = closeCallback;
-
-        this.llama = NodeLlama.preloadLLamaClient ?? NodeLlama.createLLamaClient();
-        NodeLlama.preloadLLamaClient = null;
     }
 
     async question(text){
         const context = this.ctx.buildCtx(text);
+        const abortSignal = new AbortController();
+        this.abortSignal = abortSignal;
 
-        try {
-            await this.llama.createTextCompletion( {
-                prompt: context,
-                ...CHAT_SETTINGS_NODE_LLAMA
-            }, ({token}) => {
+        await NodeLlamaPull.question(context, {
+            callback: (token) => {
                 process.stdout.write(token);
                 this.ctx.processToken(token);
                 this.tokenCallback(token);
-            });
-        } catch (err) {
-            this.errorCallback(err.message);
-        }
+            },
+            errorCallback: this.errorCallback,
+            abortSignal: abortSignal.signal
+        });
 
         this.closeCallback();
     }
 
-    static createLLamaClient(){
-        return new LLamaClient({path: MODEL_PATH, numCtxTokens: CHAT_SETTINGS_NODE_LLAMA.context}, false);
+    close() {
+        this.abortSignal.abort();
     }
 }
