@@ -8,7 +8,7 @@ import openurl from 'openurl';
 import {WebSocketServer} from 'ws';
 import http from 'http';
 import tryCatch from 'try-catch';
-import {PRODUCTION} from './const.js';
+import {PRODUCTION, SELECTED_UI} from './const.js';
 
 const app = new App();
 const server = http.createServer(app.handler.bind(app));
@@ -19,8 +19,7 @@ app.use(sirv('www'));
 
 ws.on('connection', activateChat);
 
-const selectedUI = process.argv[2] ?? '';
 const listenPort = await getPort({port: PORT});
-const browserURL = `http://127.0.0.1:${listenPort}/${selectedUI}`;
+const browserURL = `http://127.0.0.1:${listenPort}/${SELECTED_UI}`;
 server.listen(listenPort, () => console.log(`Listening on ${browserURL}`));
 (PRODUCTION && OPEN_IN_BROWSER) && tryCatch(() => openurl.open(browserURL));
