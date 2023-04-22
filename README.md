@@ -53,6 +53,11 @@ If you want to switch between models you can use `catai use` command.
 catai use Vicuna-7B
 ```
 
+You can use all the UIs from the `client` directory (default catai).
+```bash
+catai server --ui chatGPT
+```
+
 ### Cross-platform
 You can use it on Windows, Linux and Mac.
 
@@ -144,6 +149,10 @@ Problem with the dependency `zx`, try to run inside `git-bash`.
 
 This project use [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp) to run Alpaca models on your computer.
 So any license applied to Alpaca.cpp is also applied to this project.
+
+## Credits
+The GPT frontend is built on top of the chatGPT [Frontend mimic](https://github.com/nisabmohd/ChatGPT)
+
 
 <br />
 

@@ -15,6 +15,7 @@ const selectedBinding = SELECTED_BINDING  === 'alpaca-cpp' ? AlpacaCPPClient : N
  * @return {Promise<void>}
  */
 export async function activateChat(socket) {
+    console.log("new connection");
     function sendJSON(type) {
         return (value = null) => socket.send(
             JSON.stringify({
