@@ -16,7 +16,7 @@ Run Alpaca model on your computer with a chat ui.
 
 > Your own AI assistant run locally on your computer.
 
-Inspired by [Dalai](https://github.com/cocktailpeanut/dalai) and [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
+Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [node-llama](https://github.com/Atome-FE/llama-node), [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
 
 ## Installation & Use
 
@@ -93,7 +93,7 @@ catai list
 ### Uninstall models
 You can uninstall models that you don't need.
 ```bash
-catai remove 7B
+catai remove Vicuna-7B
 ```
 ### Uninstall package
 You can uninstall the package.
@@ -113,7 +113,7 @@ If you want to run the source code locally, you can follow the steps below.
 
 To run the client.
 ```bash
-cd client
+cd client/catai
 npm install
 npm run dev
 ```
@@ -122,7 +122,7 @@ To run the server.
 ```bash
 cd server
 npm install
-npm run install-model 7B
+npm run install-model Vicuna-7B
 npm start
 ```
 
@@ -131,10 +131,10 @@ npm start
 ### Error loading model OR executable error
 Try change the config:
 ```js
-export const SELECTED_BINDING = 'node-llama';
+export const SELECTED_BINDING = 'alpaca-cpp';
 ```
 
-It may be slower, but it has more chance to work.
+It may be slower, but it has more chance to work with alpaca models.
 
 ### Windows Subsystem for Linux has no installed distributions
 
