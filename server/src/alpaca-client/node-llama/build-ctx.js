@@ -1,5 +1,3 @@
-const DEFAULT_CONTEXT = `Below is a history of instructions that describe tasks, paired with an input that provides further context. Write a response that appropriately completes the request by remembering the conversation history.\n\n`;
-
 const RESPONSE_END = '<end>';
 export default class BuildCtx {
     history = [];
@@ -15,12 +13,12 @@ export default class BuildCtx {
         return response;
     }
 
-    buildCtx(instruction){
-        const newHistory = {instruction, response: ''};
+    buildCtx(request){
+        const newHistory = {request, response: ''};
         this.history.push(newHistory);
 
-        const instructionHistory = this.history.map(({instruction, response}) => `### Instruction:\n\n ${instruction} \n\n### Response:\n\n ${BuildCtx.#fixResponse(response)}`);
-        const context = DEFAULT_CONTEXT + instructionHistory.join('\n');
+        const instructionHistory = this.history.map(({request, response}) => `### Human:\n${request}\n### Assistant:\n${BuildCtx.#fixResponse(response)}`);
+        const context = instructionHistory.join('\n');
         this.lastCtxLength = context.length;
 
         return context;

@@ -19,7 +19,8 @@ app.use(sirv('www'));
 
 ws.on('connection', activateChat);
 
+const selectedUI = process.argv[2] ?? '';
 const listenPort = await getPort({port: PORT});
-const browserURL = `http://127.0.0.1:${listenPort}`;
+const browserURL = `http://127.0.0.1:${listenPort}/${selectedUI}`;
 server.listen(listenPort, () => console.log(`Listening on ${browserURL}`));
 (PRODUCTION && OPEN_IN_BROWSER) && tryCatch(() => openurl.open(browserURL));

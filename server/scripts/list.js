@@ -19,7 +19,7 @@ for (const file of files) {
     const {birthtime, size} = await fs.stat(path.join(modelDir, file.name));
     const birthtimeDate = new Date(birthtime).toLocaleDateString();
 
-    if(size > 10_000){ // skip system files
+    if(size > 1048576 * 11){ // skip system files / partly downloaded files - 11mb
         console.log(`Model: ${file.name}, download date: ${birthtimeDate}, size: ${prettyBytes(size)}`);
     }
 }

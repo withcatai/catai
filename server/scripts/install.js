@@ -10,7 +10,7 @@ const SEARCH_MODEL = "https://raw.githubusercontent.com/ido-pluto/catai/main/mod
 let modelsDownloadLinks;
 
 let model = process.argv[3];
-let tag = process.argv[4] ?? model;
+let tag = process.argv[4];
 let downloadLink;
 
 // download from direct link
@@ -22,6 +22,8 @@ if (model.startsWith('http')) {
     modelsDownloadLinks = await wretch(SEARCH_MODEL).get().json();
     downloadLink = modelsDownloadLinks[model] ?? modelsDownloadLinks[model.toUpperCase()];
 }
+tag ??= model
+
 
 // if model not found, try to download with template
 if (!downloadLink) {
