@@ -12,9 +12,9 @@
 <main>
     <Navbar let:hidden let:toggle class="bg-gray-100 shadow">
         <NavBrand href="/">
-            <Logo/>
+            <Logo height="4"/>
             <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              Alpaca Chat
+              CatAI Chat
             </span>
         </NavBrand>
         <DarkMode/>

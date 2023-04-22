@@ -1,5 +1,7 @@
 export const PORT = 3000;
 
+export const OPEN_IN_BROWSER = true;
+
 export const SELECTED_BINDING = 'alpaca-cpp' || 'node-llama';
 export const CHAT_SETTINGS_ALPACA_CPP = {
     ctx_size: 2048,

@@ -11,6 +11,6 @@
 
 <style>
     img {
-        height: 2rem;
+        height: 3rem;
     }
 </style>

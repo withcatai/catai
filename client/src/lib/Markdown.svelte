@@ -31,7 +31,7 @@
         markedCode = value;
 
         if(autoDetectLanguage){
-            const language = detect(value);
+            const language = detect(value.replace(/\band\b/g, ''));
             if(!BAN_LANGUAGES.includes(language)){
                 markedCode = `\`\`\`${language}\n${value}\n\`\`\``;
             }
