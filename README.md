@@ -23,7 +23,7 @@ Inspired by [Dalai](https://github.com/cocktailpeanut/dalai) and [Alpaca.cpp](ht
 ```bash
 npm install -g catai
 
-catai install 7B
+catai install Vicuna-7B
 catai serve
 ```
 
@@ -40,7 +40,7 @@ catai serve
 
 You can use any Alpaca model as long as your computer can handle it.
 ```bash
-catai install 13B
+catai install Vicuna-13B
 ```
 You can also download a custom model like this:
 
@@ -50,7 +50,7 @@ catai install https://example.com/model.tar.bin --tag myModel
 
 If you want to switch between models you can use `catai use` command.
 ```bash
-catai use 30B
+catai use Vicuna-7B
 ```
 
 ### Cross-platform

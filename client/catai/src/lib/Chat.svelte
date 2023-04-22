@@ -7,14 +7,13 @@
 
     type message = {
         content?: string,
-        autoDetectLanguage?: boolean,
         myMessage?: boolean,
         active?: boolean,
         error?: string
         hide?: boolean
     }
 
-    export let messages: message[] = [{content: '', active: false, error: '', autoDetectLanguage: false, hide: true}];
+    export let messages: message[] = [{content: '', active: false, error: '', hide: true}];
     let textareaContent = '';
     let messagesContainer;
 
@@ -57,8 +56,7 @@
          class="flex-grow max-w-full my-3 h-full dark:bg-gray-700 overflow-auto rounded border dark:border-gray-500 messages-container">
         {#each messages as message}
             {#if !message.hide}
-                <Message value={message.content} error={message.error}
-                         bind:autoDetectLanguage={message.autoDetectLanguage} myMessage={message.myMessage}/>
+                <Message value={message.content} error={message.error} myMessage={message.myMessage}/>
             {/if}
         {/each}
     </div>

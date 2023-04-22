@@ -8,7 +8,6 @@
     export let value = '';
     export let myMessage = false;
     export let error = '';
-    export let autoDetectLanguage = true;
 
     let showOriginalCode = false;
 
@@ -42,7 +41,7 @@
                     <Spinner/>
                 {:else}
                     {#if !showOriginalCode}
-                        <Markdown {value} {autoDetectLanguage}/>
+                        <Markdown {value}/>
                     {:else}
                         <div class="show-original">
                             {value}

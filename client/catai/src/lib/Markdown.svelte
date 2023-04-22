@@ -3,8 +3,6 @@
     import '../assets/css/highlight.css';
     import '../assets/css/markdown.css';
     import HighlightJS from 'highlight.js';
-    import {detect} from 'program-language-detector';
-    import {BAN_LANGUAGES} from '../utils/const.js';
 
     const md = markdownIt({
         html: true,
@@ -24,21 +22,7 @@
     });
 
     export let value = '';
-    export let autoDetectLanguage = true;
-    let markedCode;
-
-    $: {
-        markedCode = value;
-
-        if(autoDetectLanguage){
-            const language = detect(value.replace(/\band\b/g, ''));
-            if(!BAN_LANGUAGES.includes(language)){
-                markedCode = `\`\`\`${language}\n${value}\n\`\`\``;
-            }
-        }
-
-        markedCode = md.render(markedCode);
-    }
+    $: markedCode = md.render(value);
 </script>
 
 <div class="markdown-body grid">
