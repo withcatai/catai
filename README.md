@@ -81,7 +81,7 @@ According to [a llama.cpp discussion thread](https://github.com/ggerganov/llama.
 ### Configuration
 You can change the configuration by edition the `config.js` file.
 ```bash
-catai config --editor [editor]
+catai config --edit [editor]
 ```
 
 After you change the configuration, you need to restart the server.
