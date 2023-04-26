@@ -37,3 +37,29 @@ export async function activateChat(socket) {
         chat.close();
     });
 }
+
+export function requestAnswer(question) {
+    return new Promise(async sendResponse => {
+        let responseText = '';
+        let responseError = '';
+
+        let initEnded = false;
+        const onEnd = () => {
+            if(!initEnded) return;
+
+            sendResponse({
+                text: selectedBinding.trimMessageEnd(responseText),
+                error: responseError
+            });
+        }
+    
+        const chat =  new selectedBinding(text => responseText += text, error => responseError += error, onEnd);
+        await chat.waitInit;
+        initEnded = true;
+        
+        responseText = '';
+        responseError = '';
+    
+        await chat.question(question);
+    });
+}

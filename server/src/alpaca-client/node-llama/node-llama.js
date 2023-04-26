@@ -45,4 +45,8 @@ export default class NodeLlama extends IAlpacaClient {
     close() {
         this.abortSignal.abort();
     }
+
+    static trimMessageEnd(message) {
+        return super.trimMessageEnd(message, '<end>');
+    }
 }

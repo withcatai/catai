@@ -21,8 +21,6 @@ export default class ChatThread {
         return Object.entries(this.settings).map(([key, value]) => [`--${key}`, `"${value.toString().replace(/"/g, '\\"')}"`]).flat();
     }
 
-
-
     run() {
         this.child = spawn(this.execFile,
             this.#createSettingsSettings(),
@@ -36,6 +34,7 @@ export default class ChatThread {
         let dataCount = 0;
         let lastResponse;
         this.child.stdout.on('data', data => {
+            process.stdout.write(data);
             if (dataCount === -1) return;
 
             const content = buildMessage.extractMessage(data);
@@ -48,6 +47,7 @@ export default class ChatThread {
 
         let errorMessage = '';
         this.child.stderr.on('data', data => {
+            process.stdout.write(data);
             const content = buildMessage.extractMessage(data);
 
             errorMessage += content;

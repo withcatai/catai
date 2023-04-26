@@ -1,4 +1,6 @@
 export class IAlpacaClient {
+    waitInit;
+
     constructor(callback, onerror, onclose) {
     }
 
@@ -6,7 +8,17 @@ export class IAlpacaClient {
 
     }
 
-    close(){
+    close() {
 
+    }
+
+    static trimMessageEnd(message, trimText) {
+        message = message.trimEnd();
+
+        if (message.endsWith(trimText)) {
+            message = message.slice(0, -trimText.length).trimEnd();
+        }
+
+        return message;
     }
 }

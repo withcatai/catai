@@ -111,6 +111,21 @@ npm uninstall -g catai
 - All download data will be downloaded at `~/catai` folder.
 - The download is multi-threaded, so it may use a lot of bandwidth, but it will download faster!
 
+## API
+There is also a simple API that you can use to ask the model questions.
+```js
+const response = await fetch("http://127.0.0.1:3000/question", {
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({
+        question: "What is the meaning of life?"
+    })
+});
+
+const {text, error} = await response.json();
+```
 
 ## Development
 

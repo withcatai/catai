@@ -19,6 +19,7 @@ export default class AlpacaCPPClient extends IAlpacaClient{
         const {prompt, waitInit} = this.thread.run();
         const promiseInit = waitInit();
         promiseInit.then(this.onclose);
+        this.waitInit = promiseInit;
 
         this.question = async (text) => {
             await promiseInit;
@@ -29,5 +30,9 @@ export default class AlpacaCPPClient extends IAlpacaClient{
 
     close() {
         this.thread.kill();
+    }
+
+    static trimMessageEnd(message) {
+        return super.trimMessageEnd(message, '\n>');
     }
 }

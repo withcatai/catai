@@ -16,7 +16,7 @@ export const SETTINGS_NODE_LLAMA = {
     vocabOnly: false,
     useMlock: false,
     embedding: false,
-    useMmap: true
+    useMmap: false
 };
 
 export const CHAT_SETTINGS_NODE_LLAMA = {

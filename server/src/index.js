@@ -1,26 +1,31 @@
-import {App} from '@tinyhttp/app';
-import {OPEN_IN_BROWSER, PORT} from './config.js';
-import {activateChat} from './chat.js';
-import {cors} from '@tinyhttp/cors';
-import sirv from 'sirv';
-import getPort from 'get-port';
-import openurl from 'openurl';
-import {WebSocketServer} from 'ws';
+import { App } from '@tinyhttp/app';
+import { cors } from '@tinyhttp/cors';
 import http from 'http';
-import tryCatch from 'try-catch';
-import {PRODUCTION, UI_DIRECTORY} from './const.js';
+import sirv from 'sirv';
+import { WebSocketServer } from 'ws';
+import { activateChat, requestAnswer } from './chat.js';
+import { UI_DIRECTORY } from './const.js';
+import serverListen from './server.js';
+import bodyParser from 'body-parser';
 
 
 const app = new App();
 const server = http.createServer(app.handler.bind(app));
-const ws = new WebSocketServer({server});
+const ws = new WebSocketServer({ server });
 
-app.use(cors({origin: '*'}));
+app.use(cors({ origin: '*' }));
 app.use(sirv(UI_DIRECTORY));
+app.use(bodyParser.json());
 
 ws.on('connection', activateChat);
 
-const listenPort = await getPort({port: PORT});
-const browserURL = `http://127.0.0.1:${listenPort}`;
-server.listen(listenPort, () => console.log(`Listening on ${browserURL}`));
-(PRODUCTION && OPEN_IN_BROWSER) && tryCatch(() => openurl.open(browserURL));
+app.post('/question', async ({body}, res) => {
+    const { question } = body;
+    if (!question) {
+        res.status(400).send('Missing question');
+        return;
+    }
+    res.json(await requestAnswer(question));
+});
+
+serverListen(server);
