@@ -61,7 +61,7 @@ export function requestAnswer(question, req) {
         responseText = '';
         responseError = '';
 
-        req.on('close', () => chat.close()); // abort signal
+        req.connection.once('close', () => chat.close()); // abort signal
         await chat.question(question);
     });
 }
