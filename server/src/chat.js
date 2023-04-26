@@ -38,8 +38,9 @@ export async function activateChat(socket) {
     });
 }
 
-export function requestAnswer(question) {
+export function requestAnswer(question, req) {
     return new Promise(async sendResponse => {
+
         let responseText = '';
         let responseError = '';
 
@@ -56,10 +57,11 @@ export function requestAnswer(question) {
         const chat =  new selectedBinding(text => responseText += text, error => responseError += error, onEnd);
         await chat.waitInit;
         initEnded = true;
-        
+
         responseText = '';
         responseError = '';
-    
+
+        req.on('close', () => chat.close()); // abort signal
         await chat.question(question);
     });
 }

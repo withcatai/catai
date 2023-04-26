@@ -19,13 +19,13 @@ app.use(bodyParser.json());
 
 ws.on('connection', activateChat);
 
-app.post('/question', async ({body}, res) => {
-    const { question } = body;
+app.post('/question', async (req, res) => {
+    const { question } = req.body;
     if (!question) {
         res.status(400).send('Missing question');
         return;
     }
-    res.json(await requestAnswer(question));
+    res.json(await requestAnswer(question, req));
 });
 
 serverListen(server);

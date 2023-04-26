@@ -1,7 +1,7 @@
 {
   "name": "catai",
   "type": "module",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "description": "Chat UI for the Alpaca models",
   "main": "index.js",
   "engines": {
