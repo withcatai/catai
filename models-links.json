@@ -2,6 +2,6 @@
   "7B": "https://huggingface.co/Pi3141/alpaca-7B-ggml/resolve/main/ggml-model-q4_0.bin",
   "13B": "https://huggingface.co/Pi3141/alpaca-13B-ggml/resolve/main/ggml-model-q4_0.bin",
   "30B": "https://huggingface.co/Pi3141/alpaca-30B-ggml/resolve/main/ggml-model-q4_0.bin",
-  "Vicuna-7B": "https://huggingface.co/eachadea/ggml-vicuna-7b-1.1/resolve/main/ggml-vicuna-7b-1.1-q4_0.bin",
-  "Vicuna-13B": "https://huggingface.co/eachadea/ggml-vicuna-13b-1.1/resolve/main/ggml-vicuna-13b-1.1-q4_0.bin"
+  "Vicuna-7B": "https://huggingface.co/eachadea/ggml-vicuna-7b-1.1/resolve/ggml-vic7b-q4_3.bin#512c70d8df6846b82fc4023d55efe36d2e246092",
+  "Vicuna-13B": "https://huggingface.co/eachadea/ggml-vicuna-13b-1.1/resolve/ggml-vic13b-q4_0.bin#e5b09df7961d5b03b3a95108b560a4378eda8b47"
 }

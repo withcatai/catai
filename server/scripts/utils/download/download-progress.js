@@ -46,6 +46,11 @@ export default class CLIDownloadProgress {
             percentage: total.percentage,
             timeLeft: prettyMs((timeLeft || 0) * 1000)
         });
+
+        if(total.percentage === 100){
+            this.progressBar.stop();
+            console.log('\nConnecting downloaded chunks, please wait...');
+        }
     }
 
     async startDownload(){
@@ -56,7 +61,6 @@ export default class CLIDownloadProgress {
         });
 
         const response = await this.downloader.wait();
-        this.progressBar.stop();
 
         return response;
     }
