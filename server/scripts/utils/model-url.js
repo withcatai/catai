@@ -7,7 +7,7 @@ const defaultModel = process.argv[3];
 const defaultTag = process.argv[4];
 
 export default class ModelURL {
-    static modelRepoResolve = '/resolve/';
+    static modelRepoHead = /\/(main|master)\//;
 
     constructor(model = defaultModel, tag = defaultTag) {
         this.model = model;
@@ -44,9 +44,7 @@ export default class ModelURL {
 
     get alterativeLink() {
         if(this.hash){
-            const [repo, model] = this.downloadLink.split(ModelURL.modelRepoResolve);
-
-            return `${repo}/resolve/${this.hash}/${model}`;
+            return this.downloadLink.replace(ModelURL.modelRepoHead, `/${this.hash}/`);
         }
         return this.templateLink;
     }
