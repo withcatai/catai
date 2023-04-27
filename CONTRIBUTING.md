@@ -3,7 +3,7 @@ If you want to add a model, you can follow the steps below.
 
 - Check the model does not exist in the `models-links.json` file.
 - Add the model to the `models-links.json` file
-- In the end of the URL, and hash that contains the commit-hash (if it from [Hugging Face](https://huggingface.co) or any other git control).
+- In the end of the URL, and the commit-hash (if it from [Hugging Face](https://huggingface.co) or any other git control).
 
 When you add an hash to the URL, you ensure that the model will have a backup URL.
 
