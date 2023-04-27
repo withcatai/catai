@@ -2,7 +2,7 @@ import 'zx/globals';
 import wretch from 'wretch';
 import extract from 'extract-zip';
 import {DOWNLOAD_LOCATION, jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
-import FileDownloader from './utils/file-downloader.js';
+import FileDownloader from './utils/download/file-downloader.js';
 
 const ALPACA_RELEASES = "https://api.github.com/repos/antimatter15/alpaca.cpp/releases/latest";
 const {assets} = await wretch(ALPACA_RELEASES).get().json();
