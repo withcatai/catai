@@ -20,6 +20,7 @@ Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https
 
 ## Installation & Use
 
+Make sure you have [Node.js](https://nodejs.org/en/) installed.
 ```bash
 npm install -g catai
 
@@ -31,7 +32,6 @@ catai serve
 
 ## Features
 - Auto detect programming language 🧑‍💻
-- Auto detect code block 📃
 - Click on user icon to show original message 💬
 - Real time text streaming ⏱️
 - Fast model downloads 🚀
@@ -42,6 +42,8 @@ You can use any Alpaca model as long as your computer can handle it.
 ```bash
 catai install Vicuna-13B
 ```
+Check out the [models-links.json](./models-links.json) file for more models.
+
 You can also download a custom model like this:
 
 ```bash
