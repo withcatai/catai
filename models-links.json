@@ -13,5 +13,7 @@
   "Wizard-Vicuna-7B-Uncensored": "https://huggingface.co/TheBloke/WizardLM-7B-uncensored-GGML/resolve/main/WizardLM-7B-uncensored.ggml.q4_0.bin#234ffbea6d5f5f01584f73a3cc5c8b023b8b159d",
   "Wizard-Vicuna-13B": "https://huggingface.co/TheBloke/wizard-vicuna-13B-GGML/resolve/main/wizard-vicuna-13B.ggml.q4_0.bin#67e539ed8a46e48608dc1d86dae55907d9b2726b",
 
-  "OpenAssistant-30B": "https://huggingface.co/TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML/resolve/main/OpenAssistant-30B-epoch7.ggml.q4_0.bin#6300dfc4d7048c3e2767a2a8c263cfcbc7ced304"
+  "OpenAssistant-30B": "https://huggingface.co/TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML/resolve/main/OpenAssistant-30B-epoch7.ggml.q4_0.bin#6300dfc4d7048c3e2767a2a8c263cfcbc7ced304",
+
+  "GPT4All": "https://the-eye.eu/public/AI/models/nomic-ai/gpt4all/gpt4all-lora-quantized-ggml.bin"
 }
