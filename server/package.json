@@ -15,6 +15,7 @@
     "use": "zx scripts/use.js",
     "remove": "zx scripts/remove.js",
     "list": "zx scripts/list.js",
+    "models": "zx scripts/models.js",
     "postinstall": "npm run download-alpaca-cpp",
     "prepack": "npm run build && cp ../README.md ./README.md"
   },

@@ -15,7 +15,7 @@ export default class ModelURL {
     }
 
     async #modelURLByName(){
-        this.modelsDownloadLinks = await wretch(SEARCH_MODEL).get().json();
+        this.modelsDownloadLinks = await ModelURL.fetchModels();
 
         const modelName = this.model.toLocaleLowerCase();
         const foundModel = Object.keys(this.modelsDownloadLinks).find(x => x.toLocaleLowerCase() === modelName);
@@ -47,5 +47,12 @@ export default class ModelURL {
             return this.downloadLink.replace(ModelURL.modelRepoHead, `/${this.hash}/`);
         }
         return this.templateLink;
+    }
+
+    static async fetchModels(){
+        const response = await wretch(SEARCH_MODEL).get().json();
+        ModelURL.fetchModels = () => response;
+
+        return response;
     }
 }

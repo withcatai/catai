@@ -42,12 +42,16 @@ You can use any Alpaca model as long as your computer can handle it.
 ```bash
 catai install Vicuna-13B
 ```
-Check out the [models-links.json](./models-links.json) file for more models.
+
+To see all the available models to install you can use this command.
+```bash
+catai models
+```
 
 You can also download a custom model like this:
 
 ```bash
-catai install https://example.com/model.tar.bin --tag myModel
+catai install https://example.com/model.tar.bin
 ```
 
 If you want to switch between models you can use `catai use` command.

@@ -1,6 +1,5 @@
 import wretch from 'wretch';
-import EasyDl from 'easydl';
-import { createRequire } from 'module';
+import {createRequire} from 'module';
 
 function easyDlWithoutMaxListenersExceededWarning() {
     const require = createRequire(import.meta.url);
@@ -31,10 +30,10 @@ export default class FileDownloader {
             .notFound(() => {
                 throw new Error(`Model URL is broken, try to install directly from URL: catai install https://...`);
             })
-            .fetchError(error => {
+            .res()
+            .catch(error => {
                 throw new Error(`Error while getting file head: ${error.status}`);
-            })
-            .res();
+            });
 
         this.#withRedirect = url;
     }

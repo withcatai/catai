@@ -17,6 +17,12 @@ function runCommand(callback) {
     });
 }
 
+program.command('models')
+    .description('List all available models')
+    .action(() => {
+        import('./models.js');
+    });
+
 program.command('install')
     .description('Install one of the alpaca models')
     .argument('<model>', 'The model to install')
