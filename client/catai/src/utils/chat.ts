@@ -1,12 +1,12 @@
 const secure = location.protocol.startsWith('https') ? 's' : '';
-const socket = new WebSocket(`ws${secure}://${location.host}/ws`);
+export const chatSocket = new WebSocket(`ws${secure}://${location.host}/ws`);
 
 type ActiveMessage = { content: string, error?: string, active: boolean, hide?: boolean };
 let activeMessage: ActiveMessage = {content: '', active: false};
 
 export function makeActiveMessage(question: string, message: ActiveMessage) {
     activeMessage = message;
-    question && socket.send(JSON.stringify({question}));
+    question && chatSocket.send(JSON.stringify({question}));
 }
 
 
@@ -35,4 +35,14 @@ async function onMessage(event: MessageEvent) {
     update.func();
 }
 
-socket.onmessage = onMessage;
+function onConnectionLost(event) {
+    console.error('WebSocket error observed:', event);
+
+    activeMessage.hide = false;
+    activeMessage.error += `The connection lost, check the server status and refresh the page.`;
+    update.func();
+}
+
+chatSocket.onmessage = onMessage;
+chatSocket.onerror = onConnectionLost;
+chatSocket.onclose = onConnectionLost;
