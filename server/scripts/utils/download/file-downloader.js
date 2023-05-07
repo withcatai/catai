@@ -1,18 +1,5 @@
 import wretch from 'wretch';
-import {createRequire} from 'module';
-
-function easyDlWithoutMaxListenersExceededWarning() {
-    const require = createRequire(import.meta.url);
-    const fs = require('fs');
-    const createWriteStream = fs.createWriteStream.bind(fs);
-    fs.createWriteStream = (...args) => {
-        const stream = createWriteStream(...args);
-        stream.setMaxListeners(Infinity);
-        return stream;
-    };
-
-    return require('easydl');
-}
+import {easyDlHandleBadConnection} from './easydl-smart.js';
 
 export default class FileDownloader {
     static defaultSettings = { connections: 8, maxRetry: 5, existBehavior: 'overwrite' };
@@ -39,11 +26,10 @@ export default class FileDownloader {
     }
 
     #createDownloader() {
-        this.dlDownloader = new (easyDlWithoutMaxListenersExceededWarning())(this.#withRedirect,
+        this.dlDownloader = easyDlHandleBadConnection(this.#withRedirect,
             this.savePath,
             this.settings
         );
-        this.dlDownloader.setMaxListeners(Infinity);
     }
 
     async prepare() {

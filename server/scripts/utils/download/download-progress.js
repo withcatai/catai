@@ -5,6 +5,7 @@ import prettyMs from 'pretty-ms';
 
 export default class CLIDownloadProgress {
     #speeds = [];
+
     constructor(downloader, name) {
         this.downloader = downloader;
         this.progressBar = new cliProgress.SingleBar({
@@ -17,16 +18,16 @@ export default class CLIDownloadProgress {
         this.#initEvents();
     }
 
-    #initEvents(){
+    #initEvents() {
         this.downloader.on('progress', this.#progress.bind(this));
     }
 
-    static #prettySpeed(speed){
+    static #prettySpeed(speed) {
         return prettyBytes(Math.min(speed, 9999999999) || 0) + '/s';
     }
 
-    #averageSpeed(currentSpeed){
-        if(currentSpeed < Infinity){
+    #averageSpeed(currentSpeed) {
+        if (currentSpeed < Infinity) {
             this.#speeds.push(currentSpeed);
         }
 
@@ -34,7 +35,7 @@ export default class CLIDownloadProgress {
         return this.#speeds.reduce((a, b) => a + b, 0) / this.#speeds.length;
     }
 
-    #progress({details, total}){
+    #progress({details, total}) {
         this.progressBar.setTotal(details.length);
 
         const speed = this.#averageSpeed(total.speed);
@@ -47,21 +48,19 @@ export default class CLIDownloadProgress {
             timeLeft: prettyMs((timeLeft || 0) * 1000)
         });
 
-        if(total.percentage === 100){
+        if (total.percentage === 100) {
             this.progressBar.stop();
             console.log('\nConnecting downloaded chunks, please wait...');
         }
     }
 
-    async startDownload(){
+    async startDownload() {
         this.progressBar.start(Infinity, 0, {
             speed: 'N/A',
             percentage: 0,
             timeLeft: 'N/A'
         });
 
-        const response = await this.downloader.wait();
-
-        return response;
+        return await this.downloader.wait();
     }
 }
