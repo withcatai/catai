@@ -59,10 +59,7 @@ If you want to switch between models you can use `catai use` command.
 catai use Vicuna-7B
 ```
 
-You can use all the UIs from the `client` directory (default catai).
-```bash
-catai serve --ui chatGPT
-```
+#### Check out more commands [here](./docs/commands.md)
 
 ### Cross-platform
 You can use it on Windows, Linux and Mac.
@@ -84,37 +81,8 @@ According to [a llama.cpp discussion thread](https://github.com/ggerganov/llama.
 - 13B => ~8 GB
 - 30B => ~16 GB
 
-### Configuration
-You can change the configuration by edition the `config.js` file.
-```bash
-catai config --edit [editor]
-```
-
-After you change the configuration, you need to restart the server.
-
-- 💡To increase the model understanding, try change the `context` size.
-- 💡To increase the model output, try change the `numPredict` size.
-
-### List models
-You can list all the models that you have installed.
-```bash
-catai list
-```
-
-### Uninstall models
-You can uninstall models that you don't need.
-```bash
-catai remove Vicuna-7B
-```
-### Uninstall package
-You can uninstall the package.
-```bash
-catai remove all # remove all downloaded data
-npm uninstall -g catai
-```
-
 ### Good to know
-- All download data will be downloaded at `~/catai` folder.
+- All download data will be downloaded at `~/catai` folder by default.
 - The download is multi-threaded, so it may use a lot of bandwidth, but it will download faster!
 
 ## API
@@ -133,43 +101,25 @@ const response = await fetch("http://127.0.0.1:3000/question", {
 const {text, error} = await response.json();
 ```
 
-## Development
+## Into details
+- ### [Configuration](./docs/configuration.md)
 
-If you want to run the source code locally, you can follow the steps below.
+- ### [Troubleshooting](./docs/troubleshooting.md)
 
-To run the client.
+- ### [Development](./docs/development.md)
+
+- ### [Contributing](./CONTRIBUTING.md)
+
+## Docker
+Right now it is in early stages, but you can use it like this:
 ```bash
-cd client/catai
-npm install
-npm run dev
+docker run -p 3000:3000 npmcatai/catai:latest
 ```
-
-To run the server.
-```bash
-cd server
-npm install
-npm run install-model Vicuna-7B
-npm start
-```
-
-## Troubleshooting
-
-### Error loading model OR executable error
-Try change the config:
-```js
-export const SELECTED_BINDING = 'alpaca-cpp';
-```
-
-It may be slower, but it has more chance to work with alpaca models.
-
-### Windows Subsystem for Linux has no installed distributions
-
-Problem with the dependency `zx`, try to run inside `git-bash`.
 
 ## License
 
-This project use [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp) to run Alpaca models on your computer.
-So any license applied to Alpaca.cpp is also applied to this project.
+This project use [Llama.cpp](https://github.com/ggerganov/llama.cpp) to run Alpaca models on your computer.
+So any license applied to Llama.cpp is also applied to this project.
 
 ## Credits
 The GPT frontend is built on top of the chatGPT [Frontend mimic](https://github.com/nisabmohd/ChatGPT)
