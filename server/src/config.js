@@ -1,10 +1,10 @@
-export const PORT = 3000;
+import yn from 'yn';
 
-export const OPEN_IN_BROWSER = true;
+export const PORT = parseInt(process.env.CATAI_PORT) || 3000;
+export const OPEN_IN_BROWSER = yn(process.env.CATAI_OPEN_IN_BROWSER) || true;
+export const MAX_ACTIVE_SESSIONS = parseInt(process.env.CATAI_MAX_ACTIVE_SESSIONS) || 5;
 
 export const SELECTED_BINDING = 'node-llama' || 'alpaca-cpp';
-
-export const MAX_ACTIVE_SESSIONS = 5;
 
 export const SETTINGS_NODE_LLAMA = {
     enableLogging: false,

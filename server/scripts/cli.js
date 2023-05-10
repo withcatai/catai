@@ -58,7 +58,7 @@ program.command('serve')
     .description('Open the chat website')
     .option('--ui [ui]', 'The ui to use')
     .action(({ui}) => {
-        runCommand(() => $`npm start production ${ui || ''}`);
+        runCommand(() => $`npm start --production true --ui ${ui || 'catai'}`);
     });
 
 program.command('config')

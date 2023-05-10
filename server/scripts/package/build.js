@@ -2,7 +2,7 @@ import 'zx/globals';
 
 await fs.emptyDir('./www');
 
-const CLIENTS = path.join(__dirname, '../../client');
+const CLIENTS = path.join(__dirname, '../../../client');
 
 const allClients = await fs.readdir(CLIENTS, {withFileTypes: true});
 for (const client of allClients) {
