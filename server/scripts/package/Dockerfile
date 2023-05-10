@@ -1,6 +1,4 @@
-ARG ARCHITECTURE
-
-FROM $ARCHITECTURE/node:19
+FROM node:19
 
 RUN npm i -g catai
 
