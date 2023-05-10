@@ -61,7 +61,7 @@ catai use Vicuna-7B
 
 You can use all the UIs from the `client` directory (default catai).
 ```bash
-catai server --ui chatGPT
+catai serve --ui chatGPT
 ```
 
 ### Cross-platform
