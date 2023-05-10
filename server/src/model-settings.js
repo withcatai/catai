@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import os from 'os';
 
-export const DOWNLOAD_LOCATION = path.join(os.homedir(), 'catai');
+export const DOWNLOAD_LOCATION = process.env.CATAI_DOWNLOAD_LOCATION || path.join(os.homedir(), 'catai');
 
 const modelSettings = path.join(DOWNLOAD_LOCATION, 'settings.json');
 await fs.ensureFile(modelSettings);
