@@ -15,8 +15,6 @@ export default class NodeLlama extends IAlpacaClient {
     errorCallback;
     closeCallback
 
-    abortSignal = new AbortController();
-
     constructor(tokenCallback = null, errorCallback = null, closeCallback = null) {
         super();
         this.tokenCallback = tokenCallback;
@@ -26,6 +24,8 @@ export default class NodeLlama extends IAlpacaClient {
 
     async question(text){
         const context = this.ctx.buildCtx(text);
+        this.abortSignal.abort();
+
         const abortSignal = new AbortController();
         this.abortSignal = abortSignal;
 

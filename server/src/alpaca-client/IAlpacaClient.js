@@ -1,5 +1,6 @@
 export class IAlpacaClient {
     waitInit;
+    abortSignal = new AbortController();
 
     constructor(callback, onerror, onclose) {
     }

@@ -29,8 +29,13 @@ export async function activateChat(socket) {
     sendJSON('config-model')(SELECTED_BINDING);
 
     socket.on('message', async (message) => {
-        const {question} = JSON.parse(message);
-        await chat.question(question);
+        const {question, abort} = JSON.parse(message);
+
+        if(abort) {
+            chat.abortSignal.abort();
+        } else if(question){
+            await chat.question(question);
+        }
     });
 
     socket.on('close', () => {

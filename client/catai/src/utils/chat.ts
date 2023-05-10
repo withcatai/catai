@@ -1,18 +1,23 @@
 const secure = location.protocol.startsWith('https') ? 's' : '';
 export const chatSocket = new WebSocket(`ws${secure}://${location.host}/ws`);
+const webSocketSend = (json: any) => chatSocket.send(JSON.stringify(json));
 
 type ActiveMessage = { content: string, error?: string, active: boolean, hide?: boolean };
-let activeMessage: ActiveMessage = {content: '', active: false};
+let activeMessage: ActiveMessage = { content: '', active: false };
 
 export function makeActiveMessage(question: string, message: ActiveMessage) {
     activeMessage = message;
-    question && chatSocket.send(JSON.stringify({question}));
+    question && webSocketSend({ question });
+}
+
+export function abortResponse() {
+    webSocketSend({ abort: true });
 }
 
 
-export const update: {func: () => void} = {func: Function};
+export const update: { func: () => void } = { func: Function };
 async function onMessage(event: MessageEvent) {
-    const {type, value} = JSON.parse(event.data);
+    const { type, value } = JSON.parse(event.data);
 
     switch (type) {
         case 'token':
@@ -25,7 +30,7 @@ async function onMessage(event: MessageEvent) {
             activeMessage.active = false;
             break;
         case 'config-model':
-            if(value === 'alpaca-cpp'){
+            if (value === 'alpaca-cpp') {
                 activeMessage.hide = false;
                 activeMessage.active = true;
             }

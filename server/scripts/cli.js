@@ -1,10 +1,13 @@
 #!/usr/bin/env node
-import {$, cd, within} from 'zx';
+import {$, cd, within, fs} from 'zx';
 import {program} from 'commander';
 import path from 'path';
 import {fileURLToPath} from 'url';
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url));
+const {version} = await fs.readJSON(path.join(__dirname, '..', 'package.json'));
+program.version(version);
+
 
 function runCommand(callback) {
     return within(async () => {

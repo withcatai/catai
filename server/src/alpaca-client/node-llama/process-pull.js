@@ -36,6 +36,9 @@ export default class NodeLlamaActivePull {
         } catch {}
 
         let resolve;
+        /**
+         * @type {Promise<typeof llama>}
+         */
         const wait = new Promise(r => resolve = r);
         this.#waitingResponse.push(resolve);
 
@@ -47,22 +50,23 @@ export default class NodeLlamaActivePull {
         return await wait;
     }
 
+    /**
+     * 
+     * @param {string} context 
+     * @param {{abortSignal: AbortSignal, callback: Function, errorCallback: Function}} param1 
+     * @returns 
+     */
     async question(context, {abortSignal, callback, errorCallback}){
         const llama = await this.#findLLama(abortSignal);
         if(!llama) return;
 
         llama.active = true;
         await new Promise(async closeCallback => {
-            try {
-                await llama.node.createCompletion( {
-                    prompt: context,
-                    ...CHAT_SETTINGS_NODE_LLAMA
-                }, ({token, completed}) => {
-                    callback(token);
+            const completionParams = {...CHAT_SETTINGS_NODE_LLAMA, prompt: context};
 
-                    if(completed) {
-                        closeCallback();
-                    }
+            try {
+                await llama.node.createCompletion(completionParams, (event) => {
+                    callback(event.token);
                 });
             } catch (err) {
                 errorCallback(err.message);

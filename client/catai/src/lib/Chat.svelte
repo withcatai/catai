@@ -2,8 +2,9 @@
     import {Button, Textarea} from 'flowbite-svelte';
     import Message from './Message.svelte';
     import {onMount, tick} from 'svelte';
-    import {makeActiveMessage, update} from '../utils/chat.js';
+    import {abortResponse, makeActiveMessage, update} from '../utils/chat.js';
     import scrollToEnd, {needScroll} from '../utils/scroll.js';
+    import {PaperAirplane as Send, Stop} from 'svelte-heros-v2';
 
     type message = {
         content?: string,
@@ -64,7 +65,13 @@
     <div class="flex mb-5">
         <Textarea bind:value={textareaContent} on:keypress={checkSendMessage}
                   placeholder="Enter text to send..." autofocus></Textarea>
-        <Button disabled={lastMessage.active} class="ml-3" on:click={sendMessage}>Send</Button>
+        <Button disabled={lastMessage.active} class="ml-3" on:click={sendMessage}>
+            <Send />
+        </Button>
+
+        <!-- <Button disabled={!lastMessage.active} color="red" class="ml-3" on:click={abortResponse}>
+            <Stop />
+        </Button> -->
     </div>
 </div>
 
