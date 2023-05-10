@@ -24,5 +24,5 @@ Problem with the dependency `zx`, try to run inside `git-bash`.
 
 Problem with opening in default browser, try to change the environment variable:
 ```bash
-CATAI_OPEN_IN_BROWSER = false;
+export CATAI_OPEN_IN_BROWSER = false;
 ```

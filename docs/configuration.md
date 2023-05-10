@@ -3,13 +3,13 @@
 ## Environment variables
 You can change the configuration by setting the environment variables.
 ```bash
-CATAI_PORT=3000
-CATAI_OPEN_IN_BROWSER=true
-CATAI_MAX_ACTIVE_SESSIONS=5
-CATAI_DOWNLOAD_LOCATION=~/catai
+export CATAI_PORT=3000
+export CATAI_OPEN_IN_BROWSER=true
+export CATAI_MAX_ACTIVE_SESSIONS=5
+export CATAI_DOWNLOAD_LOCATION=~/catai
 ```
 
-** In Windows you need to use `set` before the variable name.
+** In Windows you need to use `set` instead of `export`.
 
 ## Additional via config file
 You can change the configuration by edition the `config.js` file.
