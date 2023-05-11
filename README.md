@@ -16,7 +16,7 @@ Run Alpaca model on your computer with a chat ui.
 
 > Your own AI assistant run locally on your computer.
 
-Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https://github.com/Atome-FE/llama-node), [Alpaca.cpp](https://github.com/antimatter15/alpaca.cpp)
+Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https://github.com/Atome-FE/llama-node), [Llama.cpp](https://github.com/ggerganov/llama.cpp)
 
 ## Installation & Use
 
@@ -37,12 +37,6 @@ catai serve
 - Fast model downloads 🚀
 
 ## Intro
-
-You can use any Alpaca model as long as your computer can handle it.
-```bash
-catai install Vicuna-13B
-```
-
 To see all the available models to install you can use this command.
 ```bash
 catai models
@@ -51,7 +45,12 @@ catai models
 You can also download a custom model like this:
 
 ```bash
-catai install https://example.com/model.tar.bin
+catai install https://example.com/model.ggml-q_0.bin
+```
+
+You can list all the models that you have installed.
+```bash
+catai list
 ```
 
 If you want to switch between models you can use `catai use` command.

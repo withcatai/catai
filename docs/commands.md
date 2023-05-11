@@ -1,12 +1,6 @@
 # Commands
 more commands you should know about.
 
-### List models
-You can list all the models that you have installed.
-```bash
-catai list
-```
-
 ### Other UI
 You can use all the UIs from the `client` directory (default catai).
 ```bash
