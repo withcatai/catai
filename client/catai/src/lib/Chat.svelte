@@ -65,13 +65,13 @@
     <div class="flex mb-5">
         <Textarea bind:value={textareaContent} on:keypress={checkSendMessage}
                   placeholder="Enter text to send..." autofocus></Textarea>
-        <Button disabled={lastMessage.active} class="ml-3" on:click={sendMessage}>
+        <Button disabled={lastMessage.active} size="sm" class="ml-3" on:click={sendMessage}>
             <Send />
         </Button>
 
-        <!-- <Button disabled={!lastMessage.active} color="red" class="ml-3" on:click={abortResponse}>
+        <Button disabled={!lastMessage.active} color="red" size="sm" class="ml-3" on:click={abortResponse}>
             <Stop />
-        </Button> -->
+        </Button>
     </div>
 </div>
 

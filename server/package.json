@@ -60,8 +60,8 @@
     "@types/node": "^18.15.10"
   },
   "peerDependencies": {
-    "@llama-node/llama-cpp": "^0.1.0",
-    "llama-node": "^0.1.0"
+    "@llama-node/llama-cpp": "^0.1.1",
+    "llama-node": "^0.1.1"
   },
   "bin": {
     "catai": "scripts/cli.js"

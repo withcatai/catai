@@ -67,7 +67,7 @@ export default class NodeLlamaActivePull {
             try {
                 await llama.node.createCompletion(completionParams, (event) => {
                     callback(event.token);
-                });
+                }, abortSignal);
             } catch (err) {
                 errorCallback(err.message);
             }
