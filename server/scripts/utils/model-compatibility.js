@@ -46,7 +46,7 @@ export default function checkModelCompatibility(model, availableModels) {
         }
     }
 
-    const modelLink = availableModels[model];
+    const modelLink = availableModels[model].toLowerCase();
     const compressions = Object.keys(modelFound);
     const compressionType = compressions.find(x => modelLink.includes(x));
 
