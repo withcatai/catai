@@ -13,10 +13,12 @@
   "Wizard-7B": "https://huggingface.co/TheBloke/wizardLM-7B-GGML/resolve/main/wizardLM-7B.ggml.q4_0.bin#6761c02383359b26c094423995ebb6e18d04e143",
   "Wizard-7B-Uncensored": "https://huggingface.co/TheBloke/WizardLM-7B-uncensored-GGML/resolve/main/WizardLM-7B-uncensored.ggml.q4_0.bin#234ffbea6d5f5f01584f73a3cc5c8b023b8b159d",
   "Wizard-13B": "https://huggingface.co/execveat/wizardLM-13b-ggml-4bit/resolve/main/ggml-model-q4_0.bin#3737843e6b612b5a99e40ef62ebf197326c3266a",
+  "Wizard-13B-Uncensored": "https://huggingface.co/mongolian-basket-weaving/wizardlm-13b-uncensored-ggml-q4_1/resolve/main/ggml-model-q4_1.bin#3fb15b0f5c452330b10fd39d7841f0ffc6499ef3",
   
   "Wizard-Vicuna-13B": "https://huggingface.co/TheBloke/wizard-vicuna-13B-GGML/resolve/main/wizard-vicuna-13B.ggml.q4_0.bin#67e539ed8a46e48608dc1d86dae55907d9b2726b",
+  "Wizard-Vicuna-13B-Uncensored": "https://huggingface.co/TheBloke/Wizard-Vicuna-13B-Uncensored-GGML/resolve/main/Wizard-Vicuna-13B-Uncensored.ggml.q4_0.bin#86d0b72305f1bb15bab1bb8f4eeaddecf0af61c5",
 
-  "OpenAssistant-30B": "https://huggingface.co/TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML/resolve/main/OpenAssistant-30B-epoch7.ggml.q4_0.bin#6300dfc4d7048c3e2767a2a8c263cfcbc7ced304",
+  "OpenAssistant-30B": "https://huggingface.co/TheBloke/OpenAssistant-SFT-7-Llama-30B-GGML/resolve/main/OpenAssistant-SFT-7-Llama-30B.ggml.q4_0.bin#393d6b233fc2a5e96693df924f9421344f71f6d7",
 
-  "GPT4All": "https://the-eye.eu/public/AI/models/nomic-ai/gpt4all/gpt4all-lora-quantized-ggml.bin"
+  "GPT4All-13B": "https://huggingface.co/TheBloke/GPT4All-13B-snoozy-GGML/resolve/main/GPT4All-13B-snoozy.ggml.q4_0.bin#d1d65eacdc49c501ab41aaf9504866ae664bdc5e"
 }
