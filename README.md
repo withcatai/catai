@@ -20,7 +20,7 @@ Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https
 
 ## Installation & Use
 
-Make sure you have [Node.js](https://nodejs.org/en/) installed.
+Make sure you have [Node.js](https://nodejs.org/en/) (**download current**) installed.
 ```bash
 npm install -g catai
 
