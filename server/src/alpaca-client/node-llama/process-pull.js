@@ -12,9 +12,11 @@ export default class NodeLlamaActivePull {
     #waitingResponse = [];
     #maxActiveNodes;
 
+    #initWait;
+
     constructor(maxActiveNodes = MAX_ACTIVE_SESSIONS) {
         this.#maxActiveNodes = maxActiveNodes;
-        this.#addNew();
+        this.#initWait = this.#addNew();
     }
 
     #onClose(llama){
@@ -26,6 +28,8 @@ export default class NodeLlamaActivePull {
     }
 
     async #findLLama(abortSignal){
+        await this.#initWait;
+
         const llama = this.#activeNodes.find(({node, active}) => !active);
         if(llama) return llama;
 
@@ -79,9 +83,9 @@ export default class NodeLlamaActivePull {
     }
 
 
-    #addNew(active = false){
+    async #addNew(active = false){
         const llama = new LLama(LLamaCpp);
-        llama.load({
+        await llama.load({
             path: MODEL_PATH,
             ...SETTINGS_NODE_LLAMA,
         });
