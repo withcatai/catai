@@ -1,13 +1,12 @@
 import 'zx/globals';
 import path from 'path';
 import prettyBytes from 'pretty-bytes';
-import {DOWNLOAD_LOCATION} from '../src/model-settings.js';
-import CLITable from 'cli-table';
+import CLITable from 'cli-table3';
+import { getInstalledModels } from './utils/model-compatibility.js';
+import { DOWNLOAD_LOCATION } from '../src/model-settings.js';
 
 const modelDir = path.join(DOWNLOAD_LOCATION, "models");
-await fs.ensureDir(modelDir);
-
-const files = await fs.readdir(modelDir, {withFileTypes: true});
+const files = await getInstalledModels();
 
 const modelTable = new CLITable({
     head: ['Model', 'Download Date', 'Size']

@@ -1,12 +1,18 @@
+import CLITable from 'cli-table3';
 import 'zx/globals';
-import CLITable from 'cli-table';
-import ModelURL from './utils/model-url.js';
+import { listAllModels } from './utils/model-compatibility.js';
 
 const modelTable = new CLITable({
-    head: ['Models']
+    head: ['Models', 'Installed', 'Compatibility', 'Note']
 });
 
-const availableModels = await ModelURL.fetchModels();
-modelTable.push(...Object.keys(availableModels).map(x => [x]));
+for(const {model, modelInstalled, compatibility, note} of await listAllModels()){
+    modelTable.push([
+        model,
+        modelInstalled ? '✅' : '❌',
+        compatibility,
+        note
+    ]);
+}
 
 console.log(modelTable.toString());

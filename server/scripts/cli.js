@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-import {$, cd, within, fs} from 'zx';
-import {program} from 'commander';
+import { $, cd, within, fs } from 'zx';
+import { program } from 'commander';
 import path from 'path';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
+import { tryUpdate } from './utils/check-update.js';
+import selectModelInstall from './utils/select-install.js';
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url));
-const {version} = await fs.readJSON(path.join(__dirname, '..', 'package.json'));
+const { version } = await fs.readJSON(path.join(__dirname, '..', 'package.json'));
 program.version(version);
-
 
 function runCommand(callback) {
     return within(async () => {
@@ -22,19 +23,23 @@ function runCommand(callback) {
 
 program.command('models')
     .description('List all available models')
-    .action(() => {
-        import('./models.js');
+    .action(async () => {
+        await import('./models.js');
+        await tryUpdate();
     });
 
 program.command('install')
-    .description('Install one of the alpaca models')
-    .argument('<model>', 'The model to install')
+    .description('Install any ggml llama model')
+    .argument('[model]', 'The model to install')
     .option('-t --tag [tag]', 'The name of the model in local directory')
-    .action((model, {tag}) => {
+    .action(async (model, { tag }) => {
+        model ??= await selectModelInstall();
+
         process.argv[3] = model;
         process.argv[4] = tag;
 
-        runCommand(() => import('./install.js'));
+        await runCommand(() => import('./install.js'));
+        await tryUpdate();
     });
 
 program.command('use')
@@ -60,14 +65,14 @@ program.command('list')
 program.command('serve')
     .description('Open the chat website')
     .option('--ui [ui]', 'The ui to use')
-    .action(({ui}) => {
+    .action(({ ui }) => {
         runCommand(() => $`npm start -- --production true --ui ${ui || 'catai'}`);
     });
 
 program.command('config')
     .description('Change the server & model configuration')
     .option('--edit [editor]', 'Open the config file with the specified editor')
-    .action(async ({edit}) => {
+    .action(async ({ edit }) => {
         const configFile = path.join(__dirname, '..', 'src', 'config.js');
 
         if (edit) {
@@ -82,6 +87,23 @@ After you saved restart the server.
 
 To open with code editor run:
 catai config --edit [editor]`);
+    });
+
+
+program.command('update')
+    .description('Update catai to the latest version')
+    .action(async () => {
+        await spinner('Updating CatAI', () => $`npm i -g catai@latest`);
+        await $`catai --version`;
+    });
+
+program.command('uninstall')
+    .description('Uninstall catai and all models')
+    .action(async () => {
+        await spinner('Uninstalling CatAI', async () => {
+            await runCommand(() => $`npm run remove all`);
+            await $`npm r -g catai`;
+        });
     });
 
 program.parse();

@@ -13,8 +13,7 @@ You can uninstall models that you don't need.
 catai remove Vicuna-7B
 ```
 ### Uninstall package
-You can uninstall the package.
+You can uninstall the package
 ```bash
-catai remove all # remove all downloaded data
-npm uninstall -g catai
+catai uninstall # remove all downloaded data (models, etc)
 ```
