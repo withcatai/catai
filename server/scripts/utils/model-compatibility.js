@@ -55,12 +55,12 @@ export default function checkModelCompatibility(model, availableModels) {
     if (memoryInGB < memory) {
         return {
             compatibility: '❌',
-            note: `${modelName} requires at least ${chalk.cyan(`${memory}GB`)} of RAM`
+            note: `requires at least ${chalk.cyan(`${memory}GB`)} of RAM`
         }
     } else if (cpuCors < cpu) {
         return {
             compatibility: '❌',
-            note: `${modelName} requires at least ${chalk.cyan(`${cpu}CPU`)} cores`
+            note: `requires at least ${chalk.cyan(`${cpu}CPU`)} cores`
         }
     } else if (availableMemory < memory) {
         return {
