@@ -24,18 +24,13 @@ export default class ModelURL {
     }
 
     async updateLink(){
-        // download from direct link
-        if (this.model.startsWith('http')) {
-            const [url, hash] = this.model.split('#');
+        const rawLink = this.model.startsWith('http') && this.model || await this.#modelURLByName();
+        const [url, hash] = rawLink.split('#');
 
-            this.hash = hash;
-            this.downloadLink = url;
-            this.model = url.split('/').pop();
-        } else {
-            // download from repo models
-            this.downloadLink = await this.#modelURLByName();
-        }
-        this.tag ??= this.model
+        this.hash = hash;
+        this.downloadLink = url;
+        this.model = url.split('/').pop();
+        this.tag ??= this.model;
     }
 
     get templateLink(){
