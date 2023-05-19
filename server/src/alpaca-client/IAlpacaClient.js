@@ -1,7 +1,8 @@
 export class IAlpacaClient {
     static name = 'IAlpacaClient';
+    static key = null;
     
-    waitInit;
+    waitInit = null;
     abortSignal = new AbortController();
 
     constructor(callback, onerror, onclose) {
@@ -15,7 +16,7 @@ export class IAlpacaClient {
 
     }
 
-    static trimMessageEnd(message, trimText) {
+    static trimMessageEnd(message, trimText = '') {
         message = message.trimEnd();
 
         if (message.endsWith(trimText)) {
@@ -23,5 +24,9 @@ export class IAlpacaClient {
         }
 
         return message;
+    }
+
+    static onceSelected() {
+        // once this binding is selected, this function will be called
     }
 }

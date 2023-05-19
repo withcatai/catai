@@ -2,10 +2,9 @@ import BuildCtx from './build-ctx.js';
 import {IAlpacaClient} from '../IAlpacaClient.js';
 import NodeLlamaActivePull from './process-pull.js';
 
-
-const NodeLlamaPull = new NodeLlamaActivePull();
-
 export default class NodeLlama extends IAlpacaClient {
+    static pull;
+
     static name = 'node-llama';
 
     ctx = new BuildCtx();
@@ -28,7 +27,7 @@ export default class NodeLlama extends IAlpacaClient {
         const abortSignal = new AbortController();
         this.abortSignal = abortSignal;
 
-        await NodeLlamaPull.question(context, {
+        await NodeLlama.pull.question(context, {
             callback: (token) => {
                 process.stdout.write(token);
                 this.ctx.processToken(token);
@@ -47,5 +46,10 @@ export default class NodeLlama extends IAlpacaClient {
 
     static trimMessageEnd(message) {
         return super.trimMessageEnd(message, '<end>');
+    }
+
+    static onceSelected() {
+        NodeLlama.pull = new NodeLlamaActivePull();
+        NodeLlama.onceSelected = () => {};
     }
 }

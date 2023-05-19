@@ -1,11 +1,11 @@
 import {jsonModelSettings} from './model-settings.js';
-import NodeLlama from './alpaca-client/node-llama/node-llama.js';
+import {getSelectedBinding} from './alpaca-client/binding.js';
 
 if(!jsonModelSettings.model) {
     throw new Error('Model not found, try re-downloading the model');
 }
+export const SELECTED_BINDING = getSelectedBinding();
 
-const selectedBinding = NodeLlama;
 /**
  *
  * @param socket {Awaited<ResponseType<import('tinyws')TinyWSRequest['ws']>>}
@@ -22,8 +22,8 @@ export async function activateChat(socket) {
         );
     }
 
-    const chat =  new selectedBinding(sendJSON('token'), sendJSON('error'), sendJSON('end'));
-    sendJSON('config-model')(selectedBinding.name);
+    const chat =  new SELECTED_BINDING(sendJSON('token'), sendJSON('error'), sendJSON('end'));
+    sendJSON('config-model')(SELECTED_BINDING.name);
 
     socket.on('message', async (message) => {
         const {question, abort} = JSON.parse(message);
@@ -51,12 +51,12 @@ export function requestAnswer(question, req) {
             if(!initEnded) return;
 
             sendResponse({
-                text: selectedBinding.trimMessageEnd(responseText),
+                text: SELECTED_BINDING.trimMessageEnd(responseText),
                 error: responseError
             });
         }
     
-        const chat =  new selectedBinding(text => responseText += text, error => responseError += error, onEnd);
+        const chat =  new SELECTED_BINDING(text => responseText += text, error => responseError += error, onEnd);
         await chat.waitInit;
         initEnded = true;
 

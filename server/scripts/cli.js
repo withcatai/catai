@@ -49,6 +49,16 @@ program.command('use')
         runCommand(() => $`npm run use ${model}`);
     });
 
+program.command('bind')
+    .description('Set chat bind method to models')
+    .argument('[bind]', 'The bind method to use - node-llama / bing-chat')
+    .option('-l --list', 'List all available bind methods')
+    .option('-k --key [key]', 'Key/Cookie that the binding requires')
+
+    .action((bind, {list, key}) => {
+        runCommand(() => $`npm run bind -- --list ${Boolean(list)} --bind ${bind} --key ${key}`);
+    });
+
 program.command('remove')
     .description('Remove model')
     .argument('value', 'Remove downloaded model, or "all" for all downloaded data')
