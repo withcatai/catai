@@ -1,9 +1,11 @@
 <script lang="ts">
     import {Button, Modal, Toast, GradientButton} from 'flowbite-svelte';
-    import {Clipboard, Clock} from 'svelte-heros-v2';
+    import {Clipboard, Clock, PaperAirplane} from 'svelte-heros-v2';
     import {getHistory, saveHistory} from '../../utils/actions/history.js';
     import {useTimeout} from '@svelte-use/core';
     import {blur} from 'svelte/transition';
+
+    export let sendPrompt: (prompt: string) => void;
 
     const {start, ready} = useTimeout(3000, {controls: true, immediate: false});
 
@@ -26,6 +28,10 @@
         saveHistory(history);
     }
 
+    function sendPromptToChat(prompt: string) {
+        sendPrompt(prompt);
+        showModal = false;
+    }
 </script>
 
 <GradientButton color="purpleToBlue" on:click={openHistory} pill>
@@ -44,9 +50,15 @@
             <div class="border dark:border-gray-600 shadow-md shadow-blue-500 shadow-blue-500 rounded p-3 mb-3">
                 <div class="flex d-flex justify-between align-top">
                     <span>{item}</span>
-                    <Button size="xsm" color="green" class="text-xs p-2 shadow-green-500" on:click={() => copyToClipboard(item)}>
-                        copy
-                    </Button>
+                    <div class="flex gap-2 items-start">
+                        <Button size="xsm" color="green" class="text-xs p-2 shadow-green-500" on:click={() => copyToClipboard(item)}>
+                            <Clipboard size="1rem"/>
+                        </Button>
+                        <Button size="xsm" color="blue" class="text-xs p-2 shadow-green-500" on:click={() => sendPromptToChat(item)}>
+                            <PaperAirplane size="1rem"/>
+                        </Button>
+                    </div>
+
                 </div>
             </div>
         {/each}

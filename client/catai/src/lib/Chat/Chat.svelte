@@ -23,7 +23,11 @@
 
     $: lastMessage = messages.at(-1);
 
-    async function sendMessage() {
+    async function sendMessage(content: any) {
+        if(typeof content === 'string') {
+            textareaContent = content;
+        }
+
         const question = textareaContent.trim();
         if (lastMessage.active || !question) return;
 
@@ -72,7 +76,7 @@
         </div>
     </div>
     <div class="quick-actions p-3 hidden md:block">
-        <History/>
+        <History sendPrompt={sendMessage}/>
     </div>
 </div>
 
