@@ -21,6 +21,7 @@ export const SETTINGS_NODE_LLAMA = {
 
 export const CHAT_SETTINGS_NODE_LLAMA = {
     nThreads: 4,
+    nGpuLayers: 2,
     nTokPredict: 2048,
     topK: 40,
     topP: 0.1,
