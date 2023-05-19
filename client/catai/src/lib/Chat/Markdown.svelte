@@ -1,7 +1,7 @@
 <script lang="ts">
     import markdownIt from 'markdown-it';
-    import '../assets/css/highlight.css';
-    import '../assets/css/markdown.css';
+    import '../../assets/css/highlight.css';
+    import '../../assets/css/markdown.css';
     import HighlightJS from 'highlight.js';
 
     const md = markdownIt({

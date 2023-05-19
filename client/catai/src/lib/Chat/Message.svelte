@@ -1,9 +1,9 @@
 <script lang="ts">
     import {Alert, Spinner} from 'flowbite-svelte';
-    import Logo from './Logo.svelte';
-    import UserIcon from './UserIcon.svelte';
+    import Logo from '../Logo.svelte';
+    import UserIcon from '../UserIcon.svelte';
     import Markdown from './Markdown.svelte';
-    import {MESSAGE_END} from '../utils/const.js';
+    import {MESSAGE_END} from '../../utils/const.js';
 
     export let value = '';
     export let myMessage = false;
@@ -25,7 +25,7 @@
 
 <div class="flex">
     <Alert class={`w-full p-4 alert-message text-base rounded-none ${myMessage ? 'bg-transparent dark:bg-gray-600': 'dark:bg-gray-800'}`}
-           color={myMessage ? 'dark': null}>
+           color={myMessage ? 'light': 'blue'}>
         <div class="flex w-full">
             <div on:click={() => showOriginalCode = !showOriginalCode}>
                 {#if !myMessage}
@@ -36,7 +36,7 @@
             </div>
 
 
-            <div class="w-full">
+            <div class="w-full text-base">
                 {#if !value && !error}
                     <Spinner/>
                 {:else}

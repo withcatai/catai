@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "moduleResolution": "Node",
-    "target": "es2018",
+    "target": "ES2018",
     "outDir": "./dist",
     "module": "ESNext",
     "lib": [
-      "es2018"
+      "dom",
+      "ES2018"
     ],
     /**
      * svelte-preprocess cannot figure out whether you have

@@ -4,9 +4,14 @@
     import {Navbar, NavBrand} from 'flowbite-svelte';
     import {DarkMode} from 'flowbite-svelte';
     import Logo from './lib/Logo.svelte';
-    import Chat from './lib/Chat.svelte';
+    import Chat from './lib/Chat/Chat.svelte';
+    import {onMount} from 'svelte';
 
-
+    onMount(() => {
+        if(localStorage.getItem('color-theme') === 'dark') {
+            document.querySelector('html').classList.add('dark')
+        }
+    });
 </script>
 
 <main>
