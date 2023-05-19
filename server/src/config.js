@@ -8,7 +8,7 @@ export const SELECTED_BINDING = 'node-llama' || 'alpaca-cpp';
 
 export const SETTINGS_NODE_LLAMA = {
     enableLogging: false,
-    nCtx: 1024,
+    nCtx: 2048,
     nParts: -1,
     seed: 0,
     f16Kv: false,
@@ -16,12 +16,12 @@ export const SETTINGS_NODE_LLAMA = {
     vocabOnly: false,
     useMlock: false,
     embedding: false,
-    useMmap: false
+    useMmap: false,
+    nGpuLayers: 3,
 };
 
 export const CHAT_SETTINGS_NODE_LLAMA = {
     nThreads: 4,
-    nGpuLayers: 2,
     nTokPredict: 2048,
     topK: 40,
     topP: 0.1,
