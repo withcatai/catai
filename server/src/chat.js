@@ -1,14 +1,11 @@
 import {jsonModelSettings} from './model-settings.js';
-import {SELECTED_BINDING} from './config.js';
-import AlpacaCPPClient from './alpaca-client/alpaca-cpp/alpaca-cpp-client.js';
 import NodeLlama from './alpaca-client/node-llama/node-llama.js';
 
-const IS_ALPACA_CPP = SELECTED_BINDING === 'alpaca-cpp';
-if(IS_ALPACA_CPP && !jsonModelSettings.exec || !jsonModelSettings.model) {
+if(!jsonModelSettings.model) {
     throw new Error('Model not found, try re-downloading the model');
 }
 
-const selectedBinding = IS_ALPACA_CPP ? AlpacaCPPClient : NodeLlama;
+const selectedBinding = NodeLlama;
 /**
  *
  * @param socket {Awaited<ResponseType<import('tinyws')TinyWSRequest['ws']>>}
@@ -26,7 +23,7 @@ export async function activateChat(socket) {
     }
 
     const chat =  new selectedBinding(sendJSON('token'), sendJSON('error'), sendJSON('end'));
-    sendJSON('config-model')(SELECTED_BINDING);
+    sendJSON('config-model')(selectedBinding.name);
 
     socket.on('message', async (message) => {
         const {question, abort} = JSON.parse(message);

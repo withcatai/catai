@@ -1,13 +1,12 @@
-import {SELECTED_BINDING} from '../../config.js';
 import BuildCtx from './build-ctx.js';
 import {IAlpacaClient} from '../IAlpacaClient.js';
 import NodeLlamaActivePull from './process-pull.js';
 
 
-const THIS_BINDING_SELECTED = SELECTED_BINDING === 'node-llama';
-const NodeLlamaPull = THIS_BINDING_SELECTED && new NodeLlamaActivePull();
+const NodeLlamaPull = new NodeLlamaActivePull();
 
 export default class NodeLlama extends IAlpacaClient {
+    static name = 'node-llama';
 
     ctx = new BuildCtx();
     llama;

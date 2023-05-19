@@ -1,4 +1,6 @@
 export class IAlpacaClient {
+    static name = 'IAlpacaClient';
+    
     waitInit;
     abortSignal = new AbortController();
 

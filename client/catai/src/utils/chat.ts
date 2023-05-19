@@ -29,12 +29,6 @@ async function onMessage(event: MessageEvent) {
         case 'end':
             activeMessage.active = false;
             break;
-        case 'config-model':
-            if (value === 'alpaca-cpp') {
-                activeMessage.hide = false;
-                activeMessage.active = true;
-            }
-            break
     }
 
     update.func();
