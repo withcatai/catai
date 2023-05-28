@@ -1,0 +1,16 @@
+{
+  "Vicuna-7B": {
+    "download": {
+      "link": "https://huggingface.co/eachadea/ggml-vicuna-7b-1.1/resolve/main/ggml-vic7b-q4_0.bin",
+      "commit": "512c70d8df6846b82fc4023d55efe36d2e246092"
+    },
+    "compatability": {
+      "ramGB": 5,
+      "cpuCors": 2,
+      "compressions": "q4_0"
+    },
+    "settings": {
+      "bind": "node-llama-cpp"
+    }
+  }
+}

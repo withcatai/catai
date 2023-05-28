@@ -1,37 +1,45 @@
 import 'zx/globals';
-import path from 'path';
 import prettyBytes from 'pretty-bytes';
 import CLITable from 'cli-table3';
-import { getInstalledModels } from './utils/model-compatibility.js';
-import { DOWNLOAD_LOCATION } from '../src/model-settings.js';
-
-const modelDir = path.join(DOWNLOAD_LOCATION, "models");
-const files = await getInstalledModels();
+import {jsonModelSettings} from '../src/model-settings.js';
 
 const modelTable = new CLITable({
     head: ['Model', 'Download Date', 'Size']
 });
 
 let hasModels = false;
-for (const file of files) {
-    if (!file.isFile()) {
-        continue;
-    }
-
+for (const [model, content] of Object.entries(jsonModelSettings.metadata)) {
     hasModels = true;
 
-    const {birthtime, size} = await fs.stat(path.join(modelDir, file.name));
+    const { size, birthtime} = await getInfoAboutModel(content);
     const birthtimeDate = new Date(birthtime).toLocaleDateString();
 
-    if(size > 1048576 * 11){ // skip system files / partly downloaded files - 11mb
-        modelTable.push(
-            [file.name, birthtimeDate, prettyBytes(size)]
-        );
-    }
+    modelTable.push(
+        [model, birthtimeDate, prettyBytes(size)]
+    );
 }
 
 if (!hasModels) {
     console.log("No model downloaded");
 } else {
     console.log(modelTable.toString());
+}
+
+async function getInfoAboutModel({downloadedFiles}) {
+    const files = await Promise.all(Object.values(downloadedFiles).map(file => fs.stat(file).catch(() => null)));
+
+    const createDates = [];
+    let totalSize = 0;
+
+    for (const file of files) {
+        if(!file) continue;
+
+        totalSize += file.size;
+        createDates.push(file.birthtime);
+    }
+
+    return {
+        size: totalSize,
+        birthtime: Math.min(...createDates)
+    };
 }

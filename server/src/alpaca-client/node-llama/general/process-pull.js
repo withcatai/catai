@@ -1,8 +1,13 @@
 import {LLama} from 'llama-node';
-import {MODEL_PATH} from '../../const.js';
-import {CHAT_SETTINGS_NODE_LLAMA, MAX_ACTIVE_SESSIONS, SETTINGS_NODE_LLAMA} from '../../config.js';
-import { LLamaCpp } from "llama-node/dist/llm/llama-cpp.js";
+import {LLamaCpp} from "llama-node/dist/llm/llama-cpp.js";
 
+/**
+ * @typedef {{
+ *     maxConcurrentSession: number,
+ *     settingsLLamaLoad: any,
+ *     settingsLLamaChat: any,
+ * }} NodeLlamaActivePullSettings
+ */
 
 export default class NodeLlamaActivePull {
     /**
@@ -10,12 +15,18 @@ export default class NodeLlamaActivePull {
      */
     #activeNodes = [];
     #waitingResponse = [];
-    #maxActiveNodes;
+    #modelSettings;
+    #llamaConstructor;
 
     #initWait;
 
-    constructor(maxActiveNodes = MAX_ACTIVE_SESSIONS) {
-        this.#maxActiveNodes = maxActiveNodes;
+    /**
+     * @param {NodeLlamaActivePullSettings} modelSettings
+     * @param {typeof LLamaCpp} llamaConstructor
+     */
+    constructor(modelSettings, llamaConstructor = LLamaCpp) {
+        this.#modelSettings = modelSettings;
+        this.#llamaConstructor = llamaConstructor;
         this.#initWait = this.#addNew();
     }
 
@@ -34,7 +45,7 @@ export default class NodeLlamaActivePull {
         if(llama) return llama;
 
         try {
-            if(this.#activeNodes.length < this.#maxActiveNodes){
+            if(this.#activeNodes.length < this.#modelSettings.maxConcurrentSession){
                 return this.#addNew();
             }
         } catch {}
@@ -66,14 +77,16 @@ export default class NodeLlamaActivePull {
 
         llama.active = true;
         await new Promise(async closeCallback => {
-            const completionParams = {...CHAT_SETTINGS_NODE_LLAMA, prompt: context};
+            const completionParams = {...this.#modelSettings.settingsLLamaChat, prompt: context};
 
             try {
                 await llama.node.createCompletion(completionParams, (event) => {
                     callback(event.token);
                 }, abortSignal);
             } catch (err) {
-                errorCallback(err.message);
+                if(abortSignal.reason !== 'stop-sequence'){
+                    errorCallback(err.message);
+                }
             }
 
             closeCallback();
@@ -84,11 +97,8 @@ export default class NodeLlamaActivePull {
 
 
     async #addNew(active = false){
-        const llama = new LLama(LLamaCpp);
-        await llama.load({
-            path: MODEL_PATH,
-            ...SETTINGS_NODE_LLAMA,
-        });
+        const llama = new LLama(this.#llamaConstructor);
+        await llama.load(this.#modelSettings.settingsLLamaLoad);
 
         if(!llama) throw new Error("Error while loading model");
         const activeLlama = {node: llama, active};

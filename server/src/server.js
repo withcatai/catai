@@ -1,6 +1,5 @@
 import getPort from "get-port";
-import { PRODUCTION } from "./const.js";
-import { OPEN_IN_BROWSER, PORT } from "./config.js";
+import {OPEN_IN_BROWSER, PORT, PRODUCTION} from "./const.js";
 import tryCatch from 'try-catch';
 import openurl from 'openurl';
 

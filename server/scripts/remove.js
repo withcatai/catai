@@ -1,10 +1,11 @@
 import 'zx/globals';
 import {DOWNLOAD_LOCATION, jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
-import path from 'path';
 
 const remove = process.argv[3];
+const downloadedFiles = jsonModelSettings.metadata[remove]?.downloadedFiles ?? {};
 
-jsonModelSettings.model = null;
+delete jsonModelSettings.model;
+delete jsonModelSettings.metadata[remove];
 await saveModelSettings();
 
 // remove all
@@ -15,9 +16,8 @@ if(remove === 'all'){
 }
 
 // remove model
-const modelDir = path.join(DOWNLOAD_LOCATION, "models");
-
-const selectedModel = path.join(modelDir, remove);
-await fs.remove(selectedModel);
+for(const file of Object.values(downloadedFiles)){
+    await fs.remove(file);
+}
 
 console.log("Model deleted " + remove);

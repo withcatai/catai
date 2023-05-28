@@ -18,6 +18,7 @@ if(listMethods){
 
 
 const bindMethod = argv.methods;
+const bindModel = argv.model;
 const bindKey = argv.key;
 
 const bindFound = BINDING.find(x => x.name === bindMethod);
@@ -27,8 +28,14 @@ if(!bindFound){
     process.exit(1);
 }
 
-jsonModelSettings.binding = bindFound.name;
-jsonModelSettings.bindingKey = bindKey;
+const modelMetadata = jsonModelSettings.metadata[bindModel];
+if(!modelMetadata) {
+    console.error(`Model not found, use: "catai models" to list all available models`);
+    process.exit(1);
+}
+
+modelMetadata.bind = bindMethod;
+modelMetadata.key = bindKey;
 
 await saveModelSettings();
-console.log(`Binding set to ${bindFound.name}`);
+console.log(`Binding set to ${bindMethod}`);

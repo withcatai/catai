@@ -31,12 +31,13 @@ program.command('models')
 program.command('install')
     .description('Install any ggml llama model')
     .argument('[model]', 'The model to install')
+    .option('-b --bind [bind]', 'The model binding method')
+    .option('-bk --bind-key [key]', 'Key/Cookie that the binding requires')
     .option('-t --tag [tag]', 'The name of the model in local directory')
-    .action(async (model, { tag }) => {
-        model ??= await selectModelInstall();
-
-        process.argv[3] = model;
-        process.argv[4] = tag;
+    .option('-e --exact', 'Install the exact version that the known to work and not the latest')
+    .action(async (model, options) => {
+        process.argv.model = model ?? await selectModelInstall();
+        Object.assign(process.argv, options);
 
         await runCommand(() => import('./install.js'));
         await tryUpdate();
@@ -44,19 +45,20 @@ program.command('install')
 
 program.command('use')
     .description('Set model to use')
-    .argument('<model>', 'The model to use - 7B / 13B / 30B')
+    .argument('<model>', 'The model to use - 7B/13B/30B')
     .action((model) => {
         runCommand(() => $`npm run use ${model}`);
     });
 
 program.command('bind')
-    .description('Set chat bind method to models')
-    .argument('[bind]', 'The bind method to use - node-llama / bing-chat')
+    .description('Set chat bind method to model')
+    .argument('[model]', 'The model to bind with', 'default')
+    .argument('[bind]', 'The bind method to use - node-llama/bing-chat/...')
     .option('-l --list', 'List all available bind methods')
     .option('-k --key [key]', 'Key/Cookie that the binding requires')
 
-    .action((bind, {list, key}) => {
-        runCommand(() => $`npm run bind -- --list ${Boolean(list)} --bind ${bind} --key ${key}`);
+    .action((bind, {list, key, model}) => {
+        runCommand(() => $`npm run bind -- --list ${Boolean(list)} --bind "${bind}" --key "${key}" --model "${model}"`);
     });
 
 program.command('remove')
@@ -78,27 +80,6 @@ program.command('serve')
     .action(({ ui }) => {
         runCommand(() => $`npm start -- --production true --ui ${ui || 'catai'}`);
     });
-
-program.command('config')
-    .description('Change the server & model configuration')
-    .option('--edit [editor]', 'Open the config file with the specified editor')
-    .action(async ({ edit }) => {
-        const configFile = path.join(__dirname, '..', 'src', 'config.js');
-
-        if (edit) {
-            await $`${edit} "${configFile}"`;
-            return;
-        }
-
-        console.log(`
-To edit the config, open this file:
-${configFile}
-After you saved restart the server.
-
-To open with code editor run:
-catai config --edit [editor]`);
-    });
-
 
 program.command('update')
     .description('Update catai to the latest version')

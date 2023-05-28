@@ -27,4 +27,8 @@ export default class BuildCtx {
     processToken(token){
         this.history.at(-1).response += token;
     }
+
+    get lastResponse () {
+        return this.history.at(-1).response;
+    }
 }

@@ -1,19 +1,25 @@
 export class IAlpacaClient {
     static name = 'IAlpacaClient';
-    static key = null;
+    static modelSettings = {};
     
     waitInit = null;
     abortSignal = new AbortController();
+    tokenCallback;
+    errorCallback;
+    closeCallback
 
-    constructor(callback, onerror, onclose) {
+    constructor(tokenCallback = null, errorCallback = null, closeCallback = null) {
+        this.tokenCallback = tokenCallback;
+        this.errorCallback = errorCallback;
+        this.closeCallback = closeCallback;
     }
 
     async question(text) {
-
+        throw new Error('Not implemented!');
     }
 
     close() {
-
+        this.closeCallback();
     }
 
     static trimMessageEnd(message, trimText = '') {
