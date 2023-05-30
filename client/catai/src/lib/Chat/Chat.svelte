@@ -1,23 +1,16 @@
 <script lang="ts">
     import {Button} from 'flowbite-svelte';
     import Message from './Message.svelte';
-    import {onMount, tick} from 'svelte';
-    import {abortResponse, makeActiveMessage, update} from '../../utils/chat.js';
+    import {tick} from 'svelte';
+    import ChatSocket, {ChatMessage} from '../../utils/chat/chat-socket.js';
     import scrollToEnd, {needScroll} from '../../utils/scroll.js';
     import {PaperAirplane as Send, Stop} from 'svelte-heros-v2';
     import History from '../actions/History.svelte';
     import TextInput from './TextInput.svelte';
     import {appendPromptToHistory} from '../../utils/actions/history.js';
 
-    type message = {
-        content?: string,
-        myMessage?: boolean,
-        active?: boolean,
-        error?: string
-        hide?: boolean
-    }
-
-    export let messages: message[] = [{content: '', active: false, error: '', hide: true}];
+    export let messages: ChatMessage[] = [{content: '', active: false, error: '', hide: true}];
+    const chatActions = new ChatSocket(messages, messagesUpdate).actions;
     let textareaContent = '';
     let messagesContainer;
 
@@ -31,26 +24,17 @@
         const question = textareaContent.trim();
         if (lastMessage.active || !question) return;
 
-        const aiMessage = {content: '', active: true, error: ''};
-        messages.push({content: question, myMessage: true}, aiMessage);
-        await update.func();
-
-        makeActiveMessage(question, aiMessage);
+        chatActions.sendQuestion(question);
         appendPromptToHistory(question);
         textareaContent = '';
-
     }
 
-    onMount(() => {
-        makeActiveMessage(null, lastMessage);
-
-        update.func = async () => {
-            const scroll = needScroll(messagesContainer);
-            messages = messages;
-            await tick();
-            scroll && scrollToEnd(messagesContainer);
-        };
-    });
+    async function messagesUpdate(){
+        const scroll = needScroll(messagesContainer);
+        messages = messages;
+        await tick();
+        scroll && scrollToEnd(messagesContainer);
+    }
 </script>
 
 <div class="flex h-full">
@@ -70,7 +54,7 @@
                 <Send />
             </Button>
     
-            <Button disabled={!lastMessage.active} color="red" size="sm" class="ml-3" on:click={abortResponse}>
+            <Button disabled={!lastMessage.active} color="red" size="sm" class="ml-3" on:click={chatActions.sendAbort.bind(chatActions)}>
                 <Stop />
             </Button>
         </div>
