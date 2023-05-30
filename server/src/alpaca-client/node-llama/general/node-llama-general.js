@@ -9,6 +9,8 @@ export default class NodeLlamaGeneral extends IAlpacaClient {
     ctx = new BuildCtx();
     llama;
 
+    #textInReview = '';
+
     async question(text){
         const context = this.ctx.buildCtx(text);
         this.abortSignal.abort();
@@ -18,10 +20,13 @@ export default class NodeLlamaGeneral extends IAlpacaClient {
 
         await this.constructor.pull.question(context, {
             callback: (token) => {
-                if(this.callbackWithStopSequence(token, this.tokenCallback)){
-                    process.stdout.write(token);
-                    this.ctx.processToken(token);
-                }
+                const reviewContent = this.checkForStopSequence(token, this.tokenCallback);
+                if(!reviewContent) return;
+
+                process.stdout.write(reviewContent);
+                this.ctx.processToken(reviewContent);
+                this.tokenCallback(reviewContent);
+
             },
             errorCallback: this.errorCallback,
             abortSignal: abortSignal.signal
@@ -30,22 +35,35 @@ export default class NodeLlamaGeneral extends IAlpacaClient {
         this.closeCallback();
     }
 
-    callbackWithStopSequence(token, tokenCallback){
-        const fullResponse = this.ctx.lastResponse + token;
-
-        let stopSequence = this.constructor.modelSettings.settingsLLamaChat.stopSequence;
+    get stopSequence(){
+        const stopSequence = this.constructor.modelSettings.settingsLLamaChat.stopSequence;
         if(!Array.isArray(stopSequence)){
-            stopSequence = [stopSequence];
+            return [stopSequence];
         }
 
-        if(stopSequence.find(seq => fullResponse.endsWith(seq))){
-            this.abortSignal.abort('stop-sequence');
-            console.log('--stop sequence abort--');
+        return stopSequence;
+    }
+
+    checkForStopSequence(token){
+        const stopSequence = this.stopSequence;
+
+        const textReview = this.#textInReview + token;
+        const waitForNextTextReview = stopSequence.find(x => x.startsWith(textReview));
+
+        if(waitForNextTextReview){
+            const stopSequenceMatch = stopSequence.find(x => x.includes(textReview));
+            if(stopSequenceMatch){
+                this.abortSignal.abort('stop-sequence');
+                console.log('--stop sequence abort--');
+                return false;
+            }
+
+            this.#textInReview = textReview;
             return false;
         }
 
-        tokenCallback(token);
-        return true;
+        this.#textInReview = '';
+        return textReview;
     }
 
     close() {
