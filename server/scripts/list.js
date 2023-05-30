@@ -25,7 +25,14 @@ if (!hasModels) {
     console.log(modelTable.toString());
 }
 
-async function getInfoAboutModel({downloadedFiles}) {
+async function getInfoAboutModel({downloadedFiles, birthtime}) {
+    if(!downloadedFiles) {
+        return {
+            size: 0,
+            birthtime
+        };
+    }
+
     const files = await Promise.all(Object.values(downloadedFiles).map(file => fs.stat(file).catch(() => null)));
 
     const createDates = [];

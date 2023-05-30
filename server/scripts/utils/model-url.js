@@ -12,7 +12,8 @@ export default class ModelURL {
         this.tag = tag;
         this.modelSettings = {
             bind,
-            key
+            key,
+            birthtime: new Date().toLocaleDateString()
         };
     }
 
