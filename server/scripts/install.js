@@ -16,7 +16,7 @@ if (!modelURL.remoteExits) {
     await completeDownloadSettings();
     process.exit(0);
 
-} else if(yn(process.argv.exact)){
+} else if(!yn(process.argv.latest)){
     modelURL.useExactDownloadLinks();
 }
 

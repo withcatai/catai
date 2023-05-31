@@ -90,55 +90,6 @@ export default class ModelURL {
     }
 
     static async fetchModels() {
-        return {
-            "Vicuna-7B": {
-                "download": {
-                    "files": {
-                        "model": "ggml-vic7b-q4_0.bin",
-                        // "tokenizer": "tokenizer.json",
-                    },
-                    "repo": "https://huggingface.co/eachadea/ggml-vicuna-7b-1.1",
-                    "commit": "512c70d8df6846b82fc4023d55efe36d2e246092",
-                    "branch": "main"
-                },
-                "compatability": {
-                    "ramGB": 5,
-                    "cpuCors": 2,
-                    "compressions": "q4_0"
-                },
-                "settings": {
-                    "bind": "node-llama-cpp"
-                }
-            },
-            "Raven-RWKV-7B": {
-                "download": {
-                    "files": {
-                        "model": "RWKV-4-Raven-1B5-v11-Eng99%25-Other1%25-20230425-ctx4096-16_Q4_2.bin",
-                        "tokenizer": "20B_tokenizer.json",
-                    },
-                    "repo": "https://huggingface.co/imxcstar/rwkv-4-raven-ggml",
-                    "commit": "d326f4bc3e73c633a481ce74ae82dc859acd4427",
-                    "branch": "main"
-                },
-                "compatability": {
-                    "ramGB": 5,
-                    "cpuCors": 2,
-                    "compressions": "q4_0"
-                },
-                "settings": {
-                    "bind": "node-llama-rwkv"
-                }
-            },
-            "Bing-Chat": {
-                "compatability": {
-                    "ramGB": 0,
-                    "cpuCors": 0
-                },
-                "settings": {
-                    "bind": "bing-chat"
-                }
-            }
-        };
         const response = await wretch(SEARCH_MODEL).get().json();
         ModelURL.fetchModels = () => response;
 

@@ -34,7 +34,7 @@ program.command('install')
     .option('-b --bind [bind]', 'The model binding method')
     .option('-bk --bind-key [key]', 'Key/Cookie that the binding requires')
     .option('-t --tag [tag]', 'The name of the model in local directory')
-    .option('-e --exact', 'Install the exact version that the known to work and not the latest')
+    .option('-l --latest', 'Install the latest version of a model (may be unstable)')
     .action(async (model, options) => {
         process.argv.model = model ?? await selectModelInstall();
         Object.assign(process.argv, options);
