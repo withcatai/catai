@@ -3,7 +3,7 @@ import NodeLlamaCpp from './node-llama/node-llama-cpp.js';
 import NodeLlamaRS from './node-llama/node-llama-rs.js';
 import NodeLlamaRwkv from './node-llama/node-llama-rwkv.js';
 import BingChatClient from './bing-chat.js';
-import { IModelClient } from './IModelClient.js';
+import { IModelClient } from './i-model-client.js';
 
 export const BINDING = [NodeLlamaCpp, NodeLlamaRS, NodeLlamaRwkv, BingChatClient];
 

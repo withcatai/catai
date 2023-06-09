@@ -1,4 +1,4 @@
-import {IModelClient} from './IModelClient.js';
+import {IModelClient} from './i-model-client.js';
 import { BingChat } from 'bing-chat'
 import objectAssignDeep from 'object-assign-deep';
 

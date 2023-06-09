@@ -1,5 +1,5 @@
 export class IModelClient {
-    static name = 'IModelClient';
+    static name = 'ImodelClient';
     static modelSettings = {};
     
     waitInit = null;

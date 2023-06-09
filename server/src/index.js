@@ -1,13 +1,13 @@
-import { App } from '@tinyhttp/app';
-import { cors } from '@tinyhttp/cors';
+import {App} from '@tinyhttp/app';
+import {cors} from '@tinyhttp/cors';
 import http from 'http';
 import sirv from 'sirv';
-import { WebSocketServer } from 'ws';
-import { activateChat, requestAnswer } from './chat.js';
-import { UI_DIRECTORY } from './const.js';
+import {WebSocketServer} from 'ws';
+import {activateChat} from './api/chat/chat.js';
+import {UI_DIRECTORY} from './const.js';
 import serverListen from './server.js';
 import bodyParser from 'body-parser';
-import { apiRouter } from './api/index.js';
+import {apiRouter} from './api/index.js';
 
 
 const app = new App();
@@ -21,13 +21,5 @@ app.use(bodyParser.json());
 app.use('/api', apiRouter);
 ws.on('connection', activateChat);
 
-app.post('/question', async (req, res) => {
-    const { question } = req.body;
-    if (!question) {
-        res.status(400).send('Missing question');
-        return;
-    }
-    res.json(await requestAnswer(question, req));
-});
 
 serverListen(server);
