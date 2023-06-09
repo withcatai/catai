@@ -1,5 +1,5 @@
-export class IAlpacaClient {
-    static name = 'IAlpacaClient';
+export class IModelClient {
+    static name = 'IModelClient';
     static modelSettings = {};
     
     waitInit = null;

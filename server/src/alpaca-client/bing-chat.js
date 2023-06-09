@@ -1,4 +1,4 @@
-import {IAlpacaClient} from './IAlpacaClient.js';
+import {IModelClient} from './IAlpacaClient.js';
 import { BingChat } from 'bing-chat'
 import objectAssignDeep from 'object-assign-deep';
 
@@ -8,7 +8,7 @@ const defaultSettings = {
         variant: 'Creative'
     }
 }
-export default class BingChatClient extends IAlpacaClient {
+export default class BingChatClient extends IModelClient {
     static name = 'bing-chat';
 
     #chat;

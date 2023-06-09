@@ -8,6 +8,7 @@
     import History from '../actions/History.svelte';
     import TextInput from './TextInput.svelte';
     import {appendPromptToHistory} from '../../utils/actions/history.js';
+    import Settings from '../actions/Settings.svelte';
 
     export let messages: ChatMessage[] = [{content: '', active: false, error: '', hide: true}];
     const chatActions = new ChatSocket(messages, messagesUpdate).actions;
@@ -59,8 +60,9 @@
             </Button>
         </div>
     </div>
-    <div class="quick-actions p-3 hidden md:block">
+    <div class="quick-actions p-3 hidden md:flex flex-col gap-2">
         <History sendPrompt={sendMessage}/>
+        <Settings />
     </div>
 </div>
 

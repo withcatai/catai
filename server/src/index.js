@@ -7,6 +7,7 @@ import { activateChat, requestAnswer } from './chat.js';
 import { UI_DIRECTORY } from './const.js';
 import serverListen from './server.js';
 import bodyParser from 'body-parser';
+import { apiRouter } from './api/index.js';
 
 
 const app = new App();
@@ -17,6 +18,7 @@ app.use(cors({ origin: '*' }));
 app.use(sirv(UI_DIRECTORY));
 app.use(bodyParser.json());
 
+app.use('/api', apiRouter);
 ws.on('connection', activateChat);
 
 app.post('/question', async (req, res) => {

@@ -1,6 +1,7 @@
 import NodeLlamaGeneral from './general/node-llama-general.js';
+import {llamaObjectProxy} from './general/process-pull.js';
 import NodeLlamaActivePull from './general/process-pull.js';
-import {LLamaCpp} from 'llama-node/dist/llm/llama-cpp.js';
+import { LLamaCpp } from 'llama-node/dist/llm/llama-cpp.js';
 import objectAssignDeep from 'object-assign-deep';
 
 export const MAX_ACTIVE_SESSIONS = 5;
@@ -40,7 +41,9 @@ export default class NodeLlamaCpp extends NodeLlamaGeneral {
         NodeLlamaCpp.modelSettings = objectAssignDeep({}, defaultSettings, NodeLlamaCpp.modelSettings);
         NodeLlamaCpp.modelSettings.settingsLLamaLoad.path = NodeLlamaCpp.modelSettings.downloadedFiles.model;
 
-        NodeLlamaCpp.pull = new NodeLlamaActivePull(NodeLlamaCpp.modelSettings, LLamaCpp);
-        NodeLlamaCpp.onceSelected = () => {};
+        NodeLlamaCpp.pull = new NodeLlamaActivePull(
+            llamaObjectProxy(NodeLlamaCpp, 'modelSettings'),
+            LLamaCpp
+        );
     }
 }

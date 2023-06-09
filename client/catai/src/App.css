@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html, body, #app, main {
     height: 100%;
     padding: 0;

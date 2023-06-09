@@ -30,6 +30,7 @@
     "highlight.js": "^11.7.0",
     "markdown-it": "^13.0.1",
     "markdown-it-code-copy": "^0.1.1",
+    "svelte-ace": "^1.0.21",
     "typescript": "^4.9.5"
   }
 }

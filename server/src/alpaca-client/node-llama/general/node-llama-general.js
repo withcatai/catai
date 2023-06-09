@@ -1,7 +1,7 @@
 import BuildCtx from './build-ctx.js';
-import {IAlpacaClient} from '../../IAlpacaClient.js';
+import {IModelClient} from '../../IAlpacaClient.js';
 
-export default class NodeLlamaGeneral extends IAlpacaClient {
+export default class NodeLlamaGeneral extends IModelClient {
     static pull;
 
     static name = 'node-llama-general';

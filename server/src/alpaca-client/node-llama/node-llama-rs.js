@@ -3,6 +3,7 @@ import NodeLlamaActivePull from './general/process-pull.js';
 import { LLMRS } from "llama-node/dist/llm/llm-rs.js";
 import { ModelType } from "@llama-node/core";
 import objectAssignDeep from 'object-assign-deep';
+import {llamaObjectProxy} from './general/process-pull.js';
 export const MAX_ACTIVE_SESSIONS = 5;
 export const SETTINGS_NODE_LLAMA = {
     modelType: ModelType.Llama
@@ -33,7 +34,9 @@ export default class NodeLlamaRS extends NodeLlamaGeneral {
         NodeLlamaRS.modelSettings = objectAssignDeep({}, defaultSettings, NodeLlamaRS.modelSettings);
         NodeLlamaRS.modelSettings.settingsLLamaLoad.modelPath = NodeLlamaRS.modelSettings.downloadedFiles.model;
 
-        NodeLlamaRS.pull = new NodeLlamaActivePull(NodeLlamaRS.modelSettings, LLMRS);
-        NodeLlamaRS.onceSelected = () => {};
+        NodeLlamaRS.pull = new NodeLlamaActivePull(
+            llamaObjectProxy(NodeLlamaRS, 'modelSettings'),
+            LLMRS
+        );
     }
 }

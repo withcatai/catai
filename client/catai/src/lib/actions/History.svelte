@@ -38,7 +38,7 @@
     <Clock/>
 </GradientButton>
 
-<Modal title="Old prompts" bind:open={showModal} class="w-full h-96" autoclose>
+<Modal title="Old prompts" bind:open={showModal} class="w-full max-h-[calc(100vh-25rem)]" autoclose>
     <div class="flex justify-between">
         <Button color="red" on:click={closeHistory} size="xsm" class="text-xs p-2 shadow-red-500/50">clear</Button>
         <span>
@@ -51,10 +51,10 @@
                 <div class="flex d-flex justify-between align-top">
                     <span>{item}</span>
                     <div class="flex gap-2 items-start">
-                        <Button size="xsm" color="green" class="text-xs p-2 shadow-green-500" on:click={() => copyToClipboard(item)}>
+                        <Button size="xs" color="green" class="text-xs p-2 shadow-green-500" on:click={() => copyToClipboard(item)}>
                             <Clipboard size="1rem"/>
                         </Button>
-                        <Button size="xsm" color="blue" class="text-xs p-2 shadow-green-500" on:click={() => sendPromptToChat(item)}>
+                        <Button size="xs" color="blue" class="text-xs p-2 shadow-green-500" on:click={() => sendPromptToChat(item)}>
                             <PaperAirplane size="1rem"/>
                         </Button>
                     </div>

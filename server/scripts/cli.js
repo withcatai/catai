@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { tryUpdate } from './utils/check-update.js';
 import selectModelInstall from './utils/select-install.js';
+import { RESTART_EXIT_CODE } from '../src/const.js';
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url));
 const { version } = await fs.readJSON(path.join(__dirname, '..', 'package.json'));
@@ -16,7 +17,7 @@ function runCommand(callback) {
         try {
             await callback();
         } catch (err) {
-            console.error(err.message);
+            return err;
         }
     });
 }
@@ -57,7 +58,7 @@ program.command('bind')
     .option('-l --list', 'List all available bind methods')
     .option('-k --key [key]', 'Key/Cookie that the binding requires')
 
-    .action((bind, {list, key, model}) => {
+    .action((model, bind, {list, key}) => {
         runCommand(() => $`npm run bind -- --list ${Boolean(list)} --bind "${bind}" --key "${key}" --model "${model}"`);
     });
 
@@ -77,8 +78,12 @@ program.command('list')
 program.command('serve')
     .description('Open the chat website')
     .option('--ui [ui]', 'The ui to use')
-    .action(({ ui }) => {
-        runCommand(() => $`npm start -- --production true --ui ${ui || 'catai'}`);
+    .action(async ({ ui }) => {
+        const runServer = () => runCommand(() => $`npm start -- --production true --ui ${ui || 'catai'}`);
+
+        while((await runServer())?.exitCode === RESTART_EXIT_CODE){
+            $.env.CATAI_OPEN_IN_BROWSER = false;
+        }
     });
 
 program.command('update')

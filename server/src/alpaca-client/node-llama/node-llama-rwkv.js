@@ -1,6 +1,7 @@
 import NodeLlamaGeneral from './general/node-llama-general.js';
+import {llamaObjectProxy} from './general/process-pull.js';
 import NodeLlamaActivePull from './general/process-pull.js';
-import {RwkvCpp} from 'llama-node/dist/llm/rwkv-cpp.js';
+import { RwkvCpp } from 'llama-node/dist/llm/rwkv-cpp.js';
 import objectAssignDeep from 'object-assign-deep';
 
 export const MAX_ACTIVE_SESSIONS = 5;
@@ -31,7 +32,9 @@ export default class NodeLlamaRwkv extends NodeLlamaGeneral {
         NodeLlamaRwkv.modelSettings.settingsLLamaLoad.modelPath = NodeLlamaRwkv.modelSettings.downloadedFiles.model;
         NodeLlamaRwkv.modelSettings.settingsLLamaLoad.tokenizerPath = NodeLlamaRwkv.modelSettings.downloadedFiles.tokenizer;
 
-        NodeLlamaRwkv.pull = new NodeLlamaActivePull(NodeLlamaRwkv.modelSettings, RwkvCpp);
-        NodeLlamaRwkv.onceSelected = () => {};
+        NodeLlamaRwkv.pull = new NodeLlamaActivePull(
+            llamaObjectProxy(NodeLlamaRwkv, 'modelSettings'),
+            RwkvCpp
+        );
     }
 }

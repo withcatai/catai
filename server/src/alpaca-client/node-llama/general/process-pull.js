@@ -107,3 +107,14 @@ export default class NodeLlamaActivePull {
         return activeLlama;
     }
 }
+
+export function llamaObjectProxy(object, key){
+    return new Proxy({}, {
+        get(target, prop){
+            return object[key][prop];
+        }, 
+        set(target, prop, value){
+            return object[key][prop] = value;
+        }
+    });
+}

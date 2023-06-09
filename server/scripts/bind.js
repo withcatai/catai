@@ -17,7 +17,7 @@ if(listMethods){
 }
 
 
-const bindMethod = argv.methods;
+const bindMethod = argv.bind;
 const bindModel = argv.model;
 const bindKey = argv.key;
 
