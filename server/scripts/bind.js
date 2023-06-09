@@ -1,6 +1,6 @@
 import 'zx/globals';
 import {jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
-import {BINDING} from '../src/alpaca-client/binding.js';
+import {BINDING} from '../src/model-bind/binding.js';
 import CLITable from 'cli-table3';
 import yn from 'yn';
 

@@ -1,5 +1,5 @@
 import {jsonModelSettings} from './model-settings.js';
-import {getSelectedBinding} from './alpaca-client/binding.js';
+import {getSelectedBinding} from './model-bind/binding.js';
 
 if(!jsonModelSettings.model) {
     throw new Error('Model not found, try re-downloading the model');

@@ -1,5 +1,5 @@
 import {App} from "@tinyhttp/app";
-import { getSelectedBinding } from "../../alpaca-client/binding.js";
+import { getSelectedBinding } from "../../model-bind/binding.js";
 import { jsonModelSettings, saveModelSettings } from "../../model-settings.js";
 
 export const settingsRouter = new App();

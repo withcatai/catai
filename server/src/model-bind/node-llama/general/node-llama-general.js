@@ -1,5 +1,5 @@
 import BuildCtx from './build-ctx.js';
-import {IModelClient} from '../../IAlpacaClient.js';
+import {IModelClient} from '../../IModelClient.js';
 
 export default class NodeLlamaGeneral extends IModelClient {
     static pull;

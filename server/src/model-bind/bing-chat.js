@@ -1,4 +1,4 @@
-import {IModelClient} from './IAlpacaClient.js';
+import {IModelClient} from './IModelClient.js';
 import { BingChat } from 'bing-chat'
 import objectAssignDeep from 'object-assign-deep';
 
