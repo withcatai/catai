@@ -25,7 +25,7 @@ export class IModelClient {
     static trimMessageEnd(message, trimText = '') {
         message = message.trimEnd();
 
-        if (message.endsWith(trimText)) {
+        if (trimText && message.endsWith(trimText)) {
             message = message.slice(0, -trimText.length).trimEnd();
         }
 
