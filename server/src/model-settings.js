@@ -15,7 +15,8 @@ const jsonModelSettingsString = await fs.readFile(modelSettings, 'utf8');
  *   key?: string,
  *   downloadedFiles?: {
  *       [key: string]: string
- *   }
+ *   },
+ *   version: number
  * }} ModelSettings
  *
  * @typedef {{

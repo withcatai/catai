@@ -1,6 +1,6 @@
 import path from 'path';
-import { $, fs } from 'zx';
-import {DOWNLOAD_LOCATION, jsonModelSettings, saveModelSettings} from '../src/model-settings.js';
+import {$, fs} from 'zx';
+import {DOWNLOAD_LOCATION} from '../src/model-settings.js';
 import ModelURL from './utils/model-url.js';
 import yn from 'yn';
 
@@ -29,8 +29,7 @@ await completeDownloadSettings();
 
 async function completeDownloadSettings(){
     console.log("Download complete");
-    jsonModelSettings.metadata[modelURL.tag] = modelURL.modelSettings;
-    await saveModelSettings();
+    await modelURL.saveModelSettings();
 
     await $`npm run use ${modelURL.tag}`;
 }

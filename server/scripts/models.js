@@ -3,13 +3,14 @@ import 'zx/globals';
 import { listAllModels } from './utils/model-compatibility.js';
 
 const modelTable = new CLITable({
-    head: ['Models', 'Installed', 'Compatibility', 'Note']
+    head: ['Models', 'Installed', 'Version', 'Compatibility', 'Note']
 });
 
-for(const {model, modelInstalled, compatibility, note} of await listAllModels()){
+for(const {model, modelInstalled, compatibility, note, version} of await listAllModels()){
     modelTable.push([
         model,
         modelInstalled ? '✅' : '❌',
+        version,
         compatibility,
         note
     ]);

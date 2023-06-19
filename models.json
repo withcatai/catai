@@ -6,7 +6,8 @@
       },
       "repo": "https://huggingface.co/eachadea/ggml-vicuna-7b-1.1",
       "commit": "8ea1e83a4f96d60802c2f155036859bb9fbd5349",
-      "branch": "main"
+      "branch": "main",
+      "version": 0
     },
     "compatability": {
       "ramGB": 5,
@@ -25,7 +26,8 @@
       },
       "repo": "https://huggingface.co/imxcstar/rwkv-4-raven-ggml",
       "commit": "d326f4bc3e73c633a481ce74ae82dc859acd4427",
-      "branch": "main"
+      "branch": "main",
+      "version": 0
     },
     "compatability": {
       "ramGB": 5,

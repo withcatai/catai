@@ -1,11 +1,15 @@
 import wretch from "wretch";
 import {downloadFileCLI} from './download/cli-download.js';
 import objectAssignDeep from 'object-assign-deep';
+import {fs} from 'zx';
+import {jsonModelSettings, saveModelSettings} from '../../src/model-settings.js';
 
+export const DEFAULT_VERSION = 0;
 const SEARCH_MODEL = "https://raw.githubusercontent.com/ido-pluto/catai/main/models.json";
 
 export default class ModelURL {
     #setToExactDownloadLinks = false;
+    #oldModelDeleted = false;
 
     constructor({model, tag, bind = "node-llama-cpp", key} = process.argv) {
         this.model = model;
@@ -69,7 +73,19 @@ export default class ModelURL {
         }
     }
 
+    async #deleteOldModel() {
+        if(this.#oldModelDeleted) return;
+
+        this.#oldModelDeleted = true;
+        const downloadedFiles = jsonModelSettings.metadata[this.tag]?.downloadedFiles ?? {};
+        for(const file of Object.values(downloadedFiles)){
+            await fs.remove(file);
+        }
+    }
+
     async createDownload(downloadFile) {
+        await this.#deleteOldModel();
+
         try {
             for (const [local, remoteLink] of Object.entries(this.downloadMap)) {
                 const saveFile = `${downloadFile}.${local}`;
@@ -82,11 +98,19 @@ export default class ModelURL {
                 console.warn(`Link broken, trying to download again from alternative URLS`);
                 return this.createDownload(downloadFile);
             }
+            return;
         }
 
         this.modelSettings.downloadedFiles = Object.fromEntries(
             Object.entries(this.downloadMap).map(([local]) => [local, `${downloadFile}.${local}`])
         );
+
+        this.modelSettings.version = this.remoteModelDownload.download.version || DEFAULT_VERSION;
+    }
+
+    async saveModelSettings() {
+        jsonModelSettings.metadata[this.tag] = this.modelSettings;
+        await saveModelSettings();
     }
 
     static async fetchModels() {
