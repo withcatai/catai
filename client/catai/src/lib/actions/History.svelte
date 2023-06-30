@@ -38,7 +38,7 @@
     <Clock/>
 </GradientButton>
 
-<Modal title="Old prompts" bind:open={showModal} class="w-full max-h-[calc(100vh-25rem)]" autoclose>
+<Modal title="Old prompts" bind:open={showModal} class="w-full min-h-[30rem] max-h-[calc(100vh-25rem)]" autoclose>
     <div class="flex justify-between">
         <Button color="red" on:click={closeHistory} size="xsm" class="text-xs p-2 shadow-red-500/50">clear</Button>
         <span>

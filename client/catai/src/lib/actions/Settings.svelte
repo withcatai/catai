@@ -49,7 +49,7 @@
     </GradientButton>
 {/if}
 
-<Modal title="Model Settings" bind:open={showModal} class="w-full max-h-[calc(100vh-25rem)]" autoclose>
+<Modal title="Model Settings" bind:open={showModal} class="w-full min-h-[30rem] max-h-[calc(100vh-25rem)]" autoclose>
     <AceEditor
             bind:value
             bind:theme
