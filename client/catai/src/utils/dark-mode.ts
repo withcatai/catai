@@ -1,4 +1,7 @@
-import { writable } from 'svelte/store';
+import {writable} from 'svelte/store';
 
-const isLocalStorageThemeDark = localStorage.getItem('color-theme') === 'dark'
+const storedColorTheme = localStorage.getItem('color-theme');
+const isLocalStorageThemeDark = storedColorTheme ?
+    storedColorTheme === 'dark' :
+    window?.matchMedia?.('(prefers-color-scheme:dark)').matches;
 export const darkMode = writable(isLocalStorageThemeDark);
