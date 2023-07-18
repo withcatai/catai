@@ -71,6 +71,8 @@ export async function listAllModels() {
     const availableModels = await ModelURL.fetchModels();
 
     for (const model in availableModels) {
+        if(availableModels[model].hide) continue;
+
         const modelInstalled = Boolean(jsonModelSettings.metadata[model]);
         const { compatibility, note } = checkModelCompatibility(model, availableModels);
         const version = modelVersion(model, availableModels);

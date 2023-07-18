@@ -1,22 +1,23 @@
 {
-  "Vicuna-7B": {
+  "Llama-2-7B": {
     "download": {
       "files": {
-        "model": "ggml-old-vic7b-q4_0.bin"
+        "model": "llama-2-7b-chat.ggmlv3.q4_1.bin"
       },
-      "repo": "https://huggingface.co/eachadea/ggml-vicuna-7b-1.1",
-      "commit": "8ea1e83a4f96d60802c2f155036859bb9fbd5349",
+      "repo": "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML",
+      "commit": "ce564a18bb94cb965dd484eae76364a68b3d0689",
       "branch": "main",
-      "version": 0
+      "version": 2
     },
     "compatability": {
       "ramGB": 5,
       "cpuCors": 2,
-      "compressions": "q4_0"
+      "compressions": "q4_1"
     },
     "settings": {
       "bind": "node-llama-cpp"
-    }
+    },
+    "hide": true
   },
   "Raven-RWKV-7B": {
     "download": {
