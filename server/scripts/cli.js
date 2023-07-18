@@ -36,9 +36,10 @@ program.command('install')
     .option('-bk --bind-key [key]', 'Key/Cookie that the binding requires')
     .option('-t --tag [tag]', 'The name of the model in local directory')
     .option('-l --latest', 'Install the latest version of a model (may be unstable)')
+    .option('-m --model-index [modelIndex]', 'Install model from local models.json')
     .action(async (model, options) => {
-        process.argv.model = model ?? await selectModelInstall();
         Object.assign(process.argv, options);
+        process.argv.model = model ?? await selectModelInstall();
 
         await runCommand(() => import('./install.js'));
         await tryUpdate();
@@ -63,6 +64,7 @@ program.command('bind')
     });
 
 program.command('remove')
+    .alias('rm')
     .description('Remove model')
     .argument('value', 'Remove downloaded model, or "all" for all downloaded data')
     .action((value) => {
@@ -70,12 +72,14 @@ program.command('remove')
     });
 
 program.command('list')
+    .alias('ls')
     .description('List all models')
     .action(() => {
         runCommand(() => $`npm run list`);
     });
 
 program.command('serve')
+    .alias('up')
     .description('Open the chat website')
     .option('--ui [ui]', 'The ui to use')
     .action(async ({ ui }) => {
