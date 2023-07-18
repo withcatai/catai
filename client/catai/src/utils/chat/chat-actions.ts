@@ -49,6 +49,10 @@ export default class ChatActions {
 
     serverEnd() {
         this.lastMessage.active = false;
+        if(!this.lastMessage.content) {
+            this.lastMessage.error = 'Model response is empty.';
+        }
+
         this.controls.updateUI();
     }
 
