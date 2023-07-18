@@ -4,18 +4,21 @@ import CLITable from 'cli-table3';
 import {jsonModelSettings} from '../src/model-settings.js';
 
 const modelTable = new CLITable({
-    head: ['Model', 'Download Date', 'Size']
+    head: ['Selected', 'Model', 'Download Date', 'Size']
 });
 
 let hasModels = false;
+let index = 1;
 for (const [model, content] of Object.entries(jsonModelSettings.metadata)) {
     hasModels = true;
 
     const { size, birthtime} = await getInfoAboutModel(content);
     const birthtimeDate = new Date(birthtime).toLocaleDateString();
+    const selectedModel = jsonModelSettings.model === model ? '✅' : index;
+    index++;
 
     modelTable.push(
-        [model, birthtimeDate, prettyBytes(size)]
+        [selectedModel, model, birthtimeDate, prettyBytes(size)]
     );
 }
 
