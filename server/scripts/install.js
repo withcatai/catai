@@ -5,6 +5,12 @@ import ModelURL from './utils/model-url.js';
 import yn from 'yn';
 
 const modelURL = new ModelURL();
+async function completeDownloadSettings(){
+    console.log("Download complete");
+    await modelURL.saveModelSettings();
+
+    await $`npm run use ${modelURL.tag}`;
+}
 
 await modelURL.updateLink();
 
@@ -26,10 +32,3 @@ const downloadFile = path.join(downloadDir, modelURL.tag);
 
 await modelURL.createDownload(downloadFile);
 await completeDownloadSettings();
-
-async function completeDownloadSettings(){
-    console.log("Download complete");
-    await modelURL.saveModelSettings();
-
-    await $`npm run use ${modelURL.tag}`;
-}

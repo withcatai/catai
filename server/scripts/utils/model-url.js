@@ -3,6 +3,7 @@ import {downloadFileCLI} from './download/cli-download.js';
 import objectAssignDeep from 'object-assign-deep';
 import {fs} from 'zx';
 import {jsonModelSettings, saveModelSettings} from '../../src/model-settings.js';
+import {pathToFileURL} from 'url';
 
 export const DEFAULT_VERSION = 0;
 const SEARCH_MODEL = "https://raw.githubusercontent.com/ido-pluto/catai/main/models.json";
@@ -105,7 +106,7 @@ export default class ModelURL {
             Object.entries(this.downloadMap).map(([local]) => [local, `${downloadFile}.${local}`])
         );
 
-        this.modelSettings.version = this.remoteModelDownload.download.version || DEFAULT_VERSION;
+        this.modelSettings.version = this.remoteModelDownload.version || DEFAULT_VERSION;
     }
 
     async saveModelSettings() {
@@ -114,6 +115,16 @@ export default class ModelURL {
     }
 
     static async fetchModels() {
+        // install from local index
+        if(process.argv.modelIndex){
+            const fullIndexPath = path.join(process.cwd(), process.argv.modelIndex);
+            const indexAsURL= pathToFileURL(fullIndexPath);
+            const {default: models} = await import(indexAsURL, {assert: {type: 'json'}});
+
+            ModelURL.fetchModels = () => models;
+            return models;
+        }
+
         const response = await wretch(SEARCH_MODEL).get().json();
         ModelURL.fetchModels = () => response;
 
