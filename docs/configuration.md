@@ -6,7 +6,7 @@ You can change the configuration by setting the environment variables.
 export CATAI_PORT=3000
 export CATAI_OPEN_IN_BROWSER=true
 export CATAI_MAX_ACTIVE_SESSIONS=5
-export CATAI_DOWNLOAD_LOCATION=~/catai
+export CATAI_DOWNLOAD_LOCATION=~/server
 ```
 
 ** In Windows you need to use `set` instead of `export`.
@@ -14,7 +14,7 @@ export CATAI_DOWNLOAD_LOCATION=~/catai
 ## Additional via config file
 You can change the configuration by edition the `config.js` file.
 ```bash
-catai config --edit [editor]
+server config --edit [editor]
 ```
 
 After you change the configuration, you need to restart the server.

@@ -1,0 +1,37 @@
+name: Release
+on:
+  push:
+
+  workflow_dispatch:
+
+jobs:
+
+  release:
+    name: Release
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    concurrency: release-${{ github.ref }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    needs:
+      - build
+      - build-binaries
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: Install modules & build
+        run: |
+          cd packages/server
+          npm ci --ignore-scripts
+          npm run build
+
+#      - name: Release
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+#        run: npx semantic-release
+

@@ -4,7 +4,7 @@ If you want to run the source code locally, you can follow the steps below.
 
 To run the client.
 ```bash
-cd client/catai
+cd client/server
 npm install
 npm run dev
 ```

@@ -320,3 +320,5 @@ $RECYCLE.BIN/
 server/www/
 server/models/
 server/README.md
+/server/.idea/catai.iml
+/server/package-lock.json

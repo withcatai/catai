@@ -30,7 +30,7 @@ https://github.com/ggerganov/llama.cpp#description
 ### Model context size
 Small context can make the model for sudden stop, try to increase the context size.
 ```bash
-catai config --edit [editor]
+server config --edit [editor]
 ```
 
 ```js

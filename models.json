@@ -1,51 +1,40 @@
 {
-  "Llama-2-7B": {
+  "vicuna-7b-q4_1": {
     "download": {
       "files": {
-        "model": "llama-2-7b-chat.ggmlv3.q4_1.bin"
+        "model": "vicuna-7b-v1.5.ggmlv3.q4_1.bin"
       },
-      "repo": "https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML",
-      "commit": "ce564a18bb94cb965dd484eae76364a68b3d0689",
+      "repo": "https://huggingface.co/TheBloke/vicuna-7B-v1.5-GGML",
+      "commit": "2d95399e2eda8ddd027b48de4d0f855cf8adb31e",
       "branch": "main",
-      "version": 2
+      "version": 1
     },
     "compatability": {
-      "ramGB": 5,
-      "cpuCors": 2,
+      "ramGB": 4.8,
+      "cpuCors": 3,
       "compressions": "q4_1"
     },
     "settings": {
       "bind": "node-llama-cpp"
-    },
-    "hide": true
-  },
-  "Raven-RWKV-7B": {
-    "download": {
-      "files": {
-        "model": "RWKV-4-Raven-1B5-v11-Eng99%25-Other1%25-20230425-ctx4096-16_Q4_2.bin",
-        "tokenizer": "20B_tokenizer.json"
-      },
-      "repo": "https://huggingface.co/imxcstar/rwkv-4-raven-ggml",
-      "commit": "d326f4bc3e73c633a481ce74ae82dc859acd4427",
-      "branch": "main",
-      "version": 0
-    },
-    "compatability": {
-      "ramGB": 5,
-      "cpuCors": 2,
-      "compressions": "q4_0"
-    },
-    "settings": {
-      "bind": "node-llama-rwkv"
     }
   },
-  "Bing-Chat": {
+  "vicuna-13b-q4_1": {
+    "download": {
+      "files": {
+        "model": "vicuna-13b-v1.5.ggmlv3.q4_1.bin"
+      },
+      "repo": "https://huggingface.co/TheBloke/vicuna-13B-v1.5-GGML",
+      "commit": "8208f46ba1309fe5a30c175804494e7ec92395bf",
+      "branch": "main",
+      "version": 1
+    },
     "compatability": {
-      "ramGB": 0,
-      "cpuCors": 0
+      "ramGB": 8.7,
+      "cpuCors": 5,
+      "compressions": "q4_1"
     },
     "settings": {
-      "bind": "bing-chat"
+      "bind": "node-llama-cpp"
     }
   }
 }

@@ -1,5 +1,5 @@
 <div align="center">
-    <img alt="CatAI Logo" src="./demo/logo.png" width="360px"/>
+    <img alt="CatAI Logo" src="docs/demo/logo.png" width="360px"/>
     <h1>CatAI</h1>
 </div>
 
@@ -22,10 +22,10 @@ Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https
 
 Make sure you have [Node.js](https://nodejs.org/en/) (**download current**) installed.
 ```bash
-npm install -g catai
+npm install -g server
 
-catai install Vicuna-7B
-catai serve
+server install Vicuna-7B
+server serve
 ```
 
 ![catai](https://github.com/ido-pluto/catai/blob/main/demo/chat.gif)
@@ -39,23 +39,23 @@ catai serve
 ## Intro
 To see all the available models to install you can use this command.
 ```bash
-catai models
+server models
 ```
 
 You can also download a custom model like this:
 
 ```bash
-catai install https://example.com/model.ggml-q_0.bin
+server install https://example.com/model.ggml-q_0.bin
 ```
 
 You can list all the models that you have installed.
 ```bash
-catai list
+server list
 ```
 
 If you want to switch between models you can use `catai use` command.
 ```bash
-catai use Vicuna-7B
+server use Vicuna-7B
 ```
 
 #### Check out more commands [here](./docs/commands.md)
@@ -112,7 +112,7 @@ const {text, error} = await response.json();
 ## Docker
 Right now it is in early stages, but you can use it like this:
 ```bash
-docker run -p 3000:3000 npmcatai/catai:latest
+docker run -p 3000:3000 npmcatai/server:latest
 ```
 
 ## License
@@ -127,7 +127,7 @@ The GPT frontend is built on top of the chatGPT [Frontend mimic](https://github.
 <br />
 
 <div align="center" width="360">
-    <img alt="Star please" src="./demo/star.please.png" style="border-radius: 12px" width="360px" margin="auto" />
+    <img alt="Star please" src="docs/demo/star.please.png" style="border-radius: 12px" width="360px" margin="auto" />
     <br/>
     <p align="right">
         <i>If you like this repo, star it ✨</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

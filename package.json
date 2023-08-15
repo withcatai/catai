@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "prepare": "[ $CI = true ] || [ -d '.husky/_' ] || husky install"
+  },
+  "dependencies": {
+    "husky": "^8.0.3"
+  }
+}
