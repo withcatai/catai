@@ -17,6 +17,7 @@ type Config = {
     MODEL_INDEX: string;
     MODEL_DIR?: string;
     DEBUG_MODE?: boolean;
+    SIMULTANEOUSLY_EXECUTING?: number;
 }
 
 const DEFAULT_CONFIG: Config = {
@@ -27,7 +28,8 @@ const DEFAULT_CONFIG: Config = {
     OPEN_IN_BROWSER: true,
     ADMIN_USE: true,
     MODEL_INDEX: 'https://raw.githubusercontent.com/withcatai/catai/main/models.json',
-    DEBUG_MODE: false
+    DEBUG_MODE: false,
+    SIMULTANEOUSLY_EXECUTING: 4
 };
 
 const ENV_CONFIG: Partial<Config> = {
@@ -39,6 +41,7 @@ const ENV_CONFIG: Partial<Config> = {
     ADMIN_USE: yn(process.env.CATAI_ADMIN_USE),
     MODEL_INDEX: process.env.CATAI_MODEL_INDEX,
     DEBUG_MODE: yn(process.env.CATAI_DEBUG),
+    SIMULTANEOUSLY_EXECUTING: Number(process.env.CATAI_SIMULTANEOUSLY_EXECUTING),
     get MODEL_DIR() {
         return path.join(ENV_CONFIG.CATAI_DIR!, 'models');
     }

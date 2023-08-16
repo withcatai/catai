@@ -8,7 +8,7 @@ jobs:
 
   release:
     name: Release
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     concurrency: release-${{ github.ref }}
     permissions:
@@ -23,13 +23,14 @@ jobs:
           node-version: "20"
       - name: Install modules & build
         run: |
-          cd packages/server
+          cd server
           npm ci --ignore-scripts
           npm run build
+          npm run build:front
 
-#      - name: Release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-#        run: npx semantic-release
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
 
