@@ -1,5 +1,4 @@
-import {LlamaChatPromptWrapper} from 'node-llama-cpp';
-import {GeneralChatPromptWrapper} from './wrappers/general-chat-prompt-wrapper.js';
+import {GeneralChatPromptWrapper, LlamaChatPromptWrapper} from 'node-llama-cpp';
 
 export default function createChatWrapper(wrapper: string | null = null) {
     switch (wrapper) {
