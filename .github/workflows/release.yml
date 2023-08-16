@@ -15,9 +15,7 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
-    needs:
-      - build
-      - build-binaries
+
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
