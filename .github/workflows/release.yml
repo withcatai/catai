@@ -15,10 +15,11 @@ jobs:
 
     concurrency: release-${{ github.ref }}
     permissions:
+      pages: write
+      id-token: write
       contents: write
       issues: write
       pull-requests: write
-      id-token: write
 
     steps:
       - uses: actions/checkout@v3
