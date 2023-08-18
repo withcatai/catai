@@ -5,7 +5,7 @@ If you want to add a model, you can follow the steps below.
 - Check the model does not exist in the `models.json` file.
 - Check the model locally and make sure it works. (`catia install model-url`)
 - clone the repo
-- run `npm install`
+- run `npm install --ignore-scripts`
 - run `npm new-model`
 
 Copy link to the model:
