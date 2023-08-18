@@ -1,6 +1,6 @@
-import {WebSocket} from 'ws';
-import createChat from '../../../manage-models/bind-class/bind-class.js';
-import {ChatContext} from '../../../manage-models/bind-class/chat-context.js';
+import {WebSocket} from "ws";
+import createChat from "../../../manage-models/bind-class/bind-class.js";
+import {ChatContext} from "../../../manage-models/bind-class/chat-context.js";
 
 export default class WsChatController {
     private _loadChat?: ChatContext;
@@ -19,8 +19,8 @@ export default class WsChatController {
     }
 
     private _initEvents() {
-        this.ws.on('message', this._onWSMessage.bind(this));
-        this.ws.on('close', this._chat.abort.bind(this));
+        this.ws.on("message", this._onWSMessage.bind(this));
+        this.ws.on("close", this._chat.abort.bind(this._chat));
 
         this._chat.on('modelResponseEnd', () => {
             this._sendEvent('end', null);
