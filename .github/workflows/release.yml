@@ -8,6 +8,10 @@ jobs:
     name: Release
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
+
     concurrency: release-${{ github.ref }}
     permissions:
       contents: write
@@ -21,12 +25,12 @@ jobs:
           node-version: "20"
       - name: Install modules & build
         run: |
-          cd server
           npm ci --ignore-scripts
           npm run prepack
 
       - name: Generate docs
-        run: npm run generate-docs
+        run: |
+          npm run generate-docs
 
       - name: Release
         env:
