@@ -1,8 +1,8 @@
-import {Command} from 'commander';
-import FetchModels from '../../manage-models/about-models/fetch-models.js';
-import ModelCompatibilityChecker from '../../manage-models/about-models/model-compatibility-checker.js';
-import prompts from 'prompts';
-import AppDb from '../../storage/app-db.js';
+import {Command} from "commander";
+import FetchModels from "../../manage-models/about-models/fetch-models.js";
+import ModelCompatibilityChecker from "../../manage-models/about-models/model-compatibility-checker.js";
+import prompts from "prompts";
+import AppDb from "../../storage/app-db.js";
 
 export const installCommand = new Command('install');
 
@@ -35,7 +35,7 @@ installCommand.description('Install any GGML model')
         AppDb.db.activeModel = installer!.options.tag;
         await AppDb.saveDB();
 
-        console.log('Model installed');
+        console.log();
         console.log(`Model ${AppDb.db.activeModel} set to use`);
         console.log('Run `catai up` to start the server');
         process.exit(0);
