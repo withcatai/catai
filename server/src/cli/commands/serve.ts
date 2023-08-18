@@ -3,8 +3,9 @@ import ENV_CONFIG from '../../storage/config.js';
 import {fork} from 'child_process';
 import {fileURLToPath} from 'url';
 import {RESTART_EXIT_CODE} from '../../storage/const.js';
+import path from 'path';
 
-export const serveCommand = new Command('remove');
+export const serveCommand = new Command('serve');
 
 serveCommand.alias('up')
     .description('Open the chat website')

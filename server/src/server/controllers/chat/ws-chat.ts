@@ -1,6 +1,6 @@
 import {WebSocket} from 'ws';
 import createChat from '../../../manage-models/bind-class/bind-class.js';
-import {ChatContext} from '../../../manage-models/bind-class/binds/base-bind-class.js';
+import {ChatContext} from '../../../manage-models/bind-class/chat-context.js';
 
 export default class WsChatController {
     private _loadChat?: ChatContext;
@@ -9,41 +9,44 @@ export default class WsChatController {
 
     public async init(){
         this._loadChat = await createChat();
-        this.initEvents();
+        this._initEvents();
     }
 
-    protected get chat() {
+    protected get _chat() {
         if (!this._loadChat)
             throw new Error('Chat not loaded');
         return this._loadChat;
     }
 
-    private initEvents(){
-        this.ws.on('message', this.onWSMessage.bind(this));
-        this.chat.on('modelResponseEnd', () => {
-            this.sendEvent('end', null);
+    private _initEvents() {
+        this.ws.on('message', this._onWSMessage.bind(this));
+        this.ws.on('close', this._chat.abort.bind(this));
+
+        this._chat.on('modelResponseEnd', () => {
+            this._sendEvent('end', null);
         });
-        this.chat.on('error', (error) => {
-            this.sendEvent('error', error);
+        this._chat.on('error', (error) => {
+            this._sendEvent('error', error);
         });
-        this.chat.on('token', (text) => {
-            this.sendEvent('token', text);
+        this._chat.on('token', (text) => {
+            process.stdout.write(text);
+            this._sendEvent('token', text);
         });
     }
 
-    private async onWSMessage(message: string){
-        const {type, value} = JSON.parse(message);
-        switch (type) {
+    private async _onWSMessage(message: string) {
+        const {event, value} = JSON.parse(message);
+        switch (event) {
             case 'prompt':
-                await this.chat.prompt(value);
+                await this._chat.prompt(value);
                 break;
             case 'abort':
-                await this.chat.abort();
+                await this._chat.abort();
                 break;
         }
     }
 
-    private sendEvent(event: 'token' | 'error' | 'end', value: any){
+    private _sendEvent(event: 'token' | 'error' | 'end', value: any) {
         this.ws.send(JSON.stringify({event, value}));
     }
 }

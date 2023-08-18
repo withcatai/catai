@@ -23,8 +23,8 @@ export default class ChatSocket {
         this.socket.addEventListener('message', this.switchAction.bind(this));
     }
 
-    sendMessage(json: any) {
-        this.socket.send(JSON.stringify(json));
+    sendMessage(event: 'prompt' | 'abort', value?: string) {
+        this.socket.send(JSON.stringify({event, value}));
     }
 
     protected switchAction(event: MessageEvent) {

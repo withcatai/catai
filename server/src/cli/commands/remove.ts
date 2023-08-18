@@ -1,6 +1,7 @@
 import {Command} from 'commander';
 import ENV_CONFIG from '../../storage/config.js';
 import AppDb from '../../storage/app-db.js';
+import fs from 'fs-extra';
 
 export const removeCommand = new Command('remove');
 

@@ -1,6 +1,6 @@
-import {chalk} from 'zx';
 import wretch from 'wretch';
 import {packageJSON} from '../storage/config.js';
+import chalk from 'chalk';
 
 
 export function calculateVersion(version: string) {

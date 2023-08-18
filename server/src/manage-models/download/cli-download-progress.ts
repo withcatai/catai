@@ -1,6 +1,6 @@
 import prettyBytes from 'pretty-bytes';
 import cliProgress from 'cli-progress';
-import colors from 'ansi-colors';
+import chalk from 'chalk';
 import prettyMs from 'pretty-ms';
 import FastDownload from './fast-download.js';
 
@@ -75,6 +75,6 @@ export default class CLIDownloadProgress {
     }
 
     private getProgressBarFormat(): string {
-        return `Downloading ${this._name} | ${colors.cyan('{bar}')} | {percentage}% | {downloadBytes} | Speed: {speed} | Time: {timeLeft}`;
+        return `Downloading ${this._name} | ${chalk.cyan('{bar}')} | {percentage}% | {downloadBytes} | Speed: {speed} | Time: {timeLeft}`;
     }
 }

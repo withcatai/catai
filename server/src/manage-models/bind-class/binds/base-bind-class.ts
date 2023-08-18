@@ -1,15 +1,5 @@
-import {EventEmitter} from 'events';
 import {ModelSettings} from '../../../storage/app-db.js';
-
-export interface ChatContext extends EventEmitter {
-    on(event: 'token', listener: (message: string) => void): this;
-    on(event: 'error', listener: (error: string) => void): this;
-    on(event: 'abort', listener: (reason: string) => void): this;
-    on(event: 'modelResponseEnd', listener: (response: string | null) => void): this;
-
-    prompt: (prompt: string) => Promise<string | null>;
-    abort(reason?: string): void;
-}
+import {ChatContext} from '../chat-context.js';
 
 export default abstract class BaseBindClass<T> {
     public static shortName?: string;

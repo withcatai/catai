@@ -16,7 +16,7 @@ chatRouter.post('/prompt', async (req, res) => {
 
     const chat = await createChat();
     chat.on('token', (token) => {
-        res.send(token);
+        res.write(token);
     });
 
     req.once('close', () => {

@@ -2,6 +2,8 @@ import wretch from 'wretch';
 import ENV_CONFIG from '../../storage/config.js';
 import AppDb, {ModelSettings} from '../../storage/app-db.js';
 import downloadFileCLI from '../download/index.js';
+import path from 'path';
+import fs from 'fs-extra';
 
 type DetailedDownloadInfo = {
     files: {
@@ -30,10 +32,10 @@ export default class FetchModels {
     private static _cachedModels: RemoteFetchModels;
     private _downloadFiles: { [key: string]: string } = {};
 
-    constructor(private options: FetchOptions) {
+    constructor(public options: FetchOptions) {
     }
 
-    private async findModel() {
+    private async _findModel() {
         if (typeof this.options.download !== 'string') return;
 
         if (this.options.download.startsWith('http://') || this.options.download.startsWith('https://')) {
@@ -44,15 +46,15 @@ export default class FetchModels {
             return;
         }
 
-        await this.setDetailedRemoteModel();
+        await this._setDetailedRemoteModel();
     }
 
-    private async setDetailedRemoteModel() {
+    private async _setDetailedRemoteModel() {
         const models = await FetchModels.fetchModels();
         const modelName = this.options.download.toString().toLocaleLowerCase();
 
         const foundModel = Object.keys(models).find(x => x === modelName);
-        if(!foundModel)
+        if (!foundModel)
             throw new Error(`Model ${modelName} not found!`);
 
         const {download: modelDownloadDetails, ...settings} = models[foundModel!];
@@ -69,7 +71,7 @@ export default class FetchModels {
         this._downloadFiles = downloadLinks;
     }
 
-    private async deleteOldFiles() {
+    private async _deleteOldFiles() {
         const modelDetails = AppDb.db.models[this.options.tag!];
         if (!modelDetails) return;
 
@@ -83,8 +85,8 @@ export default class FetchModels {
     }
 
     public async startDownload() {
-        await this.findModel();
-        await this.deleteOldFiles();
+        await this._findModel();
+        await this._deleteOldFiles();
         const typeToName = (type: string) => `${this.options.tag}.${type}`;
 
         const downloadedFiles: { [key: string]: string } = {};

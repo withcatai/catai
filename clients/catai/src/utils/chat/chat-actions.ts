@@ -28,12 +28,12 @@ export default class ChatActions {
             {content: question, myMessage: true, active: true},
             {content: '', error: '', active: true}
         );
-        this.controls.sendMessage({type: 'prompt', value: question});
+        this.controls.sendMessage('prompt', question);
         this.controls.updateUI();
     }
 
     sendAbort() {
-        this.controls.sendMessage({type: 'abort'});
+        this.controls.sendMessage('abort');
     }
 
     // server responses

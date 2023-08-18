@@ -12,20 +12,22 @@
 </div>
 <br />
 
-Run Alpaca model on your computer with a chat ui.
+Run GGML models on your computer with a chat ui.
 
-> Your own AI assistant run locally on your computer.
+> Your own AI assistant runs locally on your computer.
 
-Inspired by [Dalai](https://github.com/cocktailpeanut/dalai), [Node-Llama](https://github.com/Atome-FE/llama-node), [Llama.cpp](https://github.com/ggerganov/llama.cpp)
+Inspired
+by [Node-Llama-Cpp](https://github.com/withcatai/node-llama-cpp), [Llama.cpp](https://github.com/ggerganov/llama.cpp)
 
 ## Installation & Use
 
 Make sure you have [Node.js](https://nodejs.org/en/) (**download current**) installed.
-```bash
-npm install -g server
 
-server install Vicuna-7B
-server serve
+```bash
+npm install -g catai
+
+catai install vicuna-7b-q4_1
+catai up
 ```
 
 ![catai](https://github.com/ido-pluto/catai/blob/main/demo/chat.gif)
@@ -36,39 +38,57 @@ server serve
 - Real time text streaming ⏱️
 - Fast model downloads 🚀
 
-## Intro
-To see all the available models to install you can use this command.
-```bash
-server models
+## CLI
+
+```
+Usage: catai [options] [command]
+
+Options:
+  -V, --version                    output the version number
+  -h, --help                       display help for command
+
+Commands:
+  install|i [options] [models...]  Install any GGML model
+  models|ls [options]              List all available models
+  use [model]                      Set model to use
+  serve|up [options]               Open the chat website
+  update                           Update server to the latest version
+  active                           Show active model
+  remove|rm [options] [models...]  Remove a model
+  uninstall                        Uninstall server and delete all models
+  help [command]                   display help for command
 ```
 
-You can also download a custom model like this:
+### Install command
 
-```bash
-server install https://example.com/model.ggml-q_0.bin
 ```
+Usage: cli install|i [options] [models...]
 
-You can list all the models that you have installed.
-```bash
-server list
+Install any GGML model
+
+Arguments:
+  models                Model name/url/path
+
+Options:
+  -t --tag [tag]        The name of the model in local directory
+  -l --latest           Install the latest version of a model (may be unstable)
+  -b --bind [bind]      The model binding method
+  -bk --bind-key [key]  key/cookie that the binding requires
+  -h, --help            display help for command
 ```
-
-If you want to switch between models you can use `catai use` command.
-```bash
-server use Vicuna-7B
-```
-
-#### Check out more commands [here](./docs/commands.md)
 
 ### Cross-platform
+
 You can use it on Windows, Linux and Mac.
 
-This package from version 1.6.0 could depend on [llama-node](https://github.com/hlhr202/llama-node)
-which supports:
+This package uses [node-llama-cpp](https://github.com/withcatai/node-llama-cpp) which supports the following platforms:
 
 - darwin-x64
 - darwin-arm64
-- linux-x64-gnu
+- linux-x64
+- linux-arm64
+- linux-armv7l
+- linux-ppc64le
 - win32-x64-msvc
 
 ### Memory usage
@@ -84,44 +104,51 @@ According to [a llama.cpp discussion thread](https://github.com/ggerganov/llama.
 - All download data will be downloaded at `~/catai` folder by default.
 - The download is multi-threaded, so it may use a lot of bandwidth, but it will download faster!
 
-## API
+## Web API
+
 There is also a simple API that you can use to ask the model questions.
+
 ```js
-const response = await fetch("http://127.0.0.1:3000/question", {
+const response = await fetch('http://127.0.0.1:3000/api/chat/prompt', {
+    method: 'POST',
+    body: JSON.stringify({
+        prompt: 'Write me 100 words story'
+    }),
     headers: {
         'Content-Type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify({
-        question: "What is the meaning of life?"
-    })
+    }
 });
 
-const {text, error} = await response.json();
+const data = await response.text();
 ```
 
-## Into details
-- ### [Configuration](./docs/configuration.md)
+### Streaming the response
 
-- ### [Troubleshooting](./docs/troubleshooting.md)
+```js
+const response = await fetch('http://127.0.0.1:3000/api/chat/prompt', {
+    method: 'POST',
+    body: JSON.stringify({
+        prompt: 'Write me 100 words story'
+    }),
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
 
-- ### [Development](./docs/development.md)
 
-- ### [Contributing](./CONTRIBUTING.md)
+const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
 
-## Docker
-Right now it is in early stages, but you can use it like this:
-```bash
-docker run -p 3000:3000 npmcatai/server:latest
+while (true) {
+    const {value, done} = await reader.read();
+    if (done) break;
+    console.log('Received', value);
+}
 ```
 
 ## License
 
-This project use [Llama.cpp](https://github.com/ggerganov/llama.cpp) to run Alpaca models on your computer.
+This project uses [Llama.cpp](https://github.com/ggerganov/llama.cpp) to run models on your computer.
 So any license applied to Llama.cpp is also applied to this project.
-
-## Credits
-The GPT frontend is built on top of the chatGPT [Frontend mimic](https://github.com/nisabmohd/ChatGPT)
 
 
 <br />

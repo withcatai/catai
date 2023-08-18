@@ -21,7 +21,7 @@ type Config = {
 }
 
 const DEFAULT_CONFIG: Config = {
-    CATAI_DIR: path.join(os.homedir(), '.server'),
+    CATAI_DIR: path.join(os.homedir(), '.catai'),
     PRODUCTION: false,
     SELECTED_UI: 'catai',
     PORT: 3000,

@@ -1,7 +1,9 @@
 import 'zx/globals';
 import {JSDOM} from 'jsdom';
 import prompts from 'prompts';
-import {version as catAIVersion} from '../package.json' assert {type: 'json'};
+
+let {stdout: catAIVersion} = await $`npm -g info catai version`;
+catAIVersion = catAIVersion.trim();
 
 const modelsJSONPath = path.join(__dirname, '..', '..', 'models.json');
 const models = await fs.readJSON(modelsJSONPath, 'utf-8');
@@ -35,6 +37,51 @@ const fileCompressionParametersToSize = {
         7: 7.2,
         13: 13.8,
         30: 34.6,
+    },
+    'q2_K': {
+        7: 2.9,
+        13: 5.6,
+        30: 13.6,
+    },
+    'q3_K_L': {
+        7: 3.6,
+        13: 7,
+        30: 17.2,
+    },
+    'q3_K_M': {
+        7: 3.3,
+        13: 6.4,
+        30: 15.7,
+    },
+    'q3_K_S': {
+        7: 3,
+        13: 5.7,
+        30: 14
+    },
+    'q4_K_M': {
+        7: 4.1,
+        13: 7.9,
+        30: 19.6,
+    },
+    'q4_K_S': {
+        7: 3.9,
+        13: 7.4,
+        30: 18.3,
+    },
+    'q5_K_M': {
+        7: 4.8,
+        13: 9.3,
+        30: 23,
+    },
+    'q5_K_S': {
+        7: 4.7,
+        13: 9,
+        30: 22.4,
+    },
+    'q6_K': {
+        7: 5.6,
+        13: 10.7,
+        30: 26.7,
     }
 };
 
@@ -63,6 +110,10 @@ function calculateCompatibility(file) {
     const fileCompression = file.split(".").at(-2);
     const parameters = (/-([0-9]+(\.[0-9]+)?)[bB][-.]/g).exec(file)[1];
     const fileSize = fileCompressionParametersToSize[fileCompression]?.[parameters];
+
+    if (!fileSize) {
+        throw new Error(`Can't calculate compatibility for ${file}`);
+    }
 
     return {
         "ramGB": fileSize + .5,
