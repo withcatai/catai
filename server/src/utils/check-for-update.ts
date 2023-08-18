@@ -1,6 +1,6 @@
-import wretch from 'wretch';
-import {packageJSON} from '../storage/config.js';
-import chalk from 'chalk';
+import wretch from "wretch";
+import {packageJSON} from "../storage/config.js";
+import chalk from "chalk";
 
 
 export function calculateVersion(version: string) {
@@ -12,7 +12,7 @@ async function checkForUpdate() {
     const npmPackage: any = await wretch(`https://registry.npmjs.com/${packageJSON.name}`).get().json();
     const latestVersion = npmPackage['dist-tags'].latest;
 
-    if (calculateVersion(packageJSON.version) > calculateVersion(latestVersion))
+    if (calculateVersion(packageJSON.version) >= calculateVersion(latestVersion))
         return;
 
     console.log(`\n${chalk.green('New version available!')}, some models may not work in older versions`);
