@@ -48,14 +48,14 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "docs"
-          path: "docs"
+          path: "server/docs"
 
       - name: Upload docs to GitHub Pages
         if: steps.release-package.outputs.npm-success != ''
         uses: actions/upload-pages-artifact@v2
         with:
           name: pages-docs
-          path: docs
+          path: server/docs
 
       - name: Deploy docs to GitHub Pages
         if: steps.release-package.outputs.npm-success != ''
