@@ -1,11 +1,12 @@
-import {App} from '@tinyhttp/app';
-import WsChatController from '../../controllers/chat/ws-chat.js';
-import createChat from '../../../manage-models/bind-class/bind-class.js';
-import {WebSocket} from 'ws';
+import {App} from "@tinyhttp/app";
+import WsChatController from "../../controllers/chat/ws-chat.js";
+import createChat from "../../../manage-models/bind-class/bind-class.js";
+import {WebSocket} from "ws";
 
 export const chatRouter = new App();
 
 export async function connectWS(ws: WebSocket){
+    console.log("New connection");
     const controller = new WsChatController(ws);
     await controller.init();
 }

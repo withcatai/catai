@@ -35,7 +35,7 @@
     "lint:eslint": "eslint --ext .js --ext .ts ../..",
     "format": "npm run lint:eslint -- --fix",
     "clean": "rm -rf ./node_modules ./dist ./tsconfig.tsbuildinfo",
-    "cli": "ts-node-esm -r dotenv/config ./src/cli/cli.ts",
+    "cli": "npm run build && node -r dotenv/config ./dist/cli/cli.js",
     "new-model": "zx scripts/new-model.js",
     "prepack": "npm run build && npm run build:front && cp ../README.md ./README.md"
   },
@@ -81,7 +81,6 @@
     "eslint-plugin-node": "github:giladgd/eslint-plugin-node#dev/giladgd/fixImportExtentionFixingInTypeScript",
     "jsdom": "^22.1.0",
     "semantic-release": "^21.0.7",
-    "ts-node": "^10.9.1",
     "tslib": "^2.6.1",
     "typedoc": "^0.24.8",
     "typedoc-plugin-missing-exports": "^2.0.1",

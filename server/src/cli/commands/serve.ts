@@ -1,9 +1,9 @@
-import {Command} from 'commander';
-import ENV_CONFIG from '../../storage/config.js';
-import {fork} from 'child_process';
-import {fileURLToPath} from 'url';
-import {RESTART_EXIT_CODE} from '../../storage/const.js';
-import path from 'path';
+import {Command} from "commander";
+import ENV_CONFIG from "../../storage/config.js";
+import {fork} from "child_process";
+import {fileURLToPath} from "url";
+import {RESTART_EXIT_CODE} from "../../storage/const.js";
+import path from "path";
 
 export const serveCommand = new Command('serve');
 
@@ -24,6 +24,7 @@ function runServer(ui: string): Promise<number> {
         env: {
             ...process.env,
             CATAI_SELECTED_UI: ui,
+            CATAI_PRODUCTION: (!ENV_CONFIG.DEBUG_MODE).toString()
         }
     });
 
@@ -32,8 +33,5 @@ function runServer(ui: string): Promise<number> {
 
 function findServerScript() {
     let __dirname = fileURLToPath(new URL('./', import.meta.url));
-    if(ENV_CONFIG.DEBUG_MODE){
-        __dirname = __dirname.replace('/src/', '/dist/');
-    }
     return path.join(__dirname, '..', '..', 'server', 'server.js');
 }
