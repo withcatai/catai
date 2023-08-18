@@ -26,7 +26,7 @@ Make sure you have [Node.js](https://nodejs.org/en/) (**download current**) inst
 ```bash
 npm install -g catai
 
-catai install vicuna-7b-q4_1
+catai install vicuna-7b-v1.5-q4_1
 catai up
 ```
 

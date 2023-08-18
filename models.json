@@ -179,5 +179,71 @@
       "wrapper": "llama"
     },
     "version": 1
+  },
+  "vicuna-7b-v1.5-q4_1": {
+    "download": {
+      "files": {
+        "model": "vicuna-7b-v1.5.ggmlv3.q4_1.bin"
+      },
+      "repo": "https://huggingface.co/TheBloke/vicuna-7B-v1.5-GGML",
+      "commit": "2d95399e2eda8ddd027b48de4d0f855cf8adb31e",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.8,
+      "cpuCors": 3,
+      "compressions": "q4_1"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp"
+    },
+    "version": 1
+  },
+  "vicuna-13b-v1.5-q4_1": {
+    "download": {
+      "files": {
+        "model": "vicuna-13b-v1.5.ggmlv3.q4_1.bin"
+      },
+      "repo": "https://huggingface.co/TheBloke/vicuna-13B-v1.5-GGML",
+      "commit": "8208f46ba1309fe5a30c175804494e7ec92395bf",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 8.7,
+      "cpuCors": 5,
+      "compressions": "q4_1"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp"
+    },
+    "version": 1
+  },
+  "wizard-vicuna-7b-uncensored-q4_1": {
+    "download": {
+      "files": {
+        "model": "Wizard-Vicuna-7B-Uncensored.ggmlv3.q4_1.bin"
+      },
+      "repo": "https://huggingface.co/TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
+      "commit": "531879da598ebc577cd4a03bdde9fbe3a641fc63",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.8,
+      "cpuCors": 3,
+      "compressions": "q4_1"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp"
+    },
+    "version": 1
   }
 }
