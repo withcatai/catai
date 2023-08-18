@@ -7,7 +7,7 @@
 
 [![npm version](https://badge.fury.io/js/catai.svg)](https://badge.fury.io/js/catai)
 [![npm downloads](https://img.shields.io/npm/dt/catai.svg)](https://www.npmjs.com/package/catai)
-[![GitHub license](https://img.shields.io/github/license/ido-pluto/catai)](./LICENSE)
+[![GitHub license](https://img.shields.io/github/license/withcatai/catai)](./LICENSE)
 
 </div>
 <br />
@@ -30,7 +30,7 @@ catai install vicuna-7b-v1.5-q4_1
 catai up
 ```
 
-![catai](https://github.com/ido-pluto/catai/blob/main/demo/chat.gif)
+![catai](https://github.com/withcatai/catai/blob/main/docs/demo/chat.gif)
 
 ## Features
 - Auto detect programming language 🧑‍💻
