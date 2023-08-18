@@ -136,7 +136,8 @@ const response = await fetch('http://127.0.0.1:3000/api/chat/prompt', {
 });
 
 
-const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
+const reader = response.body.pipeThrough(new TextDecoderStream())
+    .getReader();
 
 while (true) {
     const {value, done} = await reader.read();
@@ -144,6 +145,12 @@ while (true) {
     console.log('Received', value);
 }
 ```
+
+## Contributing
+
+Contributions are welcome!
+
+Please read our [contributing guide](./CONTRIBUTING.md) to get started.
 
 ## License
 
