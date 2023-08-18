@@ -35,17 +35,12 @@ jobs:
 
       - name: Release
         if: github.ref == 'refs/heads/main'
+        id: release-package
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run semantic-release
-
-      - name: Set npm package url to GITHUB_OUTPUT
-        id: set-npm-url
         run: |
-          if [ -f .semanticRelease.npmPackage.deployedVersion.txt ]; then
-            echo "npm-url=https://www.npmjs.com/package/node-llama-cpp/v/$(cat .semanticRelease.npmPackage.deployedVersion.txt)" >> $GITHUB_OUTPUT
-          fi
+          npm run semantic-release && echo "npm-success=true" >> $GITHUB_OUTPUT
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
@@ -54,14 +49,14 @@ jobs:
           path: "docs"
 
       - name: Upload docs to GitHub Pages
-        if: steps.set-npm-url.outputs.npm-url != ''
+        if: steps.release-package.outputs.npm-success != ''
         uses: actions/upload-pages-artifact@v2
         with:
           name: pages-docs
           path: docs
 
       - name: Deploy docs to GitHub Pages
-        if: steps.set-npm-url.outputs.npm-url != ''
+        if: steps.release-package.outputs.npm-success != ''
         uses: actions/deploy-pages@v2
         with:
           artifact_name: pages-docs
