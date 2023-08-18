@@ -9,6 +9,7 @@
     "catai": "./dist/cli/cli.js"
   },
   "files": [
+    "www/",
     "dist/",
     "package.json",
     "README.md",
