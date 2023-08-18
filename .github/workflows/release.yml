@@ -1,0 +1,62 @@
+name: Release
+on:
+  workflow_dispatch:
+
+jobs:
+
+  release:
+    name: Release
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency: release-${{ github.ref }}
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: Install modules & build
+        run: |
+          cd server
+          npm ci --ignore-scripts
+          npm run prepack
+
+      - name: Generate docs
+        run: npm run generate-docs
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
+
+      - name: Set npm package url to GITHUB_OUTPUT
+        id: set-npm-url
+        run: |
+          if [ -f .semanticRelease.npmPackage.deployedVersion.txt ]; then
+            echo "npm-url=https://www.npmjs.com/package/node-llama-cpp/v/$(cat .semanticRelease.npmPackage.deployedVersion.txt)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: "docs"
+          path: "docs"
+
+      - name: Upload docs to GitHub Pages
+        if: steps.set-npm-url.outputs.npm-url != ''
+        uses: actions/upload-pages-artifact@v2
+        with:
+          name: pages-docs
+          path: docs
+
+      - name: Deploy docs to GitHub Pages
+        if: steps.set-npm-url.outputs.npm-url != ''
+        uses: actions/deploy-pages@v2
+        with:
+          artifact_name: pages-docs
+
