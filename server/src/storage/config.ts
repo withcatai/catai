@@ -1,8 +1,8 @@
-import * as path from 'path';
-import * as os from 'os';
-import yn from 'yn';
-import fs from 'fs-extra';
-import {fileURLToPath} from 'url';
+import * as path from "path";
+import * as os from "os";
+import yn from "yn";
+import fs from "fs-extra";
+import {fileURLToPath} from "url";
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url));
 export const packageJSON = await fs.readJSON(path.join(__dirname, '..', '..', 'package.json'));
@@ -55,13 +55,13 @@ export type Config = {
 }
 
 const DEFAULT_CONFIG: Config = {
-    CATAI_DIR: path.join(os.homedir(), '.catai'),
+    CATAI_DIR: path.join(os.homedir(), "catai"),
     PRODUCTION: false,
-    SELECTED_UI: 'catai',
+    SELECTED_UI: "catai",
     PORT: 3000,
     OPEN_IN_BROWSER: true,
     ADMIN_USE: true,
-    MODEL_INDEX: 'https://raw.githubusercontent.com/withcatai/catai/main/models.json',
+    MODEL_INDEX: "https://raw.githubusercontent.com/withcatai/catai/main/models.json",
     DEBUG_MODE: false,
     SIMULTANEOUSLY_EXECUTING: 4
 };
