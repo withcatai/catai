@@ -30,9 +30,10 @@ export type DBStore = {
 }
 
 
-class AppDB {
+export class CatAIJsonDB {
     private readonly DB_PATH = path.join(ENV_CONFIG.CATAI_DIR!, 'app-db.json');
     public db: DBStore;
+
     constructor() {
         this.db = {
             models: {}
@@ -50,7 +51,7 @@ class AppDB {
     }
 }
 
-const appDB = new AppDB();
+const appDB = new CatAIJsonDB();
 await appDB.loadDB();
 
 export default appDB;

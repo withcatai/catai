@@ -10,5 +10,5 @@ export {
     FetchModels,
     createChat,
     CatAIDB,
-    ENV_CONFIG as CATAI_ENV_CONFIG
+    ENV_CONFIG as CATAI_ENV_CONFIG,
 };

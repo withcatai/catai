@@ -7,7 +7,41 @@ import {fileURLToPath} from 'url';
 const __dirname = fileURLToPath(new URL('./', import.meta.url));
 export const packageJSON = await fs.readJSON(path.join(__dirname, '..', '..', 'package.json'));
 
-type Config = {
+/**
+ * CatAI config, that can be set by env variables
+ * @property {string} CATAI_DIR - The directory to store models and other data.
+ *
+ * env: CATAI_DIR
+ * @property {boolean} PRODUCTION - Whether to run in production mode
+ *
+ * env: CATAI_PRODUCTION
+ * @property {string} SELECTED_UI - The web ui to use
+ *
+ * env: CATAI_SELECTED_UI
+ * @property {number} PORT - The port to use for the server
+ *
+ * env: CATAI_PORT
+ * @property {boolean} OPEN_IN_BROWSER - Whether to open the website in the browser
+ *
+ * env: CATAI_OPEN_IN_BROWSER
+ * @property {boolean} ADMIN_USE - Whether to use admin features
+ *
+ * env: CATAI_ADMIN_USE
+ * @property {string} MODEL_INDEX - The url to the model index, currently fetch from CatAI repo
+ *
+ * env: CATAI_MODEL_INDEX
+ * @property {string} MODEL_DIR - The directory to store models
+ *
+ * env: CATAI_DIR
+ * @property {boolean} DEBUG_MODE - Whether to run in debug mode
+ *
+ * env: CATAI_DEBUG
+ * @property {number} SIMULTANEOUSLY_EXECUTING - The number of models that can be executed simultaneously
+ *
+ * env: CATAI_SIMULTANEOUSLY_EXECUTING
+ * @interface
+ */
+export type Config = {
     CATAI_DIR: string;
     PRODUCTION: boolean;
     SELECTED_UI: string;

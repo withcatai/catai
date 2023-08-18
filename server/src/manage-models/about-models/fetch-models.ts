@@ -5,7 +5,7 @@ import downloadFileCLI from '../download/index.js';
 import path from 'path';
 import fs from 'fs-extra';
 
-type DetailedDownloadInfo = {
+export type DetailedDownloadInfo = {
     files: {
         [fileId: string]: string
     },
@@ -14,7 +14,7 @@ type DetailedDownloadInfo = {
     branch: string,
 }
 
-type FetchOptions = {
+export type FetchOptions = {
     download: string | DetailedDownloadInfo
     tag?: string;
     latest?: boolean;
