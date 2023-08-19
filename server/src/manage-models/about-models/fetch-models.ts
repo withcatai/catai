@@ -4,6 +4,7 @@ import AppDb, {ModelSettings} from '../../storage/app-db.js';
 import downloadFileCLI from '../download/index.js';
 import path from 'path';
 import fs from 'fs-extra';
+import {pathToFileURL} from 'url';
 
 export type DetailedDownloadInfo = {
     files: {
@@ -39,7 +40,7 @@ export default class FetchModels {
         if (typeof this.options.download !== 'string') return;
 
         if (this.options.download.startsWith('http://') || this.options.download.startsWith('https://')) {
-            this.options.tag ??= this.options.download.split('/').pop()!;
+            this.options.tag ??= FetchModels._findModelTag(this.options.download);
             this._downloadFiles = {
                 model: this.options.download
             };
@@ -55,7 +56,7 @@ export default class FetchModels {
 
         const foundModel = Object.keys(models).find(x => x === modelName);
         if (!foundModel)
-            throw new Error(`Model ${modelName} not found!`);
+            return this._setDetailedLocalModel();
 
         const {download: modelDownloadDetails, ...settings} = models[foundModel!];
 
@@ -69,6 +70,20 @@ export default class FetchModels {
         this.options.settings = {...settings, ...this.options.settings};
 
         this._downloadFiles = downloadLinks;
+    }
+
+    private async _setDetailedLocalModel() {
+        const fullPath = path.resolve(this.options.download.toString());
+        console.log(fullPath);
+        if (typeof this.options.download !== 'string' || !await fs.pathExists(fullPath))
+            throw new Error(`Cannot find model ${this.options.download}`);
+
+
+        this.options.tag ??= FetchModels._findModelTag(fullPath);
+        this._downloadFiles = {
+            model: pathToFileURL(fullPath).href
+        };
+
     }
 
     private async _deleteOldFiles() {
@@ -93,6 +108,7 @@ export default class FetchModels {
 
         for (const [type, url] of Object.entries(this._downloadFiles)) {
             const savePath = path.join(ENV_CONFIG.MODEL_DIR!, typeToName(type));
+
             await downloadFileCLI(url, savePath, type);
             downloadedFiles[type] = savePath;
         }
@@ -116,5 +132,9 @@ export default class FetchModels {
         } catch {
             return this._cachedModels = await fs.readJSON(ENV_CONFIG.MODEL_INDEX!);
         }
+    }
+
+    private static _findModelTag(modelPath: string) {
+        return modelPath.split(/\/|\\/).pop()!;
     }
 }

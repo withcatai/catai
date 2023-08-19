@@ -2,7 +2,7 @@ import prettyBytes from 'pretty-bytes';
 import cliProgress from 'cli-progress';
 import chalk from 'chalk';
 import prettyMs from 'pretty-ms';
-import FastDownload from './fast-download.js';
+import {IStreamProgress} from './stream-progress/istream-progress.js';
 
 export default class CLIDownloadProgress {
     private static readonly AVERAGE_SPEED_LAST_SECONDS = 10;
@@ -10,7 +10,7 @@ export default class CLIDownloadProgress {
     private _progressBar: cliProgress.SingleBar;
     private _lastDownloaded = 0;
 
-    public constructor(private _downloader: FastDownload, private _name: string) {
+    public constructor(private _progress: IStreamProgress, private _name: string) {
         this._progressBar = new cliProgress.SingleBar({
             format: this.getProgressBarFormat(),
             barCompleteChar: '\u2588',
@@ -71,7 +71,8 @@ export default class CLIDownloadProgress {
             downloadBytes: `0 bytes/0 bytes`
         });
 
-        return await (this._downloader.downloader as any).download(this.handleProgress.bind(this));
+        await this._progress.progress(this.handleProgress.bind(this));
+        console.log();
     }
 
     private getProgressBarFormat(): string {
