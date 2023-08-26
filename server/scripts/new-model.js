@@ -178,7 +178,7 @@ async function main() {
         "hardwareCompatibility": calculateCompatibility(file),
         "compatibleCatAIVersionRange": [catAIVersion],
         "settings": {
-            "bind": "node-llama-cpp"
+            "bind": "node-llama-cpp-v2"
         },
         "version": 1
     };

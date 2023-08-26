@@ -5,6 +5,7 @@ import downloadFileCLI from '../download/index.js';
 import path from 'path';
 import fs from 'fs-extra';
 import {pathToFileURL} from 'url';
+import findBestModelBinding from './best-model-binding.js';
 
 export type DetailedDownloadInfo = {
     files: {
@@ -27,7 +28,6 @@ type RemoteFetchModels = {
 }
 
 export const DEFAULT_VERSION = 0;
-const DEFAULT_BIND_CLASS = 'node-llama-cpp';
 
 export default class FetchModels {
     private static _cachedModels: RemoteFetchModels;
@@ -118,7 +118,7 @@ export default class FetchModels {
             downloadedFiles,
             defaultSettings: this.options.settings?.settings ?? {},
             createDate: Date.now(),
-            bindClass: this.options.settings?.bindClass ?? DEFAULT_BIND_CLASS,
+            bindClass: this.options.settings?.bindClass ?? findBestModelBinding(downloadedFiles),
         };
         await AppDb.saveDB();
     }

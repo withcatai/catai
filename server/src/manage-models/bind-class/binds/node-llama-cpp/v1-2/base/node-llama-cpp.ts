@@ -1,5 +1,5 @@
-import BaseBindClass from '../base-bind-class.js';
-import {LlamaModel} from 'node-llama-cpp';
+import BaseBindClass from '../../../base-bind-class.js';
+import type {LlamaModel} from 'node-llama-cpp-v1';
 import NodeLlamaCppChat from './node-llama-cpp-chat.js';
 
 type NodeLlamaCppOptions = {
@@ -18,14 +18,19 @@ type NodeLlamaCppOptions = {
 }
 
 export default class NodeLlamaCpp extends BaseBindClass<NodeLlamaCppOptions> {
-    public static override shortName = 'node-llama-cpp';
+    public static override shortName = 'node-llama-cpp-v1';
+    public static importName = 'node-llama-cpp-v1';
     private _model?: LlamaModel;
+    private _package?: typeof import('node-llama-cpp-v1');
 
     createChat() {
-        return new NodeLlamaCppChat(this, this._model!);
+        return new NodeLlamaCppChat(this, this._model!, this._package!);
     }
 
-    initialize(): Promise<void> | void {
+    async initialize(): Promise<void> {
+        const {LlamaModel, ...others} = await import((this.constructor as any).importName);
+        this._package = others as any;
+
         this._model = new LlamaModel({
             modelPath: this.modelSettings.downloadedFiles.model,
             ...this.modelSettings.settings
