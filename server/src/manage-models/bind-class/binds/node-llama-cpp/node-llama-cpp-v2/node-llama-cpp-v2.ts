@@ -1,8 +1,8 @@
-import type {LlamaModel} from 'node-llama-cpp-v2';
+import type {LlamaModel, LlamaModelOptions} from 'node-llama-cpp-v2';
 import NodeLlamaCppChat from './node-llama-cpp-chat.js';
 import BaseBindClass from '../../base-bind-class.js';
 
-type NodeLlamaCppOptions = Omit<ConstructorParameters<typeof LlamaModel>['0'], 'modelPath'> & {
+type NodeLlamaCppOptions = LlamaModelOptions & {
     wrapper?: string,
     maxTokens?: number,
 };

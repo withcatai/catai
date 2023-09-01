@@ -42,7 +42,7 @@ export default class FetchModels {
             return;
         }
 
-        if (Array.isArray(this.options.download)) {
+        if (this.options.download instanceof Array) {
             this.options.tag ??= FetchModels._findModelTag(this.options.download[0]);
             this._downloadFiles = {
                 model: this.options.download

@@ -28,7 +28,10 @@ export default class ConnectChunksProgress implements IStreamProgress {
     }
 
     public async progress(callback: (progressBytes: number, totalBytes: number) => void): Promise<any> {
-        this._progress!.on('progress', (progress: { transferred: number, length: number }) => {
+        if (this._progress == null)
+            throw new Error('Progress is not initialized');
+
+        this._progress.on('progress', (progress: { transferred: number, length: number }) => {
             callback(progress.transferred, progress.length);
         });
 
