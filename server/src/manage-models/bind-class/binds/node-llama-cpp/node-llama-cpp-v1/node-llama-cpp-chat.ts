@@ -1,7 +1,7 @@
-import type NodeLlamaCpp from './node-llama-cpp.js';
+import type NodeLlamaCpp from './node-llama-cpp-v1.js';
 import type {LlamaChatSession, LlamaModel} from 'node-llama-cpp-v1';
 import createChatWrapper from './chat-wrapper/chat-wrapper.js';
-import {ChatContext} from '../../../../chat-context.js';
+import {ChatContext} from '../../../chat-context.js';
 
 export default class NodeLlamaCppChat extends ChatContext {
     private _session: LlamaChatSession;

@@ -1,6 +1,5 @@
-import NodeLlamaCppV2 from '../bind-class/binds/node-llama-cpp/v1-2/node-llama-cpp-v2.js';
-import NodeLlamaCppV1 from '../bind-class/binds/node-llama-cpp/v1-2/node-llama-cpp-v1.js';
-
+import NodeLlamaCppV1 from '../bind-class/binds/node-llama-cpp/node-llama-cpp-v1/node-llama-cpp-v1.js';
+import NodeLlamaCppV2 from '../bind-class/binds/node-llama-cpp/node-llama-cpp-v2/node-llama-cpp-v2.js';
 
 const DEFAULT_BIND_CLASS = NodeLlamaCppV2.shortName;
 

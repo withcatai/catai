@@ -3,6 +3,7 @@ import {ChatContext} from '../chat-context.js';
 
 export default abstract class BaseBindClass<T> {
     public static shortName?: string;
+    public static description?: string;
 
     public constructor(public modelSettings: ModelSettings<T>) {
     }
