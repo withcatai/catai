@@ -1,15 +1,16 @@
 import wretch from 'wretch';
-import ENV_CONFIG from '../../storage/config.js';
-import AppDb, {ModelSettings} from '../../storage/app-db.js';
-import downloadFileCLI from '../download/index.js';
+import ENV_CONFIG from '../../../storage/config.js';
+import AppDb, {ModelSettings} from '../../../storage/app-db.js';
+import {CLIPullProgress, pullFileCLI} from 'ipull';
 import path from 'path';
 import fs from 'fs-extra';
 import {pathToFileURL} from 'url';
-import findBestModelBinding from './best-model-binding.js';
+import findBestModelBinding from '../best-model-binding.js';
+import ConnectChunksProgress from './connect-chunks-progress.js';
 
 export type DetailedDownloadInfo = {
     files: {
-        [fileId: string]: string
+        [fileId: string]: string | string[]
     },
     repo: string,
     commit: string,
@@ -17,7 +18,7 @@ export type DetailedDownloadInfo = {
 }
 
 export type FetchOptions = {
-    download: string | DetailedDownloadInfo
+    download: string | string[] | DetailedDownloadInfo
     tag?: string;
     latest?: boolean;
     settings?: Partial<ModelSettings<any>>
@@ -28,21 +29,32 @@ type RemoteFetchModels = {
 }
 
 export const DEFAULT_VERSION = 0;
-
 export default class FetchModels {
     private static _cachedModels: RemoteFetchModels;
-    private _downloadFiles: { [key: string]: string } = {};
+    private _downloadFiles: { [key: string]: string | string[] } = {};
 
     constructor(public options: FetchOptions) {
     }
 
     private async _findModel() {
-        if (typeof this.options.download !== 'string') return;
+        if (typeof this.options.download === 'object' && 'files' in this.options.download) {
+            this._downloadFiles = this.options.download.files;
+            return;
+        }
 
-        if (this.options.download.startsWith('http://') || this.options.download.startsWith('https://')) {
-            this.options.tag ??= FetchModels._findModelTag(this.options.download);
+        if (Array.isArray(this.options.download)) {
+            this.options.tag ??= FetchModels._findModelTag(this.options.download[0]);
             this._downloadFiles = {
                 model: this.options.download
+            };
+            return;
+        }
+
+        if (this.options.download.startsWith('http://') || this.options.download.startsWith('https://')) {
+            const [firstFiles, ...otherFiles] = this.options.download.split(',');
+            this.options.tag ??= FetchModels._findModelTag(firstFiles);
+            this._downloadFiles = {
+                model: [firstFiles, ...otherFiles]
             };
             return;
         }
@@ -63,7 +75,9 @@ export default class FetchModels {
         const branch = this.options.latest ? modelDownloadDetails.branch : modelDownloadDetails.commit;
         const downloadLinks = Object.fromEntries(
             Object.entries(modelDownloadDetails.files)
-                .map(([tag, file]) => [tag, `${modelDownloadDetails.repo}/resolve/${branch}/${file}`])
+                .map(([tag, files]) =>
+                    [tag, [files].flat().map(file => `${modelDownloadDetails.repo}/resolve/${branch}/${file}`)]
+                )
         );
 
         this.options.tag = foundModel;
@@ -106,10 +120,10 @@ export default class FetchModels {
 
         const downloadedFiles: { [key: string]: string } = {};
 
-        for (const [type, url] of Object.entries(this._downloadFiles)) {
+        for (const [type, urls] of Object.entries(this._downloadFiles)) {
             const savePath = path.join(ENV_CONFIG.MODEL_DIR!, typeToName(type));
 
-            await downloadFileCLI(url, savePath, type);
+            await FetchModels._downloadModelInFiles([urls].flat(), savePath, type);
             downloadedFiles[type] = savePath;
         }
 
@@ -132,6 +146,24 @@ export default class FetchModels {
         } catch {
             return this._cachedModels = await fs.readJSON(ENV_CONFIG.MODEL_INDEX!);
         }
+    }
+
+    private static async _downloadModelInFiles(urls: string[], savePath: string, type: string) {
+        if (urls.length === 1) {
+            await pullFileCLI(urls[0], savePath, type);
+            return;
+        }
+
+        const allParts = [];
+        for (const [index, url] of Object.entries(urls)) {
+            const partPath = `${savePath}.${index}`;
+            allParts.push(partPath);
+            await pullFileCLI(url, partPath, `${type} ${Number(index) + 1}/${urls.length}`);
+        }
+
+        const progress = new ConnectChunksProgress(allParts, savePath);
+        await progress.init();
+        await new CLIPullProgress(progress, 'Connecting chunks').startPull();
     }
 
     private static _findModelTag(modelPath: string) {

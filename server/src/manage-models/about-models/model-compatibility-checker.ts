@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import * as os from 'os';
-import FetchModels, {DEFAULT_VERSION} from './fetch-models.js';
+import FetchModels, {DEFAULT_VERSION} from './fetch-models/fetch-models.js';
 import AppDb, {ModelSettings} from '../../storage/app-db.js';
 import {calculateVersion} from '../../utils/check-for-update.js';
 import {packageJSON} from '../../storage/config.js';
