@@ -245,5 +245,49 @@
       "bind": "node-llama-cpp"
     },
     "version": 1
+  },
+  "lokus-13b-q3_k_s": {
+    "download": {
+      "files": {
+        "model": "lokus-13b.Q3_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/LoKuS-13B-GGUF",
+      "commit": "5ff0c6bd7cd0163e2062c864dc3713ffecd6f51a",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 6.2,
+      "cpuCors": 3,
+      "compressions": "q3_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.9"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "llama-2-13b-chat-limarp-v2-merged-q3_k_s": {
+    "download": {
+      "files": {
+        "model": "llama-2-13b-chat-limarp-v2-merged.Q3_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/llama-2-13B-chat-limarp-v2-merged-GGUF",
+      "commit": "754a47c524a5c774c0ab09d20da531ffc19a2463",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 6.2,
+      "cpuCors": 3,
+      "compressions": "q3_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.8"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
   }
 }
