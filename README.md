@@ -5,7 +5,7 @@
 
 <div align="center">
 
-[![Build](https://github.com/withcatai/catai/actions/workflows/release.yml/badge.svg)](https://github.com/withcatai/node-llama-cpp/actions/workflows/build.yml)
+[![Build](https://github.com/withcatai/catai/actions/workflows/release.yml/badge.svg)](https://github.com/withcatai/catai/actions/workflows/build.yml)
 [![License](https://badgen.net/badge/color/MIT/green?label=license)](https://www.npmjs.com/package/catai)
 [![License](https://badgen.net/badge/color/TypeScript/blue?label=types)](https://www.npmjs.com/package/catai)
 [![Version](https://badgen.net/npm/v/catai)](https://www.npmjs.com/package/catai)
