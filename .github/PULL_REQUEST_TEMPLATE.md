@@ -26,4 +26,4 @@
 - [ ] This pull request links relevant issues as `Fixes #0000`
 - [ ] Documentation has been updated to reflect this change
 - [ ] The new commits follow conventions explained
-  in [CONTRIBUTING.md](https://github.com/withcatai/node-llama-cpp/blob/master/CONTRIBUTING.md)
+  in [CONTRIBUTING.md](https://github.com/withcatai/catai/blob/master/CONTRIBUTING.md)
