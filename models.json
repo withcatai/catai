@@ -283,7 +283,7 @@
       "compressions": "q3_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.8"
+      "2.0.9"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
