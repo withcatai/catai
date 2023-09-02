@@ -5,14 +5,15 @@
 
 <div align="center">
 
-[![npm version](https://badge.fury.io/js/catai.svg)](https://badge.fury.io/js/catai)
-[![npm downloads](https://img.shields.io/npm/dt/catai.svg)](https://www.npmjs.com/package/catai)
-[![GitHub license](https://img.shields.io/github/license/withcatai/catai)](./LICENSE)
+[![Build](https://github.com/withcatai/catai/actions/workflows/release.yml/badge.svg)](https://github.com/withcatai/catai/actions/workflows/build.yml)
+[![License](https://badgen.net/badge/color/MIT/green?label=license)](https://www.npmjs.com/package/catai)
+[![License](https://badgen.net/badge/color/TypeScript/blue?label=types)](https://www.npmjs.com/package/catai)
+[![Version](https://badgen.net/npm/v/catai)](https://www.npmjs.com/package/catai)
 
 </div>
 <br />
 
-Run GGML models on your computer with a chat ui.
+Run GGML/GGUF models on your computer with a chat ui.
 
 > Your own AI assistant runs locally on your computer.
 
@@ -48,7 +49,7 @@ Options:
   -h, --help                       display help for command
 
 Commands:
-  install|i [options] [models...]  Install any GGML model
+  install|i [options] [models...]  Install any GGML/GGUF model
   models|ls [options]              List all available models
   use [model]                      Set model to use
   serve|up [options]               Open the chat website

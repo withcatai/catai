@@ -38,50 +38,68 @@ const fileCompressionParametersToSize = {
         13: 13.8,
         30: 34.6,
     },
-    'q2_K': {
+    'q2_k': {
         7: 2.9,
         13: 5.6,
         30: 13.6,
+        34: 14.2,
+        70: 29.5
     },
-    'q3_K_L': {
+    'q3_k_l': {
         7: 3.6,
         13: 7,
         30: 17.2,
+        34: 17.8,
+        70: 36.5
     },
-    'q3_K_M': {
+    'q3_k_m': {
         7: 3.3,
         13: 6.4,
         30: 15.7,
+        34: 16.3,
+        70: 33.4
     },
-    'q3_K_S': {
+    'q3_k_s': {
         7: 3,
         13: 5.7,
-        30: 14
+        30: 14,
+        34: 14.6,
+        70: 30.1
     },
-    'q4_K_M': {
+    'q4_k_m': {
         7: 4.1,
         13: 7.9,
         30: 19.6,
+        34: 20.2,
+        70: 41.7
     },
-    'q4_K_S': {
+    'q4_k_s': {
         7: 3.9,
         13: 7.4,
         30: 18.3,
+        34: 19.1,
+        70: 39.3
     },
-    'q5_K_M': {
+    'q5_k_m': {
         7: 4.8,
         13: 9.3,
         30: 23,
+        34: 23.8,
+        70: 49
     },
-    'q5_K_S': {
+    'q5_k_s': {
         7: 4.7,
         13: 9,
         30: 22.4,
+        34: 23.2,
+        70: 47.7
     },
-    'q6_K': {
+    'q6_k': {
         7: 5.6,
         13: 10.7,
         30: 26.7,
+        34: 27.7,
+        70: 56.8
     }
 };
 
@@ -107,7 +125,7 @@ function findSameModel(userName, repo, branch) {
 }
 
 function calculateCompatibility(file) {
-    const fileCompression = file.split(".").at(-2);
+    const fileCompression = file.split(".").at(-2).toLowerCase();
     const parameters = (/-([0-9]+(\.[0-9]+)?)[bB][-.]/g).exec(file)[1];
     const fileSize = fileCompressionParametersToSize[fileCompression]?.[parameters];
 
@@ -178,7 +196,7 @@ async function main() {
         "hardwareCompatibility": calculateCompatibility(file),
         "compatibleCatAIVersionRange": [catAIVersion],
         "settings": {
-            "bind": "node-llama-cpp"
+            "bind": "node-llama-cpp-v2"
         },
         "version": 1
     };

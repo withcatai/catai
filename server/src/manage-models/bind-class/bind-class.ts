@@ -1,11 +1,12 @@
-import NodeLlamaCpp from './binds/node-llama-cpp/node-llama-cpp.js';
 import BaseBindClass from './binds/base-bind-class.js';
 import AppDb from '../../storage/app-db.js';
+import NodeLlamaCppV1 from './binds/node-llama-cpp/node-llama-cpp-v1/node-llama-cpp-v1.js';
+import NodeLlamaCppV2 from './binds/node-llama-cpp/node-llama-cpp-v2/node-llama-cpp-v2.js';
 
-export const ALL_BINDS = [NodeLlamaCpp];
+export const ALL_BINDS = [NodeLlamaCppV1, NodeLlamaCppV2];
 const cachedBinds: { [key: string]: InstanceType<typeof BaseBindClass> } = {};
 
-function getActiveModelDetails(){
+function getActiveModelDetails() {
     const modelDetails = AppDb.db.models[AppDb.db.activeModel!];
 
     if (!modelDetails)

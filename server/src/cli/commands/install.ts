@@ -1,12 +1,12 @@
-import {Command} from "commander";
-import FetchModels from "../../manage-models/about-models/fetch-models.js";
-import ModelCompatibilityChecker from "../../manage-models/about-models/model-compatibility-checker.js";
-import prompts from "prompts";
-import AppDb from "../../storage/app-db.js";
+import {Command} from 'commander';
+import ModelCompatibilityChecker from '../../manage-models/about-models/model-compatibility-checker.js';
+import prompts from 'prompts';
+import AppDb from '../../storage/app-db.js';
+import FetchModels from '../../manage-models/about-models/fetch-models/fetch-models.js';
 
 export const installCommand = new Command('install');
 
-installCommand.description('Install any GGML model')
+installCommand.description('Install any GGML/GGUF model')
     .alias('i')
     .argument('[models...]', 'Model name/url/path')
     .option('-t --tag [tag]', 'The name of the model in local directory')

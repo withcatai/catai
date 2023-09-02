@@ -7,6 +7,8 @@
 .AppleDouble
 .LSOverride
 
+/.idea
+
 # Icon must end with two \r
 Icon
 
@@ -137,7 +139,7 @@ dist
 # vuepress build output
 .vuepress/dist
 
-# vuepress v2.x temp and cache directory
+# vuepress base.x temp and cache directory
 .temp
 
 # Docusaurus cache and generated files
@@ -158,7 +160,7 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# yarn v2
+# yarn base
 .yarn/cache
 .yarn/unplugged
 .yarn/build-state.yml
