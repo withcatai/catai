@@ -12,7 +12,7 @@ function getActiveModelDetails() {
     if (!modelDetails)
         throw new Error('No active model');
 
-    if(!modelDetails.bindClass)
+    if(!modelDetails.settings.bind)
         throw new Error('No bind class');
 
     return modelDetails;
@@ -21,8 +21,10 @@ function getActiveModelDetails() {
 export function getCacheBindClass(){
     const modelDetails = getActiveModelDetails();
 
-    if(cachedBinds[modelDetails.bindClass])
-        return cachedBinds[modelDetails.bindClass];
+    const bind = modelDetails.settings.bind;
+
+    if(cachedBinds[bind])
+        return cachedBinds[bind];
 
     return null;
 }
@@ -33,11 +35,13 @@ export default async function createChat(){
     if(cachedBindClass)
         return cachedBindClass.createChat();
 
-    const bindClass = ALL_BINDS.find(x => x.shortName === modelDetails.bindClass);
-    if (!bindClass)
-        throw new Error(`Bind class ${modelDetails.bindClass} not found`);
+    const bind = modelDetails.settings.bind;
 
-    const bindClassInstance = cachedBinds[modelDetails.bindClass] ??= new bindClass(modelDetails);
+    const bindClass = ALL_BINDS.find(x => x.shortName === bind);
+    if (!bindClass)
+        throw new Error(`Bind class ${bind} not found`);
+
+    const bindClassInstance = cachedBinds[bind] ??= new bindClass(modelDetails);
     await bindClassInstance.initialize();
 
     return bindClassInstance.createChat();

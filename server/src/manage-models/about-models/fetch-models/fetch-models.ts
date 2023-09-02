@@ -7,6 +7,7 @@ import fs from 'fs-extra';
 import {pathToFileURL} from 'url';
 import findBestModelBinding from '../best-model-binding.js';
 import ConnectChunksProgress from './connect-chunks-progress.js';
+import objectAssignDeep from 'object-assign-deep';
 
 export type DetailedDownloadInfo = {
     files: {
@@ -21,7 +22,7 @@ export type FetchOptions = {
     download: string | string[] | DetailedDownloadInfo
     tag?: string;
     latest?: boolean;
-    settings?: Partial<Omit<ModelSettings<any>, 'bindClass'>>
+    model?: Partial<ModelSettings<any>>
 }
 
 type RemoteFetchModels = {
@@ -70,7 +71,7 @@ export default class FetchModels {
         if (!foundModel)
             return this._setDetailedLocalModel();
 
-        const {download: modelDownloadDetails, ...settings} = models[foundModel!];
+        const {download: modelDownloadDetails, ...model} = models[foundModel!];
 
         const branch = this.options.latest ? modelDownloadDetails.branch : modelDownloadDetails.commit;
         const downloadLinks = Object.fromEntries(
@@ -81,8 +82,7 @@ export default class FetchModels {
         );
 
         this.options.tag = foundModel;
-        this.options.settings = {...settings, ...this.options.settings};
-
+        this.options.model = objectAssignDeep(this.options.model ?? {}, model);
         this._downloadFiles = downloadLinks;
     }
 
@@ -127,15 +127,15 @@ export default class FetchModels {
             downloadedFiles[type] = savePath;
         }
 
-        const bindClass = this.options.settings?.settings?.bind ?? findBestModelBinding(downloadedFiles);
-        delete this.options.settings?.settings?.bind;
+        const settings = this.options.model?.settings ?? {};
+        settings.bind ??= findBestModelBinding(downloadedFiles);
 
         AppDb.db.models[this.options.tag!] = {
-            ...this.options.settings,
+            ...this.options.model,
             downloadedFiles,
-            defaultSettings: this.options.settings?.settings ?? {},
+            settings,
+            defaultSettings: settings,
             createDate: Date.now(),
-            bindClass,
         };
         await AppDb.saveDB();
     }

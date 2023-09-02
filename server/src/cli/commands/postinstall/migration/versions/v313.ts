@@ -6,7 +6,7 @@ import AppDb from '../../../../../storage/app-db.js';
 const EXECUTABLE_DIR = path.join(ENV_CONFIG.CATAI_DIR!, 'executable');
 const MIN_SIZE_BYTES = 10485760 * 2; // 20mb
 
-export default async function migrationV0() {
+export default async function migration() {
     const models = await fs.readdir(ENV_CONFIG.MODEL_DIR!);
 
     for (const model of models) {
@@ -25,7 +25,7 @@ export default async function migrationV0() {
             version: 0,
             settings: {},
             defaultSettings: {},
-        };
+        } as any;
     }
 
     await AppDb.saveDB();
