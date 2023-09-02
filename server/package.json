@@ -24,7 +24,7 @@
   "scripts": {
     "generate-docs": "typedoc --plugin typedoc-plugin-missing-exports",
     "semantic-release": "semantic-release --extends ./.config/semantic-release.json",
-    "preinstall": "node ./dist/cli/cli.js postinstall",
+    "postinstall": "node ./dist/cli/cli.js postinstall",
     "prebuild": "rm -rf ./dist ./tsconfig.tsbuildinfo",
     "build": "tsc --build tsconfig.json --force",
     "build:front": "zx scripts/build-front.js",

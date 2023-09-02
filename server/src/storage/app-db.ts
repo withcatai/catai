@@ -25,6 +25,7 @@ export type ModelSettings<T> = {
 
 export type DBStore = {
     activeModel?: string;
+    installedCatAIVersion?: string;
     models: {
         [modelName: string]: ModelSettings<{
             [settingName: string]: any;
