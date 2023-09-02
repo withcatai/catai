@@ -2,9 +2,12 @@ import fs from 'fs-extra';
 import path from 'path';
 import ENV_CONFIG from './config.js';
 
+export type ModelInnerSettings<T> = T &{
+    bind: string;
+    key?: string;
+}
+
 export type ModelSettings<T> = {
-    bindClass: string;
-    apiKey?: string;
     downloadedFiles: {
         [fileId: string]: string
     },
@@ -15,8 +18,8 @@ export type ModelSettings<T> = {
         "cpuCors": number,
         "compressions": number
     }
-    settings?: T;
-    defaultSettings: T,
+    settings: ModelInnerSettings<T>;
+    defaultSettings: ModelInnerSettings<T>,
     createDate: number
 };
 

@@ -24,9 +24,12 @@ installCommand.description('Install any GGML/GGUF model')
                 download: model,
                 tag,
                 latest,
-                settings: {
-                    bindClass: bind,
-                    apiKey: key,
+                model: {
+                    settings: {
+                        bind,
+                        key,
+                    }
+
                 }
             });
             await installer.startDownload();
