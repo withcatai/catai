@@ -2,8 +2,8 @@ import chalk from 'chalk';
 import * as os from 'os';
 import FetchModels, {DEFAULT_VERSION} from './fetch-models/fetch-models.js';
 import AppDb, {ModelSettings} from '../../storage/app-db.js';
-import {calculateVersion} from '../../utils/check-for-update.js';
 import {packageJSON} from '../../storage/config.js';
+import semver from 'semver';
 
 const GB_IN_BYTES = 1024 * 1024 * 1024;
 
@@ -29,21 +29,22 @@ class ModelCompatibilityChecker {
     private static readonly availableMemory: number = os.freemem() / GB_IN_BYTES;
 
     public static checkModelCompatibility({hardwareCompatibility, compatibleCatAIVersionRange}: ModelSettings<any>): Compatibility {
-        if(!compatibleCatAIVersionRange?.[0]){
+        if (!compatibleCatAIVersionRange?.[0]) {
             return {
                 compatibility: '?',
                 note: 'Model unknown'
             };
         }
 
-        if(calculateVersion(compatibleCatAIVersionRange[0]) > calculateVersion(packageJSON.version)) {
+
+        if (semver.gt(compatibleCatAIVersionRange[0], packageJSON.version)) {
             return {
                 compatibility: '❌',
                 note: `requires at least CatAI version ${chalk.cyan(compatibleCatAIVersionRange[0])}`
             };
         }
 
-        if(compatibleCatAIVersionRange[1] && calculateVersion(compatibleCatAIVersionRange[1]) < calculateVersion(packageJSON.version)) {
+        if (compatibleCatAIVersionRange[1] && semver.lt(compatibleCatAIVersionRange[1], packageJSON.version)) {
             return {
                 compatibility: '❌',
                 note: `requires CatAI version ${chalk.cyan(compatibleCatAIVersionRange[1])} or lower`

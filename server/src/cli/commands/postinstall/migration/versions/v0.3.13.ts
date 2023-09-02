@@ -6,7 +6,7 @@ import AppDb from '../../../../../storage/app-db.js';
 const EXECUTABLE_DIR = path.join(ENV_CONFIG.CATAI_DIR!, 'executable');
 const MIN_SIZE_BYTES = 10485760 * 2; // 20mb
 
-export default async function migration() {
+async function migration() {
     const models = await fs.readdir(ENV_CONFIG.MODEL_DIR!);
 
     for (const model of models) {
@@ -21,7 +21,7 @@ export default async function migration() {
             },
             bindClass: 'node-llama',
             createDate: stat.birthtime.getTime(),
-            compatibleCatAIVersionRange: ['0.3.0', '0.3.12'],
+            compatibleCatAIVersionRange: ['0.3.0', '0.3.13'],
             version: 0,
             settings: {},
             defaultSettings: {},
@@ -31,3 +31,8 @@ export default async function migration() {
     await AppDb.saveDB();
     await fs.remove(EXECUTABLE_DIR);
 }
+
+export default {
+    version: '0.3.13',
+    migration
+};
