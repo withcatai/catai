@@ -21,7 +21,7 @@ export type FetchOptions = {
     download: string | string[] | DetailedDownloadInfo
     tag?: string;
     latest?: boolean;
-    settings?: Partial<ModelSettings<any>>
+    settings?: Partial<Omit<ModelSettings<any>, 'bindClass'>>
 }
 
 type RemoteFetchModels = {
@@ -127,12 +127,15 @@ export default class FetchModels {
             downloadedFiles[type] = savePath;
         }
 
+        const bindClass = this.options.settings?.settings?.bind ?? findBestModelBinding(downloadedFiles);
+        delete this.options.settings?.settings?.bind;
+
         AppDb.db.models[this.options.tag!] = {
             ...this.options.settings,
             downloadedFiles,
             defaultSettings: this.options.settings?.settings ?? {},
             createDate: Date.now(),
-            bindClass: this.options.settings?.bindClass ?? findBestModelBinding(downloadedFiles),
+            bindClass,
         };
         await AppDb.saveDB();
     }
