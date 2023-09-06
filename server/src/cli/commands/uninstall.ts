@@ -13,7 +13,5 @@ uninstallCommand.description('Uninstall server and delete all models')
 
         await $`npm uninstall -g catai`;
         await fs.remove(ENV_CONFIG.CATAI_DIR!);
-
-        const newVersion = (await $`catai --version`).stdout.trim();
-        spinner.succeed('CatAI uninstalled: ' + newVersion);
+            spinner.succeed('CatAI uninstalled');
     });
