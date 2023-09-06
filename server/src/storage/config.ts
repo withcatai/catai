@@ -1,8 +1,8 @@
-import * as path from "path";
-import * as os from "os";
-import yn from "yn";
-import fs from "fs-extra";
-import {fileURLToPath} from "url";
+import * as path from 'path';
+import * as os from 'os';
+import yn from 'yn';
+import fs from 'fs-extra';
+import {fileURLToPath} from 'url';
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url));
 export const packageJSON = await fs.readJSON(path.join(__dirname, '..', '..', 'package.json'));
@@ -93,7 +93,7 @@ function mergeConfig() {
 
 async function main() {
     mergeConfig();
-    await fs.ensureDir(ENV_CONFIG.CATAI_DIR!);
+    await fs.ensureDir(ENV_CONFIG.MODEL_DIR!);
 }
 
 await main();
