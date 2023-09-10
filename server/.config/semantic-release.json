@@ -7,7 +7,16 @@
     ["@semantic-release/commit-analyzer", {
       "preset": "angular",
       "releaseRules": [
-        {"type": "docs", "scope": "README", "release": "patch"}
+        {
+          "type": "docs",
+          "scope": "README",
+          "release": "patch"
+        },
+        {
+          "type": "update",
+          "scope": "bind",
+          "release": "patch"
+        }
       ]
     }],
     "@semantic-release/release-notes-generator",
