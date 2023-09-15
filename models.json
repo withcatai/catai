@@ -289,5 +289,93 @@
       "bind": "node-llama-cpp-v2"
     },
     "version": 1
+  },
+  "guanaco-7b-uncensored-q3_k_s": {
+    "download": {
+      "files": {
+        "model": "guanaco-7b-uncensored.Q3_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Guanaco-7B-Uncensored-GGUF",
+      "commit": "829be4e41e76017542fc3c65d88f81da4cabfc2f",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 3.5,
+      "cpuCors": 2,
+      "compressions": "q3_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.13"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "guanaco-13b-uncensored-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "guanaco-13b-uncensored.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Guanaco-13B-Uncensored-GGUF",
+      "commit": "dbec1dc1eed1c949404439214707c99538bdb8f0",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 7.9,
+      "cpuCors": 4,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.13"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "pygmalion-13b-supercot2-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "pygmalion-2-13b-supercot2.Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Pygmalion-2-13B-SuperCOT2-GGUF",
+      "commit": "8a9be43f405252815d579431ee994d910f316070",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 8.4,
+      "cpuCors": 4,
+      "compressions": "q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.13"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "phind-codellama-34b-q3_k_s": {
+    "download": {
+      "files": {
+        "model": "phind-codellama-34b-v2.Q3_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF",
+      "commit": "3992798e31d42c7ca0b752a3470607fe409f4b8c",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 15.1,
+      "cpuCors": 8,
+      "compressions": "q3_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.13"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
   }
 }
