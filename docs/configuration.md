@@ -1,8 +1,8 @@
 # Configuration
 
-How to configure the Model to optimize it for you need.
+How to configure the Model to optimize it for your needs.
 
-The configuration is mostly depending on the model binding, for most cases is `llama.cpp`.
+The configuration mostly depends on the model binding, for most cases is `llama.cpp`.
 
 You can config the model by the following steps:
 
