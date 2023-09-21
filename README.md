@@ -147,6 +147,12 @@ while (true) {
 }
 ```
 
+## Configuration
+
+You can edit the configuration via the web ui.
+
+More information [here](./docs/configuration.md)
+
 ## Contributing
 
 Contributions are welcome!
