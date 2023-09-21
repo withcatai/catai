@@ -88,14 +88,14 @@ class ModelCompatibilityChecker {
         const remoteVersion = models[model]?.version || DEFAULT_VERSION;
 
         if (!models[model] || installedVersion === remoteVersion) {
-            return chalk.green(installedVersion);
+            return chalk.green(`v${installedVersion} = v${remoteVersion}`);
         }
 
         if (installedVersion < remoteVersion) {
-            return `${chalk.yellow(installedVersion)} < ${chalk.green(remoteVersion)}`;
+            return `${chalk.yellow('v' + installedVersion)} < ${chalk.green('v' + remoteVersion)}`;
         }
 
-        return `${chalk.cyan(installedVersion)} > ${chalk.green(remoteVersion)}`;
+        return `${chalk.cyan('v' + installedVersion)} > ${chalk.green('v' + remoteVersion)}`;
     }
 
     public static async listAllModels(): Promise<ModelInfo[]> {
