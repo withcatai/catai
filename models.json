@@ -22,28 +22,6 @@
     },
     "version": 1
   },
-  "wizard-vicuna-30b-uncensored-q4_k_m": {
-    "download": {
-      "files": {
-        "model": "Wizard-Vicuna-30B-Uncensored.ggmlv3.q4_K_M.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/Wizard-Vicuna-30B-Uncensored-GGML",
-      "commit": "6d8630cedcf1a30f4639238cabcb6ab6f88be27d",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 20.1,
-      "cpuCors": 10,
-      "compressions": "q4_K_M"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp"
-    },
-    "version": 1
-  },
   "wizard-vicuna-13b-uncensored-superhot-8k-q4_k_m": {
     "download": {
       "files": {
@@ -64,185 +42,6 @@
     "settings": {
       "bind": "node-llama-cpp",
       "contextSize": 8192
-    },
-    "version": 1
-  },
-  "scarlett-13b-q4_1": {
-    "download": {
-      "files": {
-        "model": "scarlett-13b.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/Scarlett-13B-GGML",
-      "commit": "c8b3b889c8b9256f12aa72aa6be5ddf447d3a9c9",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 8.7,
-      "cpuCors": 5,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp"
-    },
-    "version": 1
-  },
-  "huginn-v3-13b-q4_1": {
-    "download": {
-      "files": {
-        "model": "huginn-v3-13b.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/Huginn-v3-13B-GGML",
-      "commit": "c719c27afbaba439563a0c29cc73d404fcfbc136",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 8.7,
-      "cpuCors": 5,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp"
-    },
-    "version": 1
-  },
-  "hermes-llongma-2-13b-8k-q4_1": {
-    "download": {
-      "files": {
-        "model": "hermes-llongma-2-13b-8k.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/Hermes-LLongMA-2-13B-8K-GGML",
-      "commit": "47d21b7ce2ea602b7eb398ac4e31ac27bba5158a",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 8.7,
-      "cpuCors": 5,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp",
-      "contextSize": 8192
-    },
-    "version": 1
-  },
-  "codeup-llama-2-13b-chat-hf-q4_1": {
-    "download": {
-      "files": {
-        "model": "codeup-llama-2-13b-chat-hf.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/CodeUp-Llama-2-13B-Chat-HF-GGML",
-      "commit": "fbac64ba3d271c08f3f9e66e6e0524602c1d153e",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 8.7,
-      "cpuCors": 5,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp",
-      "wrapper": "llama"
-    },
-    "version": 1
-  },
-  "llama-2-13b-chat-q4_1": {
-    "download": {
-      "files": {
-        "model": "llama-2-13b-chat.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/Llama-2-13B-chat-GGML",
-      "commit": "47d28ef5de4f3de523c421f325a2e4e039035bab",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 8.7,
-      "cpuCors": 5,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp",
-      "wrapper": "llama"
-    },
-    "version": 1
-  },
-  "vicuna-7b-v1.5-q4_1": {
-    "download": {
-      "files": {
-        "model": "vicuna-7b-v1.5.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/vicuna-7B-v1.5-GGML",
-      "commit": "2d95399e2eda8ddd027b48de4d0f855cf8adb31e",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 4.8,
-      "cpuCors": 3,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp"
-    },
-    "version": 1
-  },
-  "vicuna-13b-v1.5-q4_1": {
-    "download": {
-      "files": {
-        "model": "vicuna-13b-v1.5.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/vicuna-13B-v1.5-GGML",
-      "commit": "8208f46ba1309fe5a30c175804494e7ec92395bf",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 8.7,
-      "cpuCors": 5,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp"
-    },
-    "version": 1
-  },
-  "wizard-vicuna-7b-uncensored-q4_1": {
-    "download": {
-      "files": {
-        "model": "Wizard-Vicuna-7B-Uncensored.ggmlv3.q4_1.bin"
-      },
-      "repo": "https://huggingface.co/TheBloke/Wizard-Vicuna-7B-Uncensored-GGML",
-      "commit": "531879da598ebc577cd4a03bdde9fbe3a641fc63",
-      "branch": "main"
-    },
-    "hardwareCompatibility": {
-      "ramGB": 4.8,
-      "cpuCors": 3,
-      "compressions": "q4_1"
-    },
-    "compatibleCatAIVersionRange": [
-      "2.0.0"
-    ],
-    "settings": {
-      "bind": "node-llama-cpp"
     },
     "version": 1
   },
@@ -375,6 +174,317 @@
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "vicuna-7b-16k-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "vicuna-7b-v1.5-16k.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/vicuna-7B-v1.5-16K-GGUF",
+      "commit": "25425c066bafcd86043e0e2de3485c1fed7197a6",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.4,
+      "cpuCors": 2,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": 16384
+    },
+    "version": 1
+  },
+  "vicuna-13b-16k-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "vicuna-13b-v1.5-16k.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/vicuna-13B-v1.5-16K-GGUF",
+      "commit": "1a1f64ffb8ec9b951e43803c4713a2bcd3896cf2",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 7.9,
+      "cpuCors": 4,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": 16384
+    },
+    "version": 1
+  },
+  "xwin-lm-13b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "xwin-lm-13b-v0.1.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Xwin-LM-13B-V0.1-GGUF",
+      "commit": "84071b6ea0a9c1ce94f335903101cf383be887ad",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 7.9,
+      "cpuCors": 4,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "xwin-lm-70b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "xwin-lm-70b-v0.1.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Xwin-LM-70B-V0.1-GGUF",
+      "commit": "2ceade0d2ae7725d440f3c23d773ce106b8c1092",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 39.8,
+      "cpuCors": 20,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "wizard-vicuna-30b-uncensored-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "Wizard-Vicuna-30B-Uncensored.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Wizard-Vicuna-30B-Uncensored-GGUF",
+      "commit": "d509cb902f2634e188105ff4487fd50b573cdc5e",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 18.8,
+      "cpuCors": 10,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "wizard-vicuna-13b-uncensored-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "Wizard-Vicuna-13B-Uncensored.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Wizard-Vicuna-13B-Uncensored-GGUF",
+      "commit": "2c200be40a085f249ef3b0385ae33d804ae6ccd4",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 7.9,
+      "cpuCors": 4,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "wizard-vicuna-7b-uncensored-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "Wizard-Vicuna-7B-Uncensored.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Wizard-Vicuna-7B-Uncensored-GGUF",
+      "commit": "c02ba3827492e4141b6206e4799a1c591f21d14b",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.4,
+      "cpuCors": 2,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "synthia-34b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "synthia-34b-v1.2.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Synthia-34B-v1.2-GGUF",
+      "commit": "8e8aef1194e701c99f81b4c678739f97e2e9a2d2",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 19.6,
+      "cpuCors": 10,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "uncensored-frank-33b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "uncensored-frank-33b.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Uncensored-Frank-33b-GGUF",
+      "commit": "12ebeeb7de4d86e5a0fc9848eea66322946d9586",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 18.9,
+      "cpuCors": 10,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "uncensored-frank-13b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "uncensored-frank-13b.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Uncensored-Frank-13b-GGUF",
+      "commit": "4b2ccc04368f9df555652522c2ff3f96f17c2f3a",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 7.9,
+      "cpuCors": 4,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "uncensored-frank-7b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "uncensored-frank-7b.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Uncensored-Frank-7B-GGUF",
+      "commit": "d58a93453031c5b953e302934a4d45634a86a45b",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.4,
+      "cpuCors": 2,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "mammoth-70b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "mammoth-70b.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/MAmmoTH-70B-GGUF",
+      "commit": "3710dea70159b01aced50c80dcf9344fab83b275",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 39.8,
+      "cpuCors": 20,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "mammoth-coder-34b-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "mammoth-coder-34b.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/MAmmoTH-Coder-34B-GGUF",
+      "commit": "fda81d84d6f8219c0a315986b146211508a768c0",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 19.6,
+      "cpuCors": 10,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "inkbot-13b-4k-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "inkbot-13b-4k.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/Inkbot-13B-4k-GGUF",
+      "commit": "e17143c9c992e160592ec74c5a1f25bcb34efd8c",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 7.9,
+      "cpuCors": 4,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "2.0.14"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": 4096
     },
     "version": 1
   }
