@@ -115,10 +115,10 @@ async function getLastCommit(userName, repo) {
     return [...dom.window.document.querySelectorAll('a')].find(x => x.href.split('commit/').pop().startsWith(x.innerHTML.trim())).href.split('/').pop();
 }
 
-function findSameModel(userName, repo, branch) {
+function findSameModel(userName, repo) {
     return Object.entries(models).find(([, value]) => {
         const sameRepo = value.download?.repo === `https://huggingface.co/${userName}/${repo}`;
-        if (sameRepo && value.download.branch === branch) {
+        if (sameRepo) {
             return true;
         }
     });
@@ -142,44 +142,49 @@ function calculateCompatibility(file) {
 
 
 async function main() {
-    let {url, userLabel} = await prompts([
-        {
-            type: 'text',
-            name: 'url',
-            message: 'Enter url',
-        },
+    let {url} = await prompts({
+        type: 'text',
+        name: 'url',
+        message: 'Enter url',
+    });
+
+    url = url.trim();
+
+    const initialLabelValue = url.split('/').pop().toLowerCase().replace('.q', '-q').replace(/\.gguf.*/, '');
+    const allKeys = new Set([...Object.keys(models), initialLabelValue]);
+
+    let {userLabel} = await prompts(
         {
             type: 'autocomplete',
             name: 'userLabel',
             message: 'Enter label',
-            choices: Object.keys(models).map(x => ({title: x, value: x})),
+            initial: initialLabelValue,
+            choices: [...allKeys].map(x => ({title: x})),
             onState: function () {
                 if (this.suggestions.length === 0) {
                     this.value = this.input;
                 }
-            },
-        }
-    ]);
+            }
+        });
 
-    url = url.trim();
     userLabel = userLabel.trim().toLowerCase();
 
     const [userName, repo, , branch, file] = url.split("/").slice(-5);
 
     const commit = await getLastCommit(userName, repo);
-    const [lable, modelInfo] = findSameModel(userName, repo, branch, file) || [];
+    const modelInfo = models[userLabel];
     const {download} = modelInfo || {};
 
-    if (lable && download.files.model === file && download.commit === commit) {
-        console.log(`Model already added with label ${lable}`);
+    if (modelInfo && download.files.model === file && download.commit === commit) {
+        console.log(`Model already added with label ${userLabel}`);
         return;
-    } else if (lable === userLabel) {
+    } else if (modelInfo) {
         modelInfo.download.commit = commit;
         modelInfo.download.files.model = file;
         modelInfo.version += 0.1;
         modelInfo.hardwareCompatibility = calculateCompatibility(file);
         modelInfo.compatibleCatAIVersionRange = [catAIVersion];
-        console.log(`Model ${lable} updated`);
+        console.log(`Model ${userLabel} updated`);
         await saveModel();
         return;
     }
