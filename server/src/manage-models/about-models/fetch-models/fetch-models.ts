@@ -34,6 +34,26 @@ export default class FetchModels {
     private static _cachedModels: RemoteFetchModels;
     private _downloadFiles: { [key: string]: string | string[] } = {};
 
+    /**
+     * Install a model from a remote source
+     *
+     * @example - Install from a direct link (can be multiple links)
+     * const install = await new FetchModels({
+     *   download: 'https://huggingface.co/TheBloke/Megamix-A1-13B-GGUF/resolve/main/megamix-a1-13b.Q2_K.gguf'
+     * });
+     *
+     * await install.startDownload();
+     *
+     * @example - Install form CatAI model index
+     * const models = await FetchModels.fetchModels();
+     * const firstModel = Object.keys(models)[0];
+     *
+     * const install = await new FetchModels({
+     *  download: firstModel
+     * });
+     *
+     * await install.startDownload();
+     */
     constructor(public options: FetchOptions) {
     }
 

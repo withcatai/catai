@@ -1,7 +1,7 @@
 {
   "name": "catai",
   "version": "1.0.0",
-  "description": "Chat UI for the Alpaca models",
+  "description": "Chat UI and Local API for the Llama models",
   "main": "dist/index.js",
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -53,6 +53,7 @@
     "gguf",
     "raspberry-pi",
     "self-hosted",
+    "node-llama-cpp",
     "local",
     "catai"
   ],

@@ -6,7 +6,12 @@ export default class RemoteCatAI extends ChatContext {
     private _ws: WebSocket;
     private _closed = false;
 
-    constructor(private url: string, options?: ClientRequestArgs | ClientOptions) {
+    /**
+     * Connect to remote CatAI server, and use it as a chat context
+     * @param url - WebSocket URL
+     * @param options - WebSocket options
+     */
+    constructor(url: string, options?: ClientRequestArgs | ClientOptions) {
         super();
         this._ws = new WebSocket(url, options);
         this._init();

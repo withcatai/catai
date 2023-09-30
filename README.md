@@ -123,35 +123,13 @@ const response = await fetch('http://127.0.0.1:3000/api/chat/prompt', {
 const data = await response.text();
 ```
 
-### Streaming the response
-
-```js
-const response = await fetch('http://127.0.0.1:3000/api/chat/prompt', {
-    method: 'POST',
-    body: JSON.stringify({
-        prompt: 'Write me 100 words story'
-    }),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
-
-const reader = response.body.pipeThrough(new TextDecoderStream())
-    .getReader();
-
-while (true) {
-    const {value, done} = await reader.read();
-    if (done) break;
-    console.log('Received', value);
-}
-```
+For more information, please read the [API guide](https://github.com/withcatai/catai/blob/main/docs/api.md)
 
 ## Configuration
 
 You can edit the configuration via the web ui.
 
-More information [here](./docs/configuration.md)
+More information [here](https://github.com/withcatai/catai/blob/main/docs/configuration.md)
 
 ## Contributing
 
