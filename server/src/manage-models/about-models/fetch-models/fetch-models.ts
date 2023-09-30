@@ -29,6 +29,7 @@ type RemoteFetchModels = {
     [key: string]: DetailedDownloadInfo & { hide: boolean }
 }
 
+const DEFAULT_DOWNLOAD_TYPE = 'model';
 export const DEFAULT_VERSION = 0;
 export default class FetchModels {
     private static _cachedModels: RemoteFetchModels;
@@ -136,12 +137,14 @@ export default class FetchModels {
     public async startDownload() {
         await this._findModel();
         await this._deleteOldFiles();
-        const typeToName = (type: string) => `${this.options.tag}.${type}`;
+
+        const createDownloadName = (type: string) =>
+            type === DEFAULT_DOWNLOAD_TYPE ? this.options.tag! : `${this.options.tag}.${type}`;
 
         const downloadedFiles: { [key: string]: string } = {};
 
         for (const [type, urls] of Object.entries(this._downloadFiles)) {
-            const savePath = path.join(ENV_CONFIG.MODEL_DIR!, typeToName(type));
+            const savePath = path.join(ENV_CONFIG.MODEL_DIR!, createDownloadName(type));
 
             await FetchModels._downloadModelInFiles([urls].flat(), savePath, type);
             downloadedFiles[type] = savePath;
