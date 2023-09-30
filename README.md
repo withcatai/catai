@@ -13,7 +13,7 @@
 </div>
 <br />
 
-Run GGML/GGUF models on your computer with a chat ui.
+Run GGUF models on your computer with a chat ui.
 
 > Your own AI assistant runs locally on your computer.
 
@@ -49,7 +49,7 @@ Options:
   -h, --help                       display help for command
 
 Commands:
-  install|i [options] [models...]  Install any GGML/GGUF model
+  install|i [options] [models...]  Install any GGUF model
   models|ls [options]              List all available models
   use [model]                      Set model to use
   serve|up [options]               Open the chat website
@@ -65,7 +65,7 @@ Commands:
 ```
 Usage: cli install|i [options] [models...]
 
-Install any GGML model
+Install any GGUF model
 
 Arguments:
   models                Model name/url/path

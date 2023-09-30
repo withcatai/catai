@@ -1,10 +1,9 @@
 import BaseBindClass from './binds/base-bind-class.js';
 import AppDb from '../../storage/app-db.js';
-import NodeLlamaCppV1 from './binds/node-llama-cpp/node-llama-cpp-v1/node-llama-cpp-v1.js';
 import NodeLlamaCppV2 from './binds/node-llama-cpp/node-llama-cpp-v2/node-llama-cpp-v2.js';
 import AwaitLock from 'await-lock';
 
-export const ALL_BINDS = [NodeLlamaCppV1, NodeLlamaCppV2];
+export const ALL_BINDS = [NodeLlamaCppV2];
 const cachedBinds: { [key: string]: InstanceType<typeof BaseBindClass> } = {};
 
 function getActiveModelDetails() {
@@ -45,7 +44,7 @@ export default async function createChat() {
 
         const bindClass = ALL_BINDS.find(x => x.shortName === bind);
         if (!bindClass)
-            throw new Error(`Bind class ${bind} not found`);
+            throw new Error(`Bind class "${bind}" not found. Try to update the model/CatAI`);
 
         const bindClassInstance = cachedBinds[bind] ??= new bindClass(modelDetails);
         await bindClassInstance.initialize();
