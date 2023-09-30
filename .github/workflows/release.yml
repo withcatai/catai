@@ -2,12 +2,15 @@ name: Release
 on:
   workflow_dispatch:
   push:
+    branches:
+      - '*'
+    tags:
+      - '*'
 
 jobs:
 
   release:
-    name: Release
-    if: github.ref == 'refs/heads/main'
+    name: Build & Release
     runs-on: ubuntu-latest
     defaults:
       run:
