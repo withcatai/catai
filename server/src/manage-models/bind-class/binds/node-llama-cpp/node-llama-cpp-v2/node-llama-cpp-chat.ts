@@ -1,12 +1,12 @@
 import type NodeLlamaCpp from './node-llama-cpp-v2.js';
-import type {LlamaChatSession, LlamaModel} from 'node-llama-cpp-v2';
+import type {LlamaChatSession, LlamaModel} from 'node-llama-cpp';
 import createChatWrapper from './chat-wrapper/chat-wrapper.js';
 import {ChatContext} from '../../../chat-context.js';
 
 export default class NodeLlamaCppChat extends ChatContext {
     private _session: LlamaChatSession;
 
-    constructor(protected _parent: NodeLlamaCpp, model: LlamaModel, private _package: typeof import('node-llama-cpp-v2')) {
+    constructor(protected _parent: NodeLlamaCpp, model: LlamaModel, private _package: typeof import('node-llama-cpp')) {
         super();
         this._session = new _package.LlamaChatSession({
             context: new _package.LlamaContext({model}),

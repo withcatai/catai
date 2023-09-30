@@ -1,9 +1,11 @@
-export default function createChatWrapper(_package: typeof import('node-llama-cpp-v2'), wrapper: string | null = null) {
+export default function createChatWrapper(_package: typeof import('node-llama-cpp'), wrapper: string | null = null) {
     switch (wrapper) {
-        case 'llama':
+        case 'llamaChat':
             return new _package.LlamaChatPromptWrapper();
-        case 'mlp':
+        case 'chatML':
             return new _package.ChatMLPromptWrapper();
+        case 'falconChat':
+            return new _package.FalconChatPromptWrapper();
         case null:
             return new _package.GeneralChatPromptWrapper();
     }

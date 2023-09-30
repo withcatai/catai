@@ -1,10 +1,8 @@
-import NodeLlamaCppV1 from '../bind-class/binds/node-llama-cpp/node-llama-cpp-v1/node-llama-cpp-v1.js';
 import NodeLlamaCppV2 from '../bind-class/binds/node-llama-cpp/node-llama-cpp-v2/node-llama-cpp-v2.js';
 
 const DEFAULT_BIND_CLASS = NodeLlamaCppV2.shortName;
 
 export const MODELS_REGEX = {
-    [NodeLlamaCppV1.shortName]: [/ggml/],
     [NodeLlamaCppV2.shortName]: [/gguf/]
 };
 

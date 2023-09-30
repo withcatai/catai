@@ -13,7 +13,7 @@
 </div>
 <br />
 
-Run GGML/GGUF models on your computer with a chat ui.
+Run GGUF models on your computer with a chat ui.
 
 > Your own AI assistant runs locally on your computer.
 
@@ -49,7 +49,7 @@ Options:
   -h, --help                       display help for command
 
 Commands:
-  install|i [options] [models...]  Install any GGML/GGUF model
+  install|i [options] [models...]  Install any GGUF model
   models|ls [options]              List all available models
   use [model]                      Set model to use
   serve|up [options]               Open the chat website
@@ -65,7 +65,7 @@ Commands:
 ```
 Usage: cli install|i [options] [models...]
 
-Install any GGML model
+Install any GGUF model
 
 Arguments:
   models                Model name/url/path
@@ -123,35 +123,13 @@ const response = await fetch('http://127.0.0.1:3000/api/chat/prompt', {
 const data = await response.text();
 ```
 
-### Streaming the response
-
-```js
-const response = await fetch('http://127.0.0.1:3000/api/chat/prompt', {
-    method: 'POST',
-    body: JSON.stringify({
-        prompt: 'Write me 100 words story'
-    }),
-    headers: {
-        'Content-Type': 'application/json'
-    }
-});
-
-
-const reader = response.body.pipeThrough(new TextDecoderStream())
-    .getReader();
-
-while (true) {
-    const {value, done} = await reader.read();
-    if (done) break;
-    console.log('Received', value);
-}
-```
+For more information, please read the [API guide](https://github.com/withcatai/catai/blob/main/docs/api.md)
 
 ## Configuration
 
 You can edit the configuration via the web ui.
 
-More information [here](./docs/configuration.md)
+More information [here](https://github.com/withcatai/catai/blob/main/docs/configuration.md)
 
 ## Contributing
 

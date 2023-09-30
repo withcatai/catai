@@ -29,11 +29,32 @@ type RemoteFetchModels = {
     [key: string]: DetailedDownloadInfo & { hide: boolean }
 }
 
+const DEFAULT_DOWNLOAD_TYPE = 'model';
 export const DEFAULT_VERSION = 0;
 export default class FetchModels {
     private static _cachedModels: RemoteFetchModels;
     private _downloadFiles: { [key: string]: string | string[] } = {};
 
+    /**
+     * Install a model from a remote source
+     *
+     * @example - Install from a direct link (can be multiple links)
+     * const install = await new FetchModels({
+     *   download: 'https://huggingface.co/TheBloke/Megamix-A1-13B-GGUF/resolve/main/megamix-a1-13b.Q2_K.gguf'
+     * });
+     *
+     * await install.startDownload();
+     *
+     * @example - Install form CatAI model index
+     * const models = await FetchModels.fetchModels();
+     * const firstModel = Object.keys(models)[0];
+     *
+     * const install = await new FetchModels({
+     *  download: firstModel
+     * });
+     *
+     * await install.startDownload();
+     */
     constructor(public options: FetchOptions) {
     }
 
@@ -116,12 +137,14 @@ export default class FetchModels {
     public async startDownload() {
         await this._findModel();
         await this._deleteOldFiles();
-        const typeToName = (type: string) => `${this.options.tag}.${type}`;
+
+        const createDownloadName = (type: string) =>
+            type === DEFAULT_DOWNLOAD_TYPE ? this.options.tag! : `${this.options.tag}.${type}`;
 
         const downloadedFiles: { [key: string]: string } = {};
 
         for (const [type, urls] of Object.entries(this._downloadFiles)) {
-            const savePath = path.join(ENV_CONFIG.MODEL_DIR!, typeToName(type));
+            const savePath = path.join(ENV_CONFIG.MODEL_DIR!, createDownloadName(type));
 
             await FetchModels._downloadModelInFiles([urls].flat(), savePath, type);
             downloadedFiles[type] = savePath;
