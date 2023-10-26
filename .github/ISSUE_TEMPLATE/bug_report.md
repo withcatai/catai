@@ -20,3 +20,8 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. chrome, safari]
  - CatAI version [e.g. 0.3.10] (`catai --version`)
  - Node.js version [e.g 19] (`node --version`)
+ - Which model are you trying to run? (`catai active`)
+ - How many GB of RAM do you have available?
+ - What CPU do you have?
+
+Is this model compatible? (run `catai ls` for this info)
