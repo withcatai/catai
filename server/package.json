@@ -22,7 +22,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "generate-docs": "typedoc --plugin typedoc-plugin-missing-exports",
+    "generate-docs": "typedoc --plugin typedoc-plugin-missing-exports && mkdir -p ./docs/docs/demo/ && cp -r ../docs/demo/ ./docs/docs/demo/",
     "semantic-release": "semantic-release --extends ./.config/semantic-release.json",
     "postinstall": "node ./dist/cli/cli.js postinstall",
     "prebuild": "rm -rf ./dist ./tsconfig.tsbuildinfo",
