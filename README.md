@@ -31,7 +31,7 @@ catai install vicuna-7b-16k-q4_k_s
 catai up
 ```
 
-![catai](https://github.com/withcatai/catai/blob/main/docs/demo/chat.gif)
+![catai](docs/demo/chat.gif)
 
 ## Features
 - Auto detect programming language 🧑‍💻
