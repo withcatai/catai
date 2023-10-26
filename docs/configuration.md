@@ -14,7 +14,11 @@ You can config the model by the following steps:
 2. Edit configuration (JSON file):
 
    If the model binding is `node-llama-cpp` or `node-llama-cpp-v2`, You can find the configuration
-   here: [Node-Llama-CPP Model's Options](https://withcatai.github.io/node-llama-cpp/types/LlamaModelOptions.html)
+   here:
+
+   [LlamaContextOptions](https://withcatai.github.io/node-llama-cpp/api/type-aliases/LlamaContextOptions)
+
+   [LLamaChatPromptOptions](https://withcatai.github.io/node-llama-cpp/api/type-aliases/LLamaChatPromptOptions)
 
 
 3. Restart the server.
