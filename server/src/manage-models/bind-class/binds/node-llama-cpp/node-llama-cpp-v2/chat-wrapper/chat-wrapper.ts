@@ -3,7 +3,7 @@ export default function createChatWrapper(_package: typeof import('node-llama-cp
         case 'llamaChat':
             return new _package.LlamaChatPromptWrapper();
         case 'chatML':
-            return new _package.ChatMLPromptWrapper();
+            return new _package.ChatMLChatPromptWrapper();
         case 'falconChat':
             return new _package.FalconChatPromptWrapper();
         case null:

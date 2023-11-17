@@ -1,15 +1,6 @@
 import {Command} from 'commander';
 import {DownloadLlamaCppCommand, BuildLlamaCppCommand} from 'node-llama-cpp/commands.js';
-import {createRequire} from "module";
-import fs from 'fs-extra';
-import path from 'path';
 
-const NODE_LLAMA_CPP_LOCATION = createRequire(import.meta.url).resolve('node-llama-cpp');
-const BINARIES_GITHUB_RELEASE_JSON = path.resolve(`${NODE_LLAMA_CPP_LOCATION}/../../llama/binariesGithubRelease.json`);
-const {release: DEFAULT_RELEASE} = await fs.readJson(BINARIES_GITHUB_RELEASE_JSON);
-
-const METAL_ENABLED_BY_DEFAULT = process.platform === 'darwin';
-const LLAMA_CPP_REPO = 'ggerganov/llama.cpp';
 export const nodeLlamaCpp = new Command('node-llama-cpp');
 
 nodeLlamaCpp.description('Node llama.cpp CLI - recompile node-llama-cpp binaries')
@@ -21,7 +12,7 @@ nodeLlamaCpp.description('Node llama.cpp CLI - recompile node-llama-cpp binaries
     .option('--metal', 'Compile llama.cpp with Metal support. Enabled by default on macOS')
     .option('--cuda', 'Compile llama.cpp with CUDA support')
     .option('--no-download', 'Skip downloading llama.cpp and only build it');
-nodeLlamaCpp.action(async ({repo = LLAMA_CPP_REPO, release = DEFAULT_RELEASE, arch, nodeTarget, cuda, metal = METAL_ENABLED_BY_DEFAULT, noDownload = false}) => {
+nodeLlamaCpp.action(async ({repo, release, arch, nodeTarget, cuda, metal, noDownload = false}) => {
     if (noDownload) {
         return await BuildLlamaCppCommand({
             cuda,

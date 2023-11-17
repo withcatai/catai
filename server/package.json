@@ -101,7 +101,7 @@
     "get-port": "^6.1.2",
     "ipull": "^1.0.1",
     "multistream": "^4.1.0",
-    "node-llama-cpp": "^2.5.1",
+    "node-llama-cpp": "^2.8.0",
     "object-assign-deep": "^0.4.0",
     "open": "^9.1.0",
     "ora": "^7.0.1",
