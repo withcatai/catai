@@ -193,6 +193,6 @@ export default class FetchModels {
     }
 
     private static _findModelTag(modelPath: string) {
-        return modelPath.split(/[\/\\]/).pop()!;
+        return modelPath.split(/[\/\\]/).pop()?.split(/[?#]/).shift() || modelPath;
     }
 }
