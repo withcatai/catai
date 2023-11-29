@@ -1,4 +1,4 @@
-import type {LLamaChatPromptOptions, LlamaChatSession} from 'node-llama-cpp';
+import type {LLamaChatPromptOptions, LlamaChatSession, Token} from 'node-llama-cpp';
 import {ChatContext} from '../../../chat-context.js';
 
 export default class NodeLlamaCppChat extends ChatContext {
@@ -7,7 +7,7 @@ export default class NodeLlamaCppChat extends ChatContext {
         super();
     }
 
-    public async prompt(prompt: string, onToken?: (token: string) => void, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
+    public async prompt(prompt: string, onTokenText?: (token: string) => void, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
         this.emit('abort', 'Aborted by new prompt');
         const abort = new AbortController();
         const closeCallback = () => {
@@ -20,7 +20,7 @@ export default class NodeLlamaCppChat extends ChatContext {
         try {
             response = await this._session.prompt(prompt, {
                 signal: abort.signal,
-                onToken: tokens => this._onToken(tokens, onToken),
+                onToken: tokens => this._onToken(tokens, onTokenText),
                 ...this._promptSettings,
                 ...overrideSettings
             });
@@ -34,8 +34,8 @@ export default class NodeLlamaCppChat extends ChatContext {
         return response;
     }
 
-    private _onToken(token: number[], onToken?: (token: string) => void) {
-        const text = this._session.context!.decode(Uint32Array.from(token));
+    private _onToken(tokens: Token[], onToken?: (token: string) => void) {
+        const text = this._session.context!.model.detokenize(tokens);
         this.emit('token', text);
         onToken?.(text);
     }
