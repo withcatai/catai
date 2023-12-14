@@ -68,10 +68,6 @@
       list-style: auto !important;
     }
 
-    li {
-      line-height: .5rem;
-    }
-
     .copy-clipboard {
       position: absolute;
       right: 0;

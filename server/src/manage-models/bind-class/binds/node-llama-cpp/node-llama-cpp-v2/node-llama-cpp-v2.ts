@@ -1,11 +1,14 @@
-import type {LlamaModel, LlamaModelOptions} from 'node-llama-cpp';
+import type {LLamaChatPromptOptions, LlamaChatSessionOptions, LlamaContextOptions, LlamaModel, LlamaModelOptions} from 'node-llama-cpp';
 import NodeLlamaCppChat from './node-llama-cpp-chat.js';
 import BaseBindClass from '../../base-bind-class.js';
 
-type NodeLlamaCppOptions = Omit<LlamaModelOptions, 'modelPath'> & {
-    wrapper?: string,
-    maxTokens?: number,
-};
+type NodeLlamaCppOptions =
+    Omit<LlamaContextOptions, 'model'> &
+    Omit<LlamaModelOptions, 'modelPath'> &
+    Omit<LlamaChatSessionOptions, 'contextSequence'> &
+    LLamaChatPromptOptions;
+
+const DEFAULT_CONTEXT_SIZE = 4096;
 
 export default class NodeLlamaCppV2 extends BaseBindClass<NodeLlamaCppOptions> {
     public static override shortName = 'node-llama-cpp-v2';
@@ -13,8 +16,24 @@ export default class NodeLlamaCppV2 extends BaseBindClass<NodeLlamaCppOptions> {
     private _model?: LlamaModel;
     private _package?: typeof import('node-llama-cpp');
 
-    createChat() {
-        return new NodeLlamaCppChat(this, this._model!, this._package!);
+    createChat(overrideSettings?: NodeLlamaCppOptions): NodeLlamaCppChat {
+        if (!this._model || !this._package)
+            throw new Error('Model not initialized');
+
+        const settings: NodeLlamaCppOptions = {...this.modelSettings.settings, ...overrideSettings};
+        settings.batchSize ??= settings.contextSize ??= DEFAULT_CONTEXT_SIZE;
+
+        const context = new this._package.LlamaContext({
+            model: this._model,
+            ...settings
+        });
+
+        const session = new this._package.LlamaChatSession({
+            contextSequence: context.getSequence(),
+            ...settings
+        });
+
+        return new NodeLlamaCppChat(settings, session);
     }
 
     async initialize(): Promise<void> {
