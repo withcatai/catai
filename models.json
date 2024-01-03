@@ -441,5 +441,27 @@
       "contextSize": 4096
     },
     "version": 1
+  },
+  "dolphin-2.2.1-mistral-7b-q4_0": {
+    "download": {
+      "files": {
+        "model": "dolphin-2.2.1-mistral-7b.Q4_0.gguf"
+      },
+      "repo": "https://huggingface.co/TheBloke/dolphin-2.2.1-mistral-7B-GGUF",
+      "commit": "34548d6105f2ffdc35b066364a954d42c24a2d87",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.4,
+      "cpuCors": 2,
+      "compressions": "q4_0"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.0.2"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1.1
   }
 }
