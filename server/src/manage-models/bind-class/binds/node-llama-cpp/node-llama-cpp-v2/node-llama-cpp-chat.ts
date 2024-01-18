@@ -8,7 +8,6 @@ export default class NodeLlamaCppChat extends ChatContext {
 
     constructor(protected _parent: NodeLlamaCpp, model: LlamaModel, private _package: typeof import('node-llama-cpp')) {
         super();
-        console.log("models settings", _parent.modelSettings.settings)
         this._session = new _package.LlamaChatSession({
             context: new _package.LlamaContext({model}),
             promptWrapper: createChatWrapper(_package, _parent.modelSettings.settings?.wrapper),
