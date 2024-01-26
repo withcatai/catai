@@ -20,7 +20,7 @@ You can config the model by the following steps:
 
    [LLamaChatPromptOptions](https://withcatai.github.io/node-llama-cpp/api/type-aliases/LLamaChatPromptOptions)
 
-   You can edit the [systemPrompt](system_prompt.md) of the chat too.
+   You can edit the [systemPrompt](system-prompt.md) of the chat too.
 
 
 3. Restart the server.
