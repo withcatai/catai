@@ -1,6 +1,6 @@
-import WebSocket, {ClientOptions} from 'ws';
-import {ClientRequestArgs} from 'http';
-import {ChatContext} from '../../manage-models/bind-class/chat-context.js';
+import WebSocket, { ClientOptions } from 'ws';
+import { ClientRequestArgs } from 'http';
+import { ChatContext } from '../../manage-models/bind-class/chat-context.js';
 
 export default class RemoteCatAI extends ChatContext {
     private _ws: WebSocket;
@@ -28,10 +28,13 @@ export default class RemoteCatAI extends ChatContext {
             if (this._closed) return;
             this.emit('error', 'Connection closed: ' + code);
         });
+        this._ws.on('open', () => {
+            this.emit("open");
+        });
     }
 
     private _onMessage(message: string) {
-        const {event, value} = JSON.parse(message);
+        const { event, value } = JSON.parse(message);
         switch (event) {
             case 'token':
                 this.emit('token', value);
@@ -49,7 +52,7 @@ export default class RemoteCatAI extends ChatContext {
     }
 
     private _send(event: 'prompt' | 'abort', value: string) {
-        this._ws.send(JSON.stringify({event, value}));
+        this._ws.send(JSON.stringify({ event, value }));
     }
 
     abort(reason?: string): void {

@@ -73,18 +73,21 @@ while (true) {
 ### Advanced API
 
 This API is only available only in Node.js.
+[demo](../examples/remotecall.js)
 
-```ts
-import {RemoteCatAI} from 'catai';
-import progress from 'progress-stream';
+```js
+import { RemoteCatAI } from "catai";
 
-const catai = new RemoteCatAI('ws://localhost:3000');
+const catai = new RemoteCatAI("ws://localhost:3000");
 
-const response = await catai.prompt('Write me 100 words story', token => {
-    progress.stdout.write(token);
+catai.on("open", async () => {
+  console.log("Connected");
+  const response = await catai.prompt("Write me 100 words story", (token) => {
+    process.stdout.write(token);
+  });
+
+  console.log(`Total text length: ${response.length}`);
+  catai.close();
 });
 
-console.log(`Total text length: ${response.length}`);
-
-catai.close();
 ```
