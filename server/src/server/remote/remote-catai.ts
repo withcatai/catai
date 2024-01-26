@@ -1,10 +1,11 @@
-import WebSocket, {ClientOptions} from 'ws';
-import {ClientRequestArgs} from 'http';
-import {ChatContext} from '../../manage-models/bind-class/chat-context.js';
+import WebSocket, { ClientOptions } from 'ws';
+import { ClientRequestArgs } from 'http';
+import { ChatContext } from '../../manage-models/bind-class/chat-context.js';
 
 export default class RemoteCatAI extends ChatContext {
     private _ws: WebSocket;
     private _closed = false;
+    private _promiseOpen?: Promise<void>;
 
     /**
      * Connect to remote CatAI server, and use it as a chat context
@@ -28,10 +29,19 @@ export default class RemoteCatAI extends ChatContext {
             if (this._closed) return;
             this.emit('error', 'Connection closed: ' + code);
         });
+
+        this._ws.on('open', () => {
+            this.emit("open");
+        });
+
+        this._promiseOpen = new Promise((resolve, reject) => {
+            this.once('open', resolve);
+            this.once('error', reject);
+        });
     }
 
     private _onMessage(message: string) {
-        const {event, value} = JSON.parse(message);
+        const { event, value } = JSON.parse(message);
         switch (event) {
             case 'token':
                 this.emit('token', value);
@@ -49,14 +59,15 @@ export default class RemoteCatAI extends ChatContext {
     }
 
     private _send(event: 'prompt' | 'abort', value: string) {
-        this._ws.send(JSON.stringify({event, value}));
+        this._ws.send(JSON.stringify({ event, value }));
     }
 
     abort(reason?: string): void {
         this._send('abort', reason || 'Aborted by user');
     }
 
-    prompt(prompt: string, onToken?: (token: string) => void): Promise<string | null> {
+    async prompt(prompt: string, onToken?: (token: string) => void): Promise<string | null> {
+        await this._promiseOpen;
         this._send('prompt', prompt);
 
         let buildText = '';
@@ -66,7 +77,7 @@ export default class RemoteCatAI extends ChatContext {
         };
         this.on('token', tokenEvent);
 
-        return new Promise<string | null>((resolve, reject) => {
+        return await new Promise<string | null>((resolve, reject) => {
             this.once('error', reject);
             this.once('modelResponseEnd', () => {
                 this.off('token', tokenEvent);
