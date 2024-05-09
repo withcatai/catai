@@ -7,7 +7,7 @@ export type ModelInnerSettings<T> = T &{
     key?: string;
 }
 
-export type ModelSettings<T> = {
+export type ModelSettings<T = any> = {
     downloadedFiles: {
         [fileId: string]: string
     },

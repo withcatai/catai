@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import * as os from 'os';
-import FetchModels, {DEFAULT_VERSION} from './fetch-models/fetch-models.js';
+import FetchModels, {DEFAULT_VERSION} from './fetch-models.js';
 import AppDb, {ModelSettings} from '../../storage/app-db.js';
 import {packageJSON} from '../../storage/config.js';
 import semver from 'semver';
@@ -28,7 +28,7 @@ class ModelCompatibilityChecker {
     private static readonly totalMemoryInGB: number = os.totalmem() / GB_IN_BYTES;
     private static readonly availableMemory: number = os.freemem() / GB_IN_BYTES;
 
-    public static checkModelCompatibility({hardwareCompatibility, compatibleCatAIVersionRange}: ModelSettings<any>): Compatibility {
+    public static checkModelCompatibility({hardwareCompatibility, compatibleCatAIVersionRange}: Pick<ModelSettings, 'hardwareCompatibility' | 'compatibleCatAIVersionRange'>): Compatibility {
         if (!compatibleCatAIVersionRange?.[0]) {
             return {
                 compatibility: '?',

@@ -1,4 +1,4 @@
-import {getCacheBindClass} from '../../../manage-models/bind-class/bind-class.js';
+import {findLocalModel, getCacheBindClass} from '../../../manage-models/bind-class/bind-class.js';
 import AppDb from '../../../storage/app-db.js';
 
 export function getActiveModelSettings(){

@@ -11,13 +11,20 @@ Enable you to chat with the model locally on your computer.
 ```ts
 import {createChat} from 'catai';
 
-const chat = await createChat();
+const chat = await createChat(); // using the default model installed
 
 const response = await catai.prompt('Write me 100 words story', token => {
     progress.stdout.write(token);
 });
 
 console.log(`Total text length: ${response.length}`);
+```
+
+You can also specify the model you want to use:
+
+```ts
+import {createChat} from 'catai';
+const chat = await createChat({model: "llama3"});
 ```
 
 If you want to install the model on the fly, please read the [install-api guide](./install-api.md)

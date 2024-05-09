@@ -6,10 +6,9 @@ You can install models on the fly using the `FetchModels` class.
 import {FetchModels} from 'catai';
 
 const allModels = await FetchModels.fetchModels();
-const firstModel = Object.keys(allModels)[0];
 
 const installModel = new FetchModels({
-    download: firstModel,
+    download: "https://huggingface.co/QuantFactory/Meta-Llama-3-8B-Instruct-GGUF/resolve/main/Meta-Llama-3-8B-Instruct.Q2_K.gguf?download=true",
     latest: true,
     model: {
         settings: {
@@ -23,27 +22,27 @@ await installModel.startDownload();
 
 After the download is finished, this model will be the active model.
 
-## Configuration
+## Using with node-llama-cpp@beta
 
-You can change the active model by changing the `CatAIDB`
-
-```ts
-import {CatAIDB} from 'catai';
-
-CatAIDB.db.activeModel = Object.keys(CatAIDB.db.models)[0];
-
-await CatAIDB.saveDB();
-```
-
-You also can change the model settings by changing the `CatAIDB`
+You can download the model and use it directly with node-llama-cpp@beta
 
 ```ts
-import {CatAIDB} from 'catai';
+import {getLlama, LlamaChatSession} from "node-llama-cpp";
+import {getModelPath} from 'catai';
+const modelPath = getModelPath("llama3");
 
-const selectedModel = CatAIDB.db.models[CatAIDB.db.activeModel];
-selectedModel.settings.context = 4096;
+const llama = await getLlama();
+const model = await llama.loadModel({
+    modelPath
+});
 
-await CatAIDB.saveDB();
+const context = await model.createContext();
+const session = new LlamaChatSession({
+    contextSequence: context.getSequence()
+});
+
+const a1 = await session.prompt("Hi there, how are you?");
+console.log("AI: " + a1);
 ```
 
-For extra information about the configuration, please read the [configuration guide](./configuration.md)
+For more information on how to use the model, please refer to the [node-llama-cpp beta pull request](https://github.com/withcatai/node-llama-cpp/pull/105)
