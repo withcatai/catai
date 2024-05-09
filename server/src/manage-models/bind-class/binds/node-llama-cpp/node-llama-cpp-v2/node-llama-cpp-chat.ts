@@ -1,9 +1,10 @@
 import type {LLamaChatPromptOptions, LlamaChatSession, Token} from 'node-llama-cpp';
 import {ChatContext} from '../../../chat-context.js';
+import objectAssignDeep from "object-assign-deep";
 
 export default class NodeLlamaCppChat extends ChatContext {
 
-    constructor(protected _promptSettings: LLamaChatPromptOptions, private _session: LlamaChatSession) {
+    constructor(protected _promptSettings: Partial<LLamaChatPromptOptions>, private _session: LlamaChatSession) {
         super();
     }
 
@@ -18,11 +19,11 @@ export default class NodeLlamaCppChat extends ChatContext {
 
         let response = null;
         try {
+            const allSettings: LLamaChatPromptOptions = objectAssignDeep({}, this._promptSettings, overrideSettings);
             response = await this._session.prompt(prompt, {
+                ...allSettings,
                 signal: abort.signal,
                 onToken: tokens => this._onToken(tokens, onTokenText),
-                ...this._promptSettings,
-                ...overrideSettings
             });
         } catch (error: any) {
             this.emit('error', error.message);
