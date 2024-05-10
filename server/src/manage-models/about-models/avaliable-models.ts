@@ -3,20 +3,21 @@ import AppDb from '../../storage/app-db.js';
 
 async function getInstalledModels(): Promise<ModelInfo[]> {
     return Object.entries(AppDb.db.models).map(([model, modelSettings]) => {
-        const {note, compatibility} = ModelCompatibilityChecker.checkModelCompatibility(modelSettings);
+        const {note, catAIVersionCompatibility, compatibility} = ModelCompatibilityChecker.checkModelCompatibility(modelSettings);
 
         return {
             model,
             modelInstalled: true,
             version: modelSettings?.version?.toString?.() || "?",
             compatibility,
+            catAIVersionCompatibility,
             note
         }
     });
 }
 
 export async function getAllAvailableModels(onlyRemote?: boolean, onlyLocal?: boolean) {
-    const models = [...await ModelCompatibilityChecker.listAllModels()];
+    const models = [...await ModelCompatibilityChecker.listAllModels()].filter(x => x.catAIVersionCompatibility);
     const installedModels = await getInstalledModels();
 
     for(const installedModel of installedModels) {
