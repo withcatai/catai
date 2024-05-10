@@ -14,7 +14,8 @@
       "compressions": "q3_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.9"
+      "2.0.9",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -36,7 +37,8 @@
       "compressions": "q3_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.9"
+      "2.0.9",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -58,7 +60,8 @@
       "compressions": "q3_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.13"
+      "2.0.13",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -80,7 +83,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.13"
+      "2.0.13",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -102,7 +106,8 @@
       "compressions": "q4_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.13"
+      "2.0.13",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -124,7 +129,8 @@
       "compressions": "q3_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.13"
+      "2.0.13",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -146,7 +152,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2",
@@ -169,7 +176,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2",
@@ -192,7 +200,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -214,7 +223,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -236,7 +246,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -258,7 +269,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -280,7 +292,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -302,7 +315,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -324,7 +338,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -346,7 +361,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -368,7 +384,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -390,7 +407,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -412,7 +430,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -434,7 +453,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "2.0.14"
+      "2.0.14",
+      "3.1.1"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2",
@@ -442,26 +462,136 @@
     },
     "version": 1
   },
-  "dolphin-2.2.1-mistral-7b-q4_0": {
+  "athena-llama-coder-3-8b-q3_k_s": {
     "download": {
       "files": {
-        "model": "dolphin-2.2.1-mistral-7b.Q4_0.gguf"
+        "model": "Athena-llama-Coder-3-8B.Q3_K_S.gguf"
       },
-      "repo": "https://huggingface.co/TheBloke/dolphin-2.2.1-mistral-7B-GGUF",
-      "commit": "34548d6105f2ffdc35b066364a954d42c24a2d87",
+      "repo": "https://huggingface.co/mradermacher/Athena-llama-Coder-3-8B-GGUF",
+      "commit": "36caf905afa08bd4330f3e2f9373577c77f1278b",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 5.3,
+      "cpuCors": 3,
+      "compressions": "q3_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.1.2"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "mistral-7b-grok-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "mistral-7b-grok.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/mradermacher/mistral-7b-grok-GGUF",
+      "commit": "6de84766008c21dbff28d17d55bdb643c1537b02",
       "branch": "main"
     },
     "hardwareCompatibility": {
       "ramGB": 4.4,
       "cpuCors": 2,
-      "compressions": "q4_0"
+      "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "3.0.2"
+      "3.1.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
     },
-    "version": 1.1
+    "version": 1
+  },
+  "athena-codezephyr-7b-v0.2-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "Athena-CodeZephyr-7B-v0.2.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/mradermacher/Athena-CodeZephyr-7B-v0.2-GGUF",
+      "commit": "d11f71ae501ea32c8e8567765b19c406af8b4a0f",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.4,
+      "cpuCors": 2,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.1.2"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "alphallama3-8b-q3_k_s": {
+    "download": {
+      "files": {
+        "model": "Alphallama3-8B.Q3_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/mradermacher/Alphallama3-8B-GGUF",
+      "commit": "738ab183a3e2ce92b96c9273e5d78960387ad939",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 5.3,
+      "cpuCors": 3,
+      "compressions": "q3_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.1.2"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "llama3-8b-dpo-uncensored-q4_k_s": {
+    "download": {
+      "files": {
+        "model": "Llama3-8B-DPO-uncensored.Q4_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/mradermacher/Llama3-8B-DPO-uncensored-GGUF",
+      "commit": "af5654c362a9967e2f704658f8aad7429cfcffb7",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 5.3,
+      "cpuCors": 3,
+      "compressions": "q4_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.1.2"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "llama3-8b-openhermes-dpo-q3_k_s": {
+    "download": {
+      "files": {
+        "model": "Llama3-8B-OpenHermes-DPO.Q3_K_S.gguf"
+      },
+      "repo": "https://huggingface.co/mradermacher/Llama3-8B-OpenHermes-DPO-GGUF",
+      "commit": "c0edd26cf8259267807d02ad8903faac593b099d",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 5.3,
+      "cpuCors": 3,
+      "compressions": "q3_k_s"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.1.2"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
   }
 }

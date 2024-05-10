@@ -61,6 +61,7 @@ const fileCompressionParametersToSize = {
     },
     'q3_k_s': {
         7: 3,
+        8: 4.8,
         13: 5.7,
         30: 14,
         34: 14.6,
@@ -75,6 +76,7 @@ const fileCompressionParametersToSize = {
     },
     'q4_k_s': {
         7: 3.9,
+        8: 4.8,
         13: 7.4,
         30: 18.3,
         34: 19.1,
@@ -170,19 +172,20 @@ async function main() {
     userLabel = userLabel.trim().toLowerCase();
 
     const [userName, repo, , branch, file] = url.split("/").slice(-5);
+    const fileWithoutQuery = file.split("?")[0];
 
     const commit = await getLastCommit(userName, repo);
     const modelInfo = models[userLabel];
     const {download} = modelInfo || {};
 
-    if (modelInfo && download.files.model === file && download.commit === commit) {
+    if (modelInfo && download.files.model === fileWithoutQuery && download.commit === commit) {
         console.log(`Model already added with label ${userLabel}`);
         return;
     } else if (modelInfo) {
         modelInfo.download.commit = commit;
-        modelInfo.download.files.model = file;
+        modelInfo.download.files.model = fileWithoutQuery;
         modelInfo.version += 0.1;
-        modelInfo.hardwareCompatibility = calculateCompatibility(file);
+        modelInfo.hardwareCompatibility = calculateCompatibility(fileWithoutQuery);
         modelInfo.compatibleCatAIVersionRange = [catAIVersion];
         console.log(`Model ${userLabel} updated`);
         await saveModel();
@@ -192,13 +195,13 @@ async function main() {
     models[userLabel] = {
         "download": {
             "files": {
-                "model": file
+                "model": fileWithoutQuery
             },
             "repo": `https://huggingface.co/${userName}/${repo}`,
             "commit": commit,
             "branch": branch,
         },
-        "hardwareCompatibility": calculateCompatibility(file),
+        "hardwareCompatibility": calculateCompatibility(fileWithoutQuery),
         "compatibleCatAIVersionRange": [catAIVersion],
         "settings": {
             "bind": "node-llama-cpp-v2"

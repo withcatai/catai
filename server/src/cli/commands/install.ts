@@ -2,7 +2,7 @@ import {Command} from 'commander';
 import ModelCompatibilityChecker from '../../manage-models/about-models/model-compatibility-checker.js';
 import prompts from 'prompts';
 import AppDb from '../../storage/app-db.js';
-import FetchModels from '../../manage-models/about-models/fetch-models/fetch-models.js';
+import FetchModels from '../../manage-models/about-models/fetch-models.js';
 
 export const installCommand = new Command('install');
 

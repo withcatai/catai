@@ -12,6 +12,7 @@ import {uninstallCommand} from "./commands/uninstall.js";
 import {serveCommand} from "./commands/serve.js";
 import {activeCommand} from "./commands/active.js";
 import {postinstallCommand} from "./commands/postinstall/postinstall.js";
+import {nodeLlamaCpp} from './commands/node-llama-cpp.js';
 
 const program = new Command();
 program.version(packageJSON.version);
@@ -24,6 +25,7 @@ program.addCommand(updateCommand);
 program.addCommand(activeCommand);
 program.addCommand(removeCommand);
 program.addCommand(uninstallCommand);
+program.addCommand(nodeLlamaCpp);
 
 program.addCommand(postinstallCommand, {hidden: true});
 

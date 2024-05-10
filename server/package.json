@@ -1,6 +1,6 @@
 {
   "name": "catai",
-  "version": "1.0.0",
+  "version": "8.0.0",
   "description": "Chat UI and Local API for the Llama models",
   "main": "dist/index.js",
   "type": "module",
@@ -35,8 +35,9 @@
     "lint:eslint": "eslint --ext .js --ext .ts ../..",
     "format": "npm run lint:eslint -- --fix",
     "clean": "rm -rf ./node_modules ./dist ./tsconfig.tsbuildinfo",
-    "cli": "npm run build && node -r dotenv/config ./dist/cli/cli.js",
+    "cli": "npm run build && node --env-file='.env' ./dist/cli/cli.js",
     "new-model": "zx scripts/new-model.js",
+    "deprecate": "zx scripts/deprecate.js",
     "prepack": "npm run build && npm run build:front && cp ../README.md ./README.md"
   },
   "repository": {
@@ -63,6 +64,7 @@
     "url": "https://github.com/withcatai/catai/issues"
   },
   "homepage": "https://github.com/withcatai/catai#readme",
+  "funding": "https://github.com/sponsors/ido-pluto",
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
     "@types/cli-progress": "^3.11.0",
@@ -83,15 +85,14 @@
     "jsdom": "^22.1.0",
     "semantic-release": "^21.0.7",
     "tslib": "^2.6.1",
-    "typedoc": "^0.24.8",
+    "typedoc": "^0.25.13",
     "typedoc-plugin-missing-exports": "^2.0.1",
-    "typescript": "^5.1.6",
+    "typescript": "^5.4.5",
     "zx": "^7.2.3"
   },
   "dependencies": {
     "@tinyhttp/app": "^2.1.4",
     "@tinyhttp/cors": "^2.0.0",
-    "await-lock": "^2.2.2",
     "body-parser": "^1.20.2",
     "chalk": "^5.3.0",
     "cli-table3": "^0.6.3",
@@ -99,9 +100,10 @@
     "execa": "^7.2.0",
     "fs-extra": "^11.1.1",
     "get-port": "^6.1.2",
-    "ipull": "^1.0.1",
+    "ipull": "^3.2.2",
+    "lifecycle-utils": "^1.4.1",
     "multistream": "^4.1.0",
-    "node-llama-cpp": "^2.5.1",
+    "node-llama-cpp": "3.0.0-beta.18",
     "object-assign-deep": "^0.4.0",
     "open": "^9.1.0",
     "ora": "^7.0.1",
