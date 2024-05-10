@@ -56,7 +56,8 @@
     "self-hosted",
     "node-llama-cpp",
     "local",
-    "catai"
+    "catai",
+    "chat"
   ],
   "author": "Ido S.",
   "license": "MIT",
