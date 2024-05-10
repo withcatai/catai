@@ -100,7 +100,7 @@
     "execa": "^7.2.0",
     "fs-extra": "^11.1.1",
     "get-port": "^6.1.2",
-    "ipull": "^3.2.1",
+    "ipull": "^3.2.2",
     "lifecycle-utils": "^1.4.1",
     "multistream": "^4.1.0",
     "node-llama-cpp": "3.0.0-beta.18",
