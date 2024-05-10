@@ -10,14 +10,13 @@ export interface ChatContextEvents {
     emit(event: 'modelResponseEnd'): boolean;
 }
 
-export abstract class ChatContext extends EventEmitter implements ChatContextEvents {
+export abstract class ChatContext<Settings = any> extends EventEmitter implements ChatContextEvents {
 
     /**
      * Prompt the model and stream the response
-     * @param prompt
-     * @param onToken
      */
-    abstract prompt(prompt: string, onToken?: (token: string) => void): Promise<string | null>;
+    abstract prompt(prompt: string, overrideSettings?: Partial<Settings>): Promise<string | null>;
+    abstract prompt(prompt: string, onToken?: (token: string) => void, overrideSettings?: Partial<Settings>): Promise<string | null>;
 
     /**
      * Abort the model response
