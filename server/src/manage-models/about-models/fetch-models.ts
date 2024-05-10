@@ -201,7 +201,7 @@ export default class FetchModels {
     }
 
     static async simpleDownload(downloadURL: string, tag?: string, skipExisting = true){
-        if(tag && skipExisting && AppDb.db.models[tag]){
+        if (skipExisting && (tag && AppDb.db.models[tag] || !tag && AppDb.db.models[downloadURL])) {
             return;
         }
 
