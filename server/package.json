@@ -104,7 +104,7 @@
     "ipull": "^3.2.2",
     "lifecycle-utils": "^1.4.1",
     "multistream": "^4.1.0",
-    "node-llama-cpp": "3.0.0-beta.18",
+    "node-llama-cpp": "3.0.0-beta.19",
     "object-assign-deep": "^0.4.0",
     "open": "^9.1.0",
     "ora": "^7.0.1",
