@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL('./', import.meta.url));
 export const packageJSON = await fs.readJSON(path.join(__dirname, '..', '..', 'package.json'));
 
 /**
- * CatAI config, that can be set by env variables
+ * Catai config, that can be set by env variables
  * @property {string} CATAI_DIR - The directory to store models and other data.
  *
  * env: CATAI_DIR
@@ -27,7 +27,7 @@ export const packageJSON = await fs.readJSON(path.join(__dirname, '..', '..', 'p
  * @property {boolean} ADMIN_USE - Whether to use admin features
  *
  * env: CATAI_ADMIN_USE
- * @property {string} MODEL_INDEX - The url to the model index, currently fetch from CatAI repo
+ * @property {string} MODEL_INDEX - The url to the model index, currently fetch from Catai repo
  *
  * env: CATAI_MODEL_INDEX
  * @property {string} MODEL_DIR - The directory to store models

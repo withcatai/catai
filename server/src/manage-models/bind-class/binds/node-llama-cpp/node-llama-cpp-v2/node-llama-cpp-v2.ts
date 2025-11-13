@@ -1,6 +1,9 @@
 import {getLlama, Llama, LLamaChatPromptOptions, LlamaChatSession, LlamaChatSessionOptions, LlamaContextOptions, LlamaModel, LlamaModelOptions, LlamaOptions} from 'node-llama-cpp';
 import NodeLlamaCppChat from './node-llama-cpp-chat.js';
 import BaseBindClass from '../../base-bind-class.js';
+import objectAssignDeep from 'object-assign-deep';
+import fsExtra from 'fs-extra';
+import {ModelNotInstalledError} from '../../../errors/ModelNotInstalledError.js';
 
 export type NodeLlamaCppOptions =
     Omit<LlamaContextOptions, 'model'> &
@@ -24,7 +27,7 @@ export default class NodeLlamaCppV2 extends BaseBindClass<NodeLlamaCppOptions> {
         if (!this._model)
             throw new Error('Model not initialized');
 
-        const settings = Object.assign({}, this.modelSettings.settings, overrideSettings);
+        const settings = objectAssignDeep({}, this.modelSettings.settings, overrideSettings);
         const context = await this._model.createContext({
             ...settings
         });
@@ -38,6 +41,10 @@ export default class NodeLlamaCppV2 extends BaseBindClass<NodeLlamaCppOptions> {
     }
 
     async initialize(): Promise<void> {
+        if (!await fsExtra.pathExists(this.modelSettings.downloadedFiles.model)) {
+            throw new ModelNotInstalledError(`Model ${this.modelSettings.downloadedFiles.model} does not exist locally - run "sync" to cleanup none exiting models`);
+        }
+
         const llama = cachedLlama ?? await initCatAILlama();
         this._model = await llama.loadModel({
             modelPath: this.modelSettings.downloadedFiles.model,

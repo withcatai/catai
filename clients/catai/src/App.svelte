@@ -19,7 +19,7 @@
         <NavBrand href="/">
             <Logo height="4"/>
             <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              CatAI Chat
+              Catai Chat
             </span>
         </NavBrand>
         <div on:click={(() => darkMode.update(last => !last))}>

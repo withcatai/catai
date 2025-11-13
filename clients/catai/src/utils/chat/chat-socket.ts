@@ -32,7 +32,8 @@ export default class ChatSocket {
 
         switch (type) {
             case 'token':
-                this.actions.serverToken(value);
+            case 'think-token':
+                this.actions.serverToken(value, type);
                 break;
             case 'error':
                 this.actions.serverError(value);

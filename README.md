@@ -1,6 +1,6 @@
 <div align="center">
-    <img alt="CatAI Logo" src="docs/demo/logo.png" width="360px"/>
-    <h1>CatAI</h1>
+    <img alt="Catai Logo" src="docs/demo/logo.webp" width="360px"/>
+    <h1>Catai</h1>
 </div>
 
 <div align="center">
@@ -155,7 +155,7 @@ console.log(fullResponse); // [10, 2, 3, 4, 6, 9, 8, 1, 7, 5]
 
 You can use the model with [node-llama-cpp@beta](https://github.com/withcatai/node-llama-cpp/pull/105)
 
-CatAI enables you to easily manage the models and chat with them.
+Catai enables you to easily manage the models and chat with them.
 
 ```ts
 import {downloadModel, getModelPath, initCatAILlama, LlamaChatSession} from 'catai';

@@ -1,6 +1,6 @@
-# CatAI API
+# Catai API
 
-CatAI provides multiple APIs to interact with the model.
+Catai provides multiple APIs to interact with the model.
 
 ## Local API
 

@@ -1,5 +1,5 @@
-import type {LLamaChatPromptOptions, LlamaChatSession, Token} from 'node-llama-cpp';
-import {ChatContext} from '../../../chat-context.js';
+import type {LLamaChatPromptOptions, LlamaChatResponseChunk, LlamaChatSession} from 'node-llama-cpp';
+import {ChatContext, ChatResponse} from '../../../chat-context.js';
 
 export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions> {
 
@@ -7,10 +7,10 @@ export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions
         super();
     }
 
-    public async prompt(prompt: string, onTokenText?: ((token: string) => void) | Partial<LLamaChatPromptOptions>, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
-        if (typeof onTokenText !== 'function') {
-            overrideSettings = onTokenText as Partial<LLamaChatPromptOptions>;
-            onTokenText = undefined;
+    public async prompt(prompt: string, chatResponse?: ChatResponse | Partial<LLamaChatPromptOptions>, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
+        if (typeof chatResponse !== 'function') {
+            overrideSettings = chatResponse as Partial<LLamaChatPromptOptions>;
+            chatResponse = undefined;
         }
 
         this.emit('abort', 'Aborted by new prompt');
@@ -19,7 +19,14 @@ export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions
             abort.abort();
             this.off('abort', closeCallback);
         };
+
+        const cleanup = () => {
+            closeCallback();
+            this._session.dispose({disposeSequence: true});
+        };
+
         this.once('abort', closeCallback);
+        this.once('close', cleanup);
 
         let response = null;
         try {
@@ -27,7 +34,7 @@ export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions
             response = await this._session.prompt(prompt, {
                 ...allSettings,
                 signal: abort.signal,
-                onToken: tokens => this._onToken(tokens, onTokenText),
+                onResponseChunk: chunk => this._onResponseChunk(chunk, chatResponse),
             });
         } catch (error: any) {
             this.emit('error', error.message);
@@ -39,13 +46,25 @@ export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions
         return response;
     }
 
-    private _onToken(tokens: Token[], onToken?: (token: string) => void) {
-        const text = this._session.context!.model.detokenize(tokens);
-        this.emit('token', text);
-        onToken?.(text);
+    private _onResponseChunk(chunk: LlamaChatResponseChunk, onResponse?: ChatResponse) {
+        if (chunk.type === 'segment' || chunk.type == null && chunk.text) {
+            switch (chunk.segmentType) {
+                case 'thought':
+                    onResponse?.(chunk.text, 'think-token');
+                    this.emit('think-token', chunk.text);
+                    break;
+                default:
+                    onResponse?.(chunk.text, 'token');
+                    this.emit('token', chunk.text);
+            }
+        }
     }
 
     abort(reason = 'Aborted by user'): void {
         this.emit('abort', reason);
+    }
+
+    close() {
+        this.emit('close');
     }
 }

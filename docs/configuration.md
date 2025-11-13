@@ -6,7 +6,7 @@ The configuration mostly depends on the model binding, for most cases is `llama.
 
 You can config the model by the following steps:
 
-1. Click on the settings button on the CatAI chat WebUI:
+1. Click on the settings button on the Catai chat WebUI:
 
    ![Settings Button](./configuration/settings-button.png)
 

@@ -477,7 +477,8 @@
       "compressions": "q3_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "3.1.2"
+      "3.1.2",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -499,7 +500,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "3.1.2"
+      "3.1.2",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -521,7 +523,8 @@
       "compressions": "q4_k_s"
     },
     "compatibleCatAIVersionRange": [
-      "3.1.2"
+      "3.1.2",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -543,7 +546,8 @@
       "compressions": "q4_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.2.0"
+      "3.2.0",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -565,7 +569,8 @@
       "compressions": "q4_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.2.0"
+      "3.2.0",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -587,7 +592,8 @@
       "compressions": "q5_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.2.0"
+      "3.2.0",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -609,7 +615,8 @@
       "compressions": "q4_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.2.0"
+      "3.2.0",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
@@ -631,10 +638,179 @@
       "compressions": "q4_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.2.0"
+      "3.2.0",
+      "3.2.2"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "gemma-3-12b-it-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "gemma-3-12b-it-Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/unsloth/gemma-3-12b-it-GGUF",
+      "commit": "d15e4c7dc21dc55d56bf8549db57a71ad8a2a35d",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 7.29,
+      "cpuCors": 4,
+      "compressions": "co/unsloth/gemma-3-12b-it-gguf/resolve/main/gemma-3-12b-it-q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.3.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": {
+        "max": 4096
+      },
+      "budgets": {
+        "thoughtTokens": 2048
+      }
+    },
+    "version": 1
+  },
+  "gemma-3-270m-it-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "gemma-3-270m-it-Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/unsloth/gemma-3-270m-it-GGUF",
+      "commit": "c90975dbd40c0c7b275fefaae758c3415c906238",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 0.73,
+      "cpuCors": 1,
+      "compressions": "co/unsloth/gemma-3-270m-it-gguf/resolve/main/gemma-3-270m-it-q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.3.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": {
+        "max": 4096
+      },
+      "budgets": {
+        "thoughtTokens": 2048
+      }
+    },
+    "version": 1
+  },
+  "qwen3-8b-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "Qwen3-8B-Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/unsloth/Qwen3-8B-GGUF",
+      "commit": "a6adef130ffb23ddaf1a62fec9dced968c9bc482",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 5.18,
+      "cpuCors": 3,
+      "compressions": "co/unsloth/qwen3-8b-gguf/resolve/main/qwen3-8b-q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.3.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": {
+        "max": 4096
+      },
+      "budgets": {
+        "thoughtTokens": 2048
+      }
+    },
+    "version": 1
+  },
+  "qwen3-4b-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "Qwen3-4B-Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/unsloth/Qwen3-4B-GGUF",
+      "commit": "22c9fc8a8c7700b76a1789366280a6a5a1ad1120",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 2.82,
+      "cpuCors": 2,
+      "compressions": "co/unsloth/qwen3-4b-gguf/resolve/main/qwen3-4b-q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.3.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": {
+        "max": 4096
+      },
+      "budgets": {
+        "thoughtTokens": 2048
+      }
+    },
+    "version": 1
+  },
+  "gpt-oss-20b.mxfp4": {
+    "download": {
+      "files": {
+        "model": "gpt-oss-20b.MXFP4.gguf"
+      },
+      "repo": "https://huggingface.co/giladgd/gpt-oss-20b-GGUF",
+      "commit": "80a47bc23f7c86d8408ec82a7ac446ca4ef32ad4",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 11.77,
+      "cpuCors": 6,
+      "compressions": "mxfp4"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.3.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": {
+        "max": 8192
+      },
+      "budgets": {
+        "thoughtTokens": 2048
+      }
+    },
+    "version": 1
+  },
+  "qwen3-4b-thinking-2507-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "Qwen3-4B-Thinking-2507.Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/giladgd/Qwen3-4B-Thinking-2507-GGUF",
+      "commit": "58e6f08c1024c279af996c61a4e50d1d0a9c24ff",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 2.82,
+      "cpuCors": 2,
+      "compressions": "q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.3.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": {
+        "max": 4096
+      },
+      "budgets": {
+        "thoughtTokens": 2048
+      }
     },
     "version": 1
   }

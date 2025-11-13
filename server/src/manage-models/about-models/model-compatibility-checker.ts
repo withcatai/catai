@@ -43,7 +43,7 @@ class ModelCompatibilityChecker {
         if (semver.gt(compatibleCatAIVersionRange[0], packageJSON.version)) {
             return {
                 compatibility: '❌',
-                note: `requires at least CatAI version ${chalk.cyan(compatibleCatAIVersionRange[0])}`,
+                note: `requires at least Catai version ${chalk.cyan(compatibleCatAIVersionRange[0])}`,
                 catAIVersionCompatibility: false
             };
         }
@@ -51,7 +51,7 @@ class ModelCompatibilityChecker {
         if (compatibleCatAIVersionRange[1] && semver.lt(compatibleCatAIVersionRange[1], packageJSON.version)) {
             return {
                 compatibility: '❌',
-                note: `requires CatAI version ${chalk.cyan(compatibleCatAIVersionRange[1])} or lower`,
+                note: `requires Catai version ${chalk.cyan(compatibleCatAIVersionRange[1])} or lower`,
                 catAIVersionCompatibility: false
             };
         }

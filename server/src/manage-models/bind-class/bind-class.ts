@@ -51,7 +51,7 @@ export default async function createChat(options?: CreateChatOptions): Promise<C
 
         const bindClass = ALL_BINDS.find(x => x.shortName === bind);
         if (!bindClass)
-            throw new BindNotFoundError(`Bind class "${bind}" not found. Try to update the model/CatAI`);
+            throw new BindNotFoundError(`Bind class "${bind}" not found. Try to update the model/Catai`);
 
         const bindClassInstance = cachedBinds[bind] ??= new bindClass(modelDetails);
         await bindClassInstance.initialize();
