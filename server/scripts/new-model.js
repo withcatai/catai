@@ -69,6 +69,7 @@ const fileCompressionParametersToSize = {
     },
     'q4_k_m': {
         7: 4.1,
+        8: 5.1,
         13: 7.9,
         30: 19.6,
         34: 20.2,

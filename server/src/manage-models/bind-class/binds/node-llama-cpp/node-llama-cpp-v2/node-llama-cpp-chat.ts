@@ -1,14 +1,18 @@
 import type {LLamaChatPromptOptions, LlamaChatSession, Token} from 'node-llama-cpp';
 import {ChatContext} from '../../../chat-context.js';
-import objectAssignDeep from "object-assign-deep";
 
-export default class NodeLlamaCppChat extends ChatContext {
+export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions> {
 
     constructor(protected _promptSettings: Partial<LLamaChatPromptOptions>, private _session: LlamaChatSession) {
         super();
     }
 
-    public async prompt(prompt: string, onTokenText?: (token: string) => void, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
+    public async prompt(prompt: string, onTokenText?: ((token: string) => void) | Partial<LLamaChatPromptOptions>, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
+        if (typeof onTokenText !== 'function') {
+            overrideSettings = onTokenText as Partial<LLamaChatPromptOptions>;
+            onTokenText = undefined;
+        }
+
         this.emit('abort', 'Aborted by new prompt');
         const abort = new AbortController();
         const closeCallback = () => {
@@ -19,7 +23,7 @@ export default class NodeLlamaCppChat extends ChatContext {
 
         let response = null;
         try {
-            const allSettings: LLamaChatPromptOptions = objectAssignDeep({}, this._promptSettings, overrideSettings);
+            const allSettings: LLamaChatPromptOptions = Object.assign({}, this._promptSettings, overrideSettings);
             response = await this._session.prompt(prompt, {
                 ...allSettings,
                 signal: abort.signal,

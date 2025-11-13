@@ -9,6 +9,7 @@ const GB_IN_BYTES = 1024 * 1024 * 1024;
 
 interface Compatibility {
     compatibility: string;
+    catAIVersionCompatibility: boolean;
     note: string;
 }
 
@@ -16,6 +17,7 @@ export interface ModelInfo {
     model: string;
     modelInstalled: boolean;
     compatibility: string;
+    catAIVersionCompatibility: boolean;
     note: string;
     version: string;
 }
@@ -32,7 +34,8 @@ class ModelCompatibilityChecker {
         if (!compatibleCatAIVersionRange?.[0]) {
             return {
                 compatibility: '?',
-                note: 'Model unknown'
+                note: 'Model unknown',
+                catAIVersionCompatibility: true
             };
         }
 
@@ -40,21 +43,24 @@ class ModelCompatibilityChecker {
         if (semver.gt(compatibleCatAIVersionRange[0], packageJSON.version)) {
             return {
                 compatibility: '❌',
-                note: `requires at least CatAI version ${chalk.cyan(compatibleCatAIVersionRange[0])}`
+                note: `requires at least CatAI version ${chalk.cyan(compatibleCatAIVersionRange[0])}`,
+                catAIVersionCompatibility: false
             };
         }
 
         if (compatibleCatAIVersionRange[1] && semver.lt(compatibleCatAIVersionRange[1], packageJSON.version)) {
             return {
                 compatibility: '❌',
-                note: `requires CatAI version ${chalk.cyan(compatibleCatAIVersionRange[1])} or lower`
+                note: `requires CatAI version ${chalk.cyan(compatibleCatAIVersionRange[1])} or lower`,
+                catAIVersionCompatibility: false
             };
         }
 
         if(!hardwareCompatibility) {
             return {
                 compatibility: '?',
-                note: 'Model unknown'
+                note: 'Model unknown',
+                catAIVersionCompatibility: true
             };
         }
 
@@ -63,21 +69,25 @@ class ModelCompatibilityChecker {
         if (this.totalMemoryInGB < memory) {
             return {
                 compatibility: '❌',
-                note: `requires at least ${chalk.cyan(`${memory}GB`)} of RAM`
+                note: `requires at least ${chalk.cyan(`${memory}GB`)} of RAM`,
+                catAIVersionCompatibility: true
             };
         } else if (this.availableCpuCors < cpu) {
             return {
                 compatibility: '❌',
-                note: `requires at least ${chalk.cyan(`${cpu}CPU`)} cores`
+                note: `requires at least ${chalk.cyan(`${cpu}CPU`)} cores`,
+                catAIVersionCompatibility: true
             };
         } else if (this.availableMemory < memory) {
             return {
                 compatibility: '✅',
-                note: `requires ${chalk.cyan(`${memory}GB`)} ${chalk.red(`free`)} RAM`
+                note: `requires ${chalk.cyan(`${memory}GB`)} ${chalk.red(`free`)} RAM`,
+                catAIVersionCompatibility: true
             };
         } else {
             return {
                 compatibility: '✅',
+                catAIVersionCompatibility: true,
                 note: ''
             };
         }
@@ -106,13 +116,14 @@ class ModelCompatibilityChecker {
             if (availableModels[model].hide) continue;
 
             const modelInstalled = Boolean(AppDb.db.models[model]);
-            const { compatibility, note } = this.checkModelCompatibility(availableModels[model]);
+            const {compatibility, catAIVersionCompatibility, note} = this.checkModelCompatibility(availableModels[model]);
             const version = this.modelVersion(model, availableModels);
 
             models.push({
                 model,
                 modelInstalled,
                 compatibility,
+                catAIVersionCompatibility,
                 note,
                 version
             });

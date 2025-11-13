@@ -52,7 +52,12 @@ async function selectModelInstall() {
         type: 'select',
         name: 'model',
         message: 'Select a model to install',
-        choices: aboutModels.sort((last, current) => Number(last.modelInstalled) - Number(current.modelInstalled)).map(({model, compatibility, note, modelInstalled}) => ({
+        choices: aboutModels.filter(x => x.catAIVersionCompatibility).sort((last, current) => Number(last.modelInstalled) - Number(current.modelInstalled)).map(({
+                                                                                                                                                                     model,
+                                                                                                                                                                     compatibility,
+                                                                                                                                                                     note,
+                                                                                                                                                                     modelInstalled
+                                                                                                                                                                 }) => ({
             title: model,
             description: `${compatibility ? '': 'Not Compatible | '}${note}`,
             value: model,

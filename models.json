@@ -528,66 +528,110 @@
     },
     "version": 1
   },
-  "alphallama3-8b-q3_k_s": {
+  "meta-llama-3-8b-q4_k_m": {
     "download": {
       "files": {
-        "model": "Alphallama3-8B.Q3_K_S.gguf"
+        "model": "Meta-Llama-3-8B.Q4_K_M.gguf"
       },
-      "repo": "https://huggingface.co/mradermacher/Alphallama3-8B-GGUF",
-      "commit": "738ab183a3e2ce92b96c9273e5d78960387ad939",
+      "repo": "https://huggingface.co/QuantFactory/Meta-Llama-3-8B-GGUF-v2",
+      "commit": "7b15b4f184a48c035fbc5ac2876e5617b64ea885",
       "branch": "main"
     },
     "hardwareCompatibility": {
-      "ramGB": 5.3,
+      "ramGB": 5.6,
       "cpuCors": 3,
-      "compressions": "q3_k_s"
+      "compressions": "q4_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.1.2"
+      "3.2.0"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
     },
     "version": 1
   },
-  "llama3-8b-dpo-uncensored-q4_k_s": {
+  "llama-3-8b-lexi-uncensored-q4_k_m": {
     "download": {
       "files": {
-        "model": "Llama3-8B-DPO-uncensored.Q4_K_S.gguf"
+        "model": "Llama-3-8B-Lexi-Uncensored.Q4_K_M.gguf"
       },
-      "repo": "https://huggingface.co/mradermacher/Llama3-8B-DPO-uncensored-GGUF",
-      "commit": "af5654c362a9967e2f704658f8aad7429cfcffb7",
+      "repo": "https://huggingface.co/QuantFactory/Llama-3-8B-Lexi-Uncensored-GGUF",
+      "commit": "5caac86e58458f70d7ff02ad2b7d99a850d61d4b",
       "branch": "main"
     },
     "hardwareCompatibility": {
-      "ramGB": 5.3,
+      "ramGB": 5.6,
       "cpuCors": 3,
-      "compressions": "q4_k_s"
+      "compressions": "q4_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.1.2"
+      "3.2.0"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"
     },
     "version": 1
   },
-  "llama3-8b-openhermes-dpo-q3_k_s": {
+  "power-wizardlm-2-13b-q5_k_m": {
     "download": {
       "files": {
-        "model": "Llama3-8B-OpenHermes-DPO.Q3_K_S.gguf"
+        "model": "Power-WizardLM-2-13b.Q5_K_M.gguf"
       },
-      "repo": "https://huggingface.co/mradermacher/Llama3-8B-OpenHermes-DPO-GGUF",
-      "commit": "c0edd26cf8259267807d02ad8903faac593b099d",
+      "repo": "https://huggingface.co/mradermacher/Power-WizardLM-2-13b-GGUF",
+      "commit": "15ecbe0d095df08b49017db3b223433cd89153fc",
       "branch": "main"
     },
     "hardwareCompatibility": {
-      "ramGB": 5.3,
-      "cpuCors": 3,
-      "compressions": "q3_k_s"
+      "ramGB": 9.8,
+      "cpuCors": 5,
+      "compressions": "q5_k_m"
     },
     "compatibleCatAIVersionRange": [
-      "3.1.2"
+      "3.2.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "power-llama-3-13b-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "Power-Llama-3-13b.Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/mradermacher/Power-Llama-3-13b-GGUF",
+      "commit": "0a61b3cce433745691cb73c5609c249b9b9848e9",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 8.4,
+      "cpuCors": 4,
+      "compressions": "q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.2.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2"
+    },
+    "version": 1
+  },
+  "arrowpro-7b-robinhood-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "ArrowPro-7B-RobinHood.Q4_K_M.gguf\\"
+      },
+      "repo": "https://huggingface.co/mradermacher/ArrowPro-7B-RobinHood-GGUF",
+      "commit": "54be3527006ac83c14d74d25b2573f81285077bc",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 4.6,
+      "cpuCors": 3,
+      "compressions": "q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.2.0"
     ],
     "settings": {
       "bind": "node-llama-cpp-v2"

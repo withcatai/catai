@@ -27,7 +27,7 @@ Make sure you have [Node.js](https://nodejs.org/en/) (**download current**) inst
 ```bash
 npm install -g catai
 
-catai install llama3-8b-openhermes-dpo-q3_k_s
+catai install meta-llama-3-8b-q4_k_m
 catai up
 ```
 
@@ -118,14 +118,47 @@ const data = await response.text();
 
 For more information, please read the [API guide](https://github.com/withcatai/catai/blob/main/docs/api.md)
 
-## Development API + Node-llama-cpp@beta integration
+## Development API
+
+You can also use the development API to interact with the model.
+
+```ts
+import {createChat, downloadModel, initCatAILlama, LlamaJsonSchemaGrammar} from "catai";
+
+// skip downloading the model if you already have it
+await downloadModel("meta-llama-3-8b-q4_k_m");
+
+const llama = await initCatAILlama();
+const chat = await createChat({
+    model: "meta-llama-3-8b-q4_k_m"
+});
+
+const fullResponse = await chat.prompt("Give me array of random numbers (10 numbers)", {
+    grammar: new LlamaJsonSchemaGrammar(llama, {
+        type: "array",
+        items: {
+            type: "number",
+            minimum: 0,
+            maximum: 100
+        },
+    }),
+    topP: 0.8,
+    temperature: 0.8,
+});
+
+console.log(fullResponse); // [10, 2, 3, 4, 6, 9, 8, 1, 7, 5]
+```
+
+(For the full list of model, run `catai models`)
+
+### Node-llama-cpp@beta low level integration
 
 You can use the model with [node-llama-cpp@beta](https://github.com/withcatai/node-llama-cpp/pull/105)
 
 CatAI enables you to easily manage the models and chat with them.
 
 ```ts
-import {downloadModel, getModelPath} from 'catai';
+import {downloadModel, getModelPath, initCatAILlama, LlamaChatSession} from 'catai';
 
 // download the model, skip if you already have the model
 await downloadModel(
@@ -136,7 +169,7 @@ await downloadModel(
 // get the model path with catai
 const modelPath = getModelPath("llama3");
 
-const llama = await getLlama();
+const llama = await initCatAILlama();
 const model = await llama.loadModel({
     modelPath
 });

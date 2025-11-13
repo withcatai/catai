@@ -6,6 +6,8 @@ import {ModelNotInstalledError} from './errors/ModelNotInstalledError.js';
 import {NoActiveModelError} from './errors/NoActiveModelError.js';
 import {NoModelBindError} from './errors/NoModelBindError.js';
 import {BindNotFoundError} from './errors/BindNotFoundError.js';
+import {ChatContext} from './chat-context.js';
+import type {LLamaChatPromptOptions} from 'node-llama-cpp';
 
 export const ALL_BINDS = [NodeLlamaCppV2];
 const cachedBinds: { [key: string]: InstanceType<typeof BaseBindClass> } = {};
@@ -37,7 +39,7 @@ export function getCacheBindClass(modelDetails: ModelSettings<any> = findLocalMo
 }
 
 const lockContext = {};
-export default async function createChat(options?: CreateChatOptions) {
+export default async function createChat(options?: CreateChatOptions): Promise<ChatContext<LLamaChatPromptOptions>> {
     return await withLock(lockContext, "createChat", async () => {
         const modelDetails = findLocalModel(options?.model);
         const cachedBindClass = getCacheBindClass(modelDetails);
