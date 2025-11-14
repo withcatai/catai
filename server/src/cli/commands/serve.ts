@@ -1,9 +1,9 @@
-import {Command} from "commander";
-import ENV_CONFIG from "../../storage/config.js";
-import {fork} from "child_process";
-import {fileURLToPath} from "url";
-import {RESTART_EXIT_CODE} from "../../storage/const.js";
-import path from "path";
+import {Command} from 'commander';
+import ENV_CONFIG from '../../storage/config.js';
+import {fork} from 'child_process';
+import {fileURLToPath} from 'url';
+import {RESTART_EXIT_CODE} from '../../storage/const.js';
+import path from 'path';
 
 export const serveCommand = new Command('serve');
 
@@ -13,17 +13,20 @@ serveCommand.alias('up')
     .action(async ({ui = ENV_CONFIG.SELECTED_UI}) => {
 
         let exitCode = RESTART_EXIT_CODE;
+        let openInBrowser = process.env.CATAI_OPEN_IN_BROWSER;
         while (exitCode === RESTART_EXIT_CODE) {
-            exitCode = await runServer(ui);
+            exitCode = await runServer(ui, openInBrowser);
+            openInBrowser = 'false';
         }
     });
 
-function runServer(ui: string): Promise<number> {
+function runServer(ui: string, openInBrowser?: string): Promise<number> {
     const subProcess = fork(findServerScript(), {
         stdio: 'inherit',
         env: {
             ...process.env,
             CATAI_SELECTED_UI: ui,
+            CATAI_OPEN_IN_BROWSER: openInBrowser,
             CATAI_PRODUCTION: (!ENV_CONFIG.DEBUG_MODE).toString()
         }
     });

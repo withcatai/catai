@@ -1,9 +1,10 @@
 import type {ChatHistoryItem, LLamaChatPromptOptions, LlamaChatResponseChunk, LlamaChatSession} from 'node-llama-cpp';
 import {ChatContext, ChatResponse} from '../../../chat-context.js';
+import {NodeLlamaCppOptions} from './node-llama-cpp-v2.js';
 
-export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions> {
+export default class NodeLlamaCppChat extends ChatContext<NodeLlamaCppOptions> {
 
-    constructor(protected _promptSettings: Partial<LLamaChatPromptOptions>, private _session: LlamaChatSession) {
+    constructor(protected _promptSettings: Partial<NodeLlamaCppOptions>, private _session: LlamaChatSession) {
         super();
     }
 
@@ -11,13 +12,26 @@ export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions
         this._session.setChatHistory(chatHistory);
     }
 
-    public resetChatHistory(){
-        this._session.resetChatHistory();
+    public async complete(prompt: string, chatResponse?: ChatResponse) {
+        let completion = '';
+
+        try {
+            await this._session.completePrompt(prompt, {
+                onTextChunk: (text) => {
+                    completion += text;
+                    chatResponse?.(text, 'complete-token');
+                    this.emit('complete-token', text);
+                },
+                maxTokens: this._promptSettings.completion?.maxTokens ?? this._promptSettings.maxTokens
+            });
+        } catch {}
+
+        return completion;
     }
 
-    public async prompt(prompt: string, chatResponse?: ChatResponse | Partial<LLamaChatPromptOptions>, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
+    public async prompt(prompt: string, chatResponse?: ChatResponse | Partial<NodeLlamaCppOptions>, overrideSettings?: Partial<NodeLlamaCppOptions>): Promise<string | null> {
         if (typeof chatResponse !== 'function') {
-            overrideSettings = chatResponse as Partial<LLamaChatPromptOptions>;
+            overrideSettings = chatResponse as Partial<NodeLlamaCppOptions>;
             chatResponse = undefined;
         }
 

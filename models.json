@@ -670,6 +670,9 @@
       },
       "budgets": {
         "thoughtTokens": 2048
+      },
+      "completion": {
+        "maxTokens": 10
       }
     },
     "version": 1
@@ -698,6 +701,9 @@
       },
       "budgets": {
         "thoughtTokens": 2048
+      },
+      "completion": {
+        "maxTokens": 10
       }
     },
     "version": 1
@@ -726,6 +732,9 @@
       },
       "budgets": {
         "thoughtTokens": 2048
+      },
+      "completion": {
+        "maxTokens": 10
       }
     },
     "version": 1
@@ -754,6 +763,9 @@
       },
       "budgets": {
         "thoughtTokens": 2048
+      },
+      "completion": {
+        "maxTokens": 10
       }
     },
     "version": 1
@@ -782,6 +794,9 @@
       },
       "budgets": {
         "thoughtTokens": 2048
+      },
+      "completion": {
+        "maxTokens": 10
       }
     },
     "version": 1
@@ -810,6 +825,9 @@
       },
       "budgets": {
         "thoughtTokens": 2048
+      },
+      "completion": {
+        "maxTokens": 10
       }
     },
     "version": 1

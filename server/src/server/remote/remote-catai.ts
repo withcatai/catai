@@ -62,7 +62,7 @@ export default class RemoteCatAI extends ChatContext {
         }
     }
 
-    private _send(event: 'prompt' | 'abort' | 'setChatHistory' | 'resetChatHistory', value?: any) {
+    private _send(event: 'prompt' | 'complete' | 'abort' | 'setChatHistory', value?: any) {
         this._ws.send(JSON.stringify({event, value}));
     }
 
@@ -74,8 +74,25 @@ export default class RemoteCatAI extends ChatContext {
         this._send('setChatHistory', chatHistory);
     }
 
-    resetChatHistory(){
-        this._send('resetChatHistory');
+    async complete(text: string, chatResponse?: ChatResponse): Promise<string | null> {
+        this._send('complete', text);
+
+        let buildText = '';
+        const tokenEvent = (token: string) => {
+            buildText += token;
+            chatResponse?.(token, 'token');
+        };
+
+        this.on('complete-token', tokenEvent);
+
+        return await new Promise<string | null>((resolve, reject) => {
+            this.once('error', reject);
+            this.once('modelResponseEnd', () => {
+                this.off('complete-token', tokenEvent);
+                this.off('error', reject);
+                resolve(buildText);
+            });
+        });
     }
 
     async prompt(prompt: string, chatResponse?: ChatResponse): Promise<string | null> {
