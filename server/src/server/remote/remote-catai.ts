@@ -1,6 +1,7 @@
 import WebSocket, {ClientOptions} from 'ws';
 import {ClientRequestArgs} from 'http';
 import {ChatContext, ChatResponse} from '../../manage-models/bind-class/chat-context.js';
+import {ChatHistoryItem} from 'node-llama-cpp';
 
 export default class RemoteCatAI extends ChatContext {
     private _ws: WebSocket;
@@ -61,12 +62,20 @@ export default class RemoteCatAI extends ChatContext {
         }
     }
 
-    private _send(event: 'prompt' | 'abort', value: string) {
+    private _send(event: 'prompt' | 'abort' | 'setChatHistory' | 'resetChatHistory', value?: any) {
         this._ws.send(JSON.stringify({event, value}));
     }
 
     abort(reason?: string): void {
         this._send('abort', reason || 'Aborted by user');
+    }
+
+    setChatHistory(chatHistory: ChatHistoryItem[]) {
+        this._send('setChatHistory', chatHistory);
+    }
+
+    resetChatHistory(){
+        this._send('resetChatHistory');
     }
 
     async prompt(prompt: string, chatResponse?: ChatResponse): Promise<string | null> {

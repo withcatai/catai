@@ -4,12 +4,23 @@ import BaseBindClass from '../../base-bind-class.js';
 import objectAssignDeep from 'object-assign-deep';
 import fsExtra from 'fs-extra';
 import {ModelNotInstalledError} from '../../../errors/ModelNotInstalledError.js';
+import {ChatSessionModelFunction} from 'node-llama-cpp';
+import ddg from 'duck-duck-scrape';
+
+type ChatFlags = {
+    builtInAPICall?: {
+        webSearch: boolean;
+        date: boolean;
+        weather: boolean;
+        currency: boolean;
+    } | true
+}
 
 export type NodeLlamaCppOptions =
     Omit<LlamaContextOptions, 'model'> &
     Omit<LlamaModelOptions, 'modelPath'> &
     Omit<LlamaChatSessionOptions, 'contextSequence'> &
-    LLamaChatPromptOptions;
+    LLamaChatPromptOptions & ChatFlags;
 
 
 let cachedLlama: Llama | null = null;
@@ -37,6 +48,7 @@ export default class NodeLlamaCppV2 extends BaseBindClass<NodeLlamaCppOptions> {
             ...settings
         });
 
+        this._flagsToSettings(settings);
         return new NodeLlamaCppChat(settings, session);
     }
 
@@ -50,5 +62,88 @@ export default class NodeLlamaCppV2 extends BaseBindClass<NodeLlamaCppOptions> {
             modelPath: this.modelSettings.downloadedFiles.model,
             ...this.modelSettings.settings
         });
+    }
+
+    private _flagsToSettings(settings: NodeLlamaCppOptions) {
+        const {webSearch = false, currency = false, date = false, weather = false} = settings.builtInAPICall === true ? {
+            webSearch: true,
+            date: true,
+            weather: true,
+            currency: true,
+        } : {};
+
+        const functions: Record<string, ChatSessionModelFunction> = settings.functions ??= {};
+
+        if (webSearch) {
+            functions.webSearch = {
+                description: 'Search the web for the given query',
+                params: {
+                    type: 'object',
+                    properties: {
+                        query: {
+                            type: 'string'
+                        }
+                    }
+                },
+                async handler(params: any) {
+                    const results = await ddg.search(params.query);
+                    return results.results;
+                }
+            } satisfies ChatSessionModelFunction;
+        }
+
+        if(currency) {
+            functions.currencyConversion = {
+                description: 'Convert the given amount from one currency to another. For example \'usd\' to \'eur\'.',
+                params: {
+                    type: 'object',
+                    properties: {
+                        from: {
+                            type: 'string'
+                        },
+                        to: {
+                            type: 'string'
+                        },
+                        amount: {
+                            type: 'number'
+                        }
+                    }
+                },
+                async handler(params: any) {
+                    const results = await ddg.currency(params.from, params.to, params.amount);
+                    return results.conversion['converted-amount'];
+                }
+            } satisfies ChatSessionModelFunction;
+        }
+
+        if(weather){
+            functions.getWeather = {
+                description: 'Get the current weather for the given location',
+                params: {
+                    type: 'object',
+                    properties: {
+                        location: {
+                            type: 'string'
+                        },
+                        locale: {
+                            type: 'string',
+                            description: 'The locale to give the summaries in - default to \'en\''
+                        }
+                    }
+                },
+                async handler(params: any) {
+                    return await ddg.forecast(params.location, params.locale);
+                }
+            } satisfies ChatSessionModelFunction;
+        }
+
+        if(date){
+            functions.getDate = {
+                description: 'Get the current date',
+                handler() {
+                    return new Date().toISOString();
+                },
+            } satisfies ChatSessionModelFunction;
+        }
     }
 }

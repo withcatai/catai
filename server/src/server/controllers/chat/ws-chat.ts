@@ -45,8 +45,14 @@ export default class WsChatController {
             case 'prompt':
                 await this._chat.prompt(value);
                 break;
+            case 'setChatHistory':
+                this._chat.setChatHistory(value);
+                break;
+            case 'resetChatHistory':
+                this._chat.resetChatHistory();
+                break;
             case 'abort':
-                await this._chat.abort();
+                this._chat.abort();
                 break;
         }
     }

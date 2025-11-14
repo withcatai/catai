@@ -1,10 +1,18 @@
-import type {LLamaChatPromptOptions, LlamaChatResponseChunk, LlamaChatSession} from 'node-llama-cpp';
+import type {ChatHistoryItem, LLamaChatPromptOptions, LlamaChatResponseChunk, LlamaChatSession} from 'node-llama-cpp';
 import {ChatContext, ChatResponse} from '../../../chat-context.js';
 
 export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions> {
 
     constructor(protected _promptSettings: Partial<LLamaChatPromptOptions>, private _session: LlamaChatSession) {
         super();
+    }
+
+    public setChatHistory(chatHistory: ChatHistoryItem[]) {
+        this._session.setChatHistory(chatHistory);
+    }
+
+    public resetChatHistory(){
+        this._session.resetChatHistory();
     }
 
     public async prompt(prompt: string, chatResponse?: ChatResponse | Partial<LLamaChatPromptOptions>, overrideSettings?: Partial<LLamaChatPromptOptions>): Promise<string | null> {
@@ -31,6 +39,7 @@ export default class NodeLlamaCppChat extends ChatContext<LLamaChatPromptOptions
         let response = null;
         try {
             const allSettings: LLamaChatPromptOptions = Object.assign({}, this._promptSettings, overrideSettings);
+
             response = await this._session.prompt(prompt, {
                 ...allSettings,
                 signal: abort.signal,

@@ -27,7 +27,7 @@ Make sure you have [Node.js](https://nodejs.org/en/) (**download current**) inst
 ```bash
 npm install -g catai
 
-catai install meta-llama-3-8b-q4_k_m
+catai install qwen3-4b-q4_k_m
 catai up
 ```
 
