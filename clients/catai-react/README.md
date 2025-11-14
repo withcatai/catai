@@ -1,4 +1,4 @@
-# CatAI - Modern React Client
+# Catai - Modern React Client
 
 A beautiful, modern chat interface for AI interactions built with React, Vite, and Tailwind CSS.
 
@@ -68,6 +68,7 @@ npm run preview
 ### Vite Config
 
 The Vite configuration (`vite.config.ts`) includes:
+
 - WebSocket proxy to `ws://localhost:3000/ws`
 - REST API proxy to `http://localhost:3000/api`
 
@@ -76,15 +77,16 @@ Update these values in the `server.proxy` section if your backend server runs on
 ### Backend Requirements
 
 The backend server should provide:
+
 - **WebSocket endpoint**: `/ws`
-  - Client events: `prompt` (send message), `abort` (stop generation)
-  - Server events: `token`, `think-token`, `error`, `end`
+    - Client events: `prompt` (send message), `abort` (stop generation)
+    - Server events: `token`, `think-token`, `error`, `end`
 
 - **REST API endpoints**:
-  - `GET /api/admin` - Check admin status
-  - `GET /api/admin/settings` - Get settings (admin only)
-  - `POST /api/admin/settings` - Save settings (admin only)
-  - `POST /api/admin/restart` - Restart server (admin only)
+    - `GET /api/admin` - Check admin status
+    - `GET /api/admin/settings` - Get settings (admin only)
+    - `POST /api/admin/settings` - Save settings (admin only)
+    - `POST /api/admin/restart` - Restart server (admin only)
 
 ## Project Structure
 
@@ -106,6 +108,7 @@ src/
 ## Key Components
 
 ### Chat Components
+
 - **ChatContainer**: Main chat layout with messages and input
 - **MessageList**: Scrollable message list with auto-scroll
 - **Message**: Individual message display with thinking toggle
@@ -113,10 +116,12 @@ src/
 - **MarkdownRenderer**: Renders markdown with code syntax highlighting
 
 ### Modals
+
 - **HistoryModal**: View and resend previous prompts
 - **SettingsModal**: Edit server settings (admin only)
 
 ### Hooks
+
 - **useChat**: Chat state management and WebSocket handling
 - **useTheme**: Dark/light mode toggling
 - **useHistory**: Prompt history with localStorage
@@ -125,23 +130,27 @@ src/
 ## Features in Detail
 
 ### Dark Mode
+
 - Toggle in header with Moon/Sun icon
 - Persisted in localStorage
 - Respects system preferences on first load
 
 ### Prompt History
+
 - Automatically saves last 40 prompts
 - Access via "History" button in sidebar
 - Copy and resend previous prompts
 - Clear history option
 
 ### WebSocket Connection
+
 - Auto-reconnect with exponential backoff
 - Connection status indicator in sidebar
 - Graceful error handling
 - Message queue support
 
 ### Markdown Support
+
 - Headers, lists, tables, blockquotes
 - Code blocks with language detection
 - Copy button on code blocks
@@ -156,18 +165,26 @@ src/
 ## Customization
 
 ### Colors
+
 Edit `tailwind.config.js` to customize colors:
+
 ```js
 colors: {
-  primary: { ... },    // Main accent color
-  accent: { ... },     // Secondary color
+    primary: { ...
+    }
+,    // Main accent color
+    accent: { ...
+    }
+,     // Secondary color
 }
 ```
 
 ### Typography
+
 Modify font family and sizes in `tailwind.config.js`
 
 ### Animations
+
 Adjust animation durations and transitions in components or Tailwind config
 
 ## Performance
@@ -187,15 +204,18 @@ Adjust animation durations and transitions in components or Tailwind config
 ## Troubleshooting
 
 ### Connection Error
+
 - Check if backend server is running on port 3000
 - Verify WebSocket endpoint is accessible
 - Check browser console for detailed error messages
 
 ### Markdown Not Rendering
+
 - Verify markdown syntax is correct
 - Check that code blocks use proper formatting with triple backticks
 
 ### Theme Not Persisting
+
 - Clear browser localStorage if there are issues
 - Check that `color-theme` key isn't blocked by browser settings
 

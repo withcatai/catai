@@ -85,7 +85,8 @@ export default ENV_CONFIG;
 function mergeConfig() {
     // if env config is not set, use default config
     for (const key in DEFAULT_CONFIG) {
-        if (!(ENV_CONFIG as any)[key]) {
+        const value = (ENV_CONFIG as any)[key];
+        if (value == null || typeof value === 'number' && isNaN(value)) {
             (ENV_CONFIG as any)[key] = (DEFAULT_CONFIG as any)[key];
         }
     }

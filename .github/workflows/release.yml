@@ -27,10 +27,10 @@ jobs:
       name: npm
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
       - name: Install modules & build
         run: |
           npm ci --ignore-scripts
@@ -50,21 +50,21 @@ jobs:
           npm run semantic-release && echo "npm-success=true" >> $GITHUB_OUTPUT
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "docs"
           path: "server/docs"
 
       - name: Upload docs to GitHub Pages
         if: steps.release-package.outputs.npm-success != ''
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           name: pages-docs
           path: server/docs
 
       - name: Deploy docs to GitHub Pages
         if: steps.release-package.outputs.npm-success != ''
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
         with:
           artifact_name: pages-docs
 

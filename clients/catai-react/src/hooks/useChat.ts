@@ -1,8 +1,8 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
-import { Message, WebSocketEvent } from '../types';
-import { generateId } from '../lib/utils';
-import { wsClient } from '../lib/websocket';
-import { ChatHistoryItem } from '../types/chatHistory';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import {Message, WebSocketEvent} from '../types';
+import {generateId} from '../lib/utils';
+import {wsClient} from '../lib/websocket';
+import {ChatHistoryItem} from '../types/chatHistory';
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -139,6 +139,7 @@ export function useChat() {
   const abort = useCallback(() => {
     wsClient.abort();
     setIsLoading(false);
+    setError(null);
     setMessages((prev) => {
       const updated = [...prev];
       if (updated.length > 0) {
@@ -156,42 +157,42 @@ export function useChat() {
 
   const setChatHistory = useCallback((history: ChatHistoryItem[]) => {
     const convertedMessages: Message[] = history
-      .filter((item) => item.type === 'user' || item.type === 'model')
-      .map((item) => {
-        if (item.type === 'user') {
-          return {
-            id: generateId(),
-            role: 'user' as const,
-            content: item.text,
-            timestamp: Date.now(),
-          };
-        } else {
-          // item.type === 'model'
-          const modelItem = item as any;
-          let content = '';
-          let thinking = '';
+        .filter((item) => item.type === 'user' || item.type === 'model')
+        .map((item) => {
+          if (item.type === 'user') {
+            return {
+              id: generateId(),
+              role: 'user' as const,
+              content: item.text,
+              timestamp: Date.now(),
+            };
+          } else {
+            // item.type === 'model'
+            const modelItem = item as any;
+            let content = '';
+            let thinking = '';
 
-          // Extract content and thinking from response array
-          if (Array.isArray(modelItem.response)) {
-            modelItem.response.forEach((r: any) => {
-              if (typeof r === 'string') {
-                content += r;
-              } else if (r?.type === 'segment' && r?.segmentType === 'thought') {
-                thinking += r.text;
-              }
-            });
+            // Extract content and thinking from response array
+            if (Array.isArray(modelItem.response)) {
+              modelItem.response.forEach((r: any) => {
+                if (typeof r === 'string') {
+                  content += r;
+                } else if (r?.type === 'segment' && r?.segmentType === 'thought') {
+                  thinking += r.text;
+                }
+              });
+            }
+
+            return {
+              id: generateId(),
+              role: 'assistant' as const,
+              content,
+              thinking: thinking || undefined,
+              timestamp: Date.now(),
+              isStreaming: false,
+            };
           }
-
-          return {
-            id: generateId(),
-            role: 'assistant' as const,
-            content,
-            thinking: thinking || undefined,
-            timestamp: Date.now(),
-            isStreaming: false,
-          };
-        }
-      });
+        });
     setMessages(convertedMessages);
   }, []);
 

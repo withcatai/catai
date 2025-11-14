@@ -1,6 +1,6 @@
 import {WebSocket} from 'ws';
 import createChat from '../../../manage-models/bind-class/bind-class.js';
-import {ChatContext} from '../../../manage-models/bind-class/chat-context.js';
+import {ChatContext, ResponseTypes} from '../../../manage-models/bind-class/chat-context.js';
 
 export default class WsChatController {
     private _loadChat?: ChatContext;
@@ -37,6 +37,10 @@ export default class WsChatController {
             process.stdout.write(text);
             this._sendEvent('think-token', text);
         });
+        this._chat.on('complete-token', (text) => {
+            process.stdout.write(text);
+            this._sendEvent('complete-token', text);
+        });
     }
 
     private async _onWSMessage(message: string) {
@@ -45,11 +49,11 @@ export default class WsChatController {
             case 'prompt':
                 await this._chat.prompt(value);
                 break;
+            case 'complete':
+                await this._chat.complete(value);
+                break;
             case 'setChatHistory':
                 this._chat.setChatHistory(value);
-                break;
-            case 'resetChatHistory':
-                this._chat.resetChatHistory();
                 break;
             case 'abort':
                 this._chat.abort();
@@ -57,7 +61,7 @@ export default class WsChatController {
         }
     }
 
-    private _sendEvent(event: 'token' | 'think-token' | 'error' | 'end', value: any) {
+    private _sendEvent(event: ResponseTypes | 'error' | 'end', value: any) {
         this.ws.send(JSON.stringify({event, value}));
     }
 }

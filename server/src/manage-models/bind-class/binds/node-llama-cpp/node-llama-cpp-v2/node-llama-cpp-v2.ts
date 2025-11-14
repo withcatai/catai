@@ -1,11 +1,25 @@
-import {getLlama, Llama, LLamaChatPromptOptions, LlamaChatSession, LlamaChatSessionOptions, LlamaContextOptions, LlamaModel, LlamaModelOptions, LlamaOptions} from 'node-llama-cpp';
+import {
+    ChatSessionModelFunction,
+    getLlama,
+    Llama,
+    LLamaChatPromptOptions,
+    LlamaChatSession,
+    LlamaChatSessionOptions,
+    LlamaContextOptions,
+    LlamaModel,
+    LlamaModelOptions,
+    LlamaOptions
+} from 'node-llama-cpp';
 import NodeLlamaCppChat from './node-llama-cpp-chat.js';
 import BaseBindClass from '../../base-bind-class.js';
 import objectAssignDeep from 'object-assign-deep';
 import fsExtra from 'fs-extra';
 import {ModelNotInstalledError} from '../../../errors/ModelNotInstalledError.js';
-import {ChatSessionModelFunction} from 'node-llama-cpp';
-import ddg from 'duck-duck-scrape';
+import {getWebSearchFunction} from './calls/web-search.js';
+import {getCurrencyConversionFunction} from './calls/currency-conversion.js';
+import {getWeatherFunction} from './calls/get-weather.js';
+import {getDateFunction} from './calls/get-date.js';
+import {getStocksFunction} from './calls/get-stocks.js';
 
 type ChatFlags = {
     builtInAPICall?: {
@@ -13,14 +27,21 @@ type ChatFlags = {
         date: boolean;
         weather: boolean;
         currency: boolean;
-    } | true
+        stocks: boolean;
+    } | true;
+};
+
+type CompletionSettings = {
+    completion?: {
+        maxTokens: number;
+    }
 }
 
 export type NodeLlamaCppOptions =
     Omit<LlamaContextOptions, 'model'> &
     Omit<LlamaModelOptions, 'modelPath'> &
     Omit<LlamaChatSessionOptions, 'contextSequence'> &
-    LLamaChatPromptOptions & ChatFlags;
+    LLamaChatPromptOptions & ChatFlags & CompletionSettings;
 
 
 let cachedLlama: Llama | null = null;
@@ -65,85 +86,34 @@ export default class NodeLlamaCppV2 extends BaseBindClass<NodeLlamaCppOptions> {
     }
 
     private _flagsToSettings(settings: NodeLlamaCppOptions) {
-        const {webSearch = false, currency = false, date = false, weather = false} = settings.builtInAPICall === true ? {
+        const {webSearch = false, currency = false, date = false, weather = false, stocks = false} = settings.builtInAPICall === true ? {
             webSearch: true,
             date: true,
             weather: true,
             currency: true,
-        } : {};
+            stocks: true,
+        } : (settings.builtInAPICall ?? {});
 
         const functions: Record<string, ChatSessionModelFunction> = settings.functions ??= {};
 
         if (webSearch) {
-            functions.webSearch = {
-                description: 'Search the web for the given query',
-                params: {
-                    type: 'object',
-                    properties: {
-                        query: {
-                            type: 'string'
-                        }
-                    }
-                },
-                async handler(params: any) {
-                    const results = await ddg.search(params.query);
-                    return results.results;
-                }
-            } satisfies ChatSessionModelFunction;
+            functions.webSearch = getWebSearchFunction();
         }
 
-        if(currency) {
-            functions.currencyConversion = {
-                description: 'Convert the given amount from one currency to another. For example \'usd\' to \'eur\'.',
-                params: {
-                    type: 'object',
-                    properties: {
-                        from: {
-                            type: 'string'
-                        },
-                        to: {
-                            type: 'string'
-                        },
-                        amount: {
-                            type: 'number'
-                        }
-                    }
-                },
-                async handler(params: any) {
-                    const results = await ddg.currency(params.from, params.to, params.amount);
-                    return results.conversion['converted-amount'];
-                }
-            } satisfies ChatSessionModelFunction;
+        if (currency) {
+            functions.currencyConversion = getCurrencyConversionFunction();
         }
 
-        if(weather){
-            functions.getWeather = {
-                description: 'Get the current weather for the given location',
-                params: {
-                    type: 'object',
-                    properties: {
-                        location: {
-                            type: 'string'
-                        },
-                        locale: {
-                            type: 'string',
-                            description: 'The locale to give the summaries in - default to \'en\''
-                        }
-                    }
-                },
-                async handler(params: any) {
-                    return await ddg.forecast(params.location, params.locale);
-                }
-            } satisfies ChatSessionModelFunction;
+        if (weather) {
+            functions.getWeather = getWeatherFunction();
         }
 
-        if(date){
-            functions.getDate = {
-                description: 'Get the current date',
-                handler() {
-                    return new Date().toISOString();
-                },
-            } satisfies ChatSessionModelFunction;
+        if (date) {
+            functions.getDate = getDateFunction();
+        }
+
+        if (stocks) {
+            functions.getStocks = getStocksFunction();
         }
     }
 }
