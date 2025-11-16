@@ -1,4 +1,4 @@
-# CatAI Install API
+# Catai Install API
 
 You can install models on the fly using the `FetchModels` class.
 

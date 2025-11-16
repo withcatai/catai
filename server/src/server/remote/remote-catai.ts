@@ -1,6 +1,7 @@
-import WebSocket, { ClientOptions } from 'ws';
-import { ClientRequestArgs } from 'http';
-import { ChatContext } from '../../manage-models/bind-class/chat-context.js';
+import WebSocket, {ClientOptions} from 'ws';
+import {ClientRequestArgs} from 'http';
+import {ChatContext, ChatResponse} from '../../manage-models/bind-class/chat-context.js';
+import {ChatHistoryItem} from 'node-llama-cpp';
 
 export default class RemoteCatAI extends ChatContext {
     private _ws: WebSocket;
@@ -8,7 +9,7 @@ export default class RemoteCatAI extends ChatContext {
     private _promiseOpen?: Promise<void>;
 
     /**
-     * Connect to remote CatAI server, and use it as a chat context
+     * Connect to remote Catai server, and use it as a chat context
      * @param url - WebSocket URL
      * @param options - WebSocket options
      */
@@ -31,7 +32,7 @@ export default class RemoteCatAI extends ChatContext {
         });
 
         this._ws.on('open', () => {
-            this.emit("open");
+            this.emit('open');
         });
 
         this._promiseOpen = new Promise((resolve, reject) => {
@@ -41,10 +42,13 @@ export default class RemoteCatAI extends ChatContext {
     }
 
     private _onMessage(message: string) {
-        const { event, value } = JSON.parse(message);
+        const {event, value} = JSON.parse(message);
         switch (event) {
             case 'token':
                 this.emit('token', value);
+                break;
+            case 'think-token':
+                this.emit('think-token', value);
                 break;
             case 'error':
                 this.emit('error', value);
@@ -58,24 +62,51 @@ export default class RemoteCatAI extends ChatContext {
         }
     }
 
-    private _send(event: 'prompt' | 'abort', value: string) {
-        this._ws.send(JSON.stringify({ event, value }));
+    private _send(event: 'prompt' | 'complete' | 'abort' | 'setChatHistory', value?: any) {
+        this._ws.send(JSON.stringify({event, value}));
     }
 
     abort(reason?: string): void {
         this._send('abort', reason || 'Aborted by user');
     }
 
-    async prompt(prompt: string, onToken?: (token: string) => void): Promise<string | null> {
+    setChatHistory(chatHistory: ChatHistoryItem[]) {
+        this._send('setChatHistory', chatHistory);
+    }
+
+    async complete(text: string, chatResponse?: ChatResponse): Promise<string | null> {
+        this._send('complete', text);
+
+        let buildText = '';
+        const tokenEvent = (token: string) => {
+            buildText += token;
+            chatResponse?.(token, 'token');
+        };
+
+        this.on('complete-token', tokenEvent);
+
+        return await new Promise<string | null>((resolve, reject) => {
+            this.once('error', reject);
+            this.once('modelResponseEnd', () => {
+                this.off('complete-token', tokenEvent);
+                this.off('error', reject);
+                resolve(buildText);
+            });
+        });
+    }
+
+    async prompt(prompt: string, chatResponse?: ChatResponse): Promise<string | null> {
         await this._promiseOpen;
         this._send('prompt', prompt);
 
         let buildText = '';
         const tokenEvent = (token: string) => {
             buildText += token;
-            onToken?.(token);
+            chatResponse?.(token, 'token');
         };
+
         this.on('token', tokenEvent);
+        this.on('think-token', content => chatResponse?.(content, 'think-token'));
 
         return await new Promise<string | null>((resolve, reject) => {
             this.once('error', reject);

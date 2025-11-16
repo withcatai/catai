@@ -15,7 +15,7 @@
     <Alert class={`w-full p-4 alert-message text-base rounded-none ${myMessage ? 'bg-transparent dark:bg-gray-600': 'dark:bg-gray-800'}`}
            color={myMessage ? 'light': 'blue'}>
         <div class="flex w-full">
-            <div on:click={() => showOriginalCode = !showOriginalCode}>
+            <div on:click={() => showOriginalCode = !showOriginalCode} class="chat-logo">
                 {#if !myMessage}
                     <Logo/>
                 {:else}
@@ -46,6 +46,10 @@
 </div>
 
 <style global>
+    .chat-logo {
+        min-width: 50px;
+    }
+
     .alert-message > div > div {
         width: 100%;
     }

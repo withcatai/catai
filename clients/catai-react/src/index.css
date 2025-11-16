@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    * {
+        @apply antialiased;
+    }
+
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-200;
+    }
+
+    ::-webkit-scrollbar {
+        @apply w-2 h-2;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-slate-100 dark:bg-slate-900;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-slate-300 dark:bg-slate-700 rounded-lg hover:bg-slate-400 dark:hover:bg-slate-600;
+    }
+}
+
+@layer components {
+    /* Custom prose for markdown content */
+    .prose {
+        @apply max-w-none;
+    }
+
+    .prose code {
+        @apply font-mono text-sm;
+    }
+
+    .prose pre {
+        @apply bg-slate-900 dark:bg-slate-950 rounded-lg;
+    }
+
+    /* Selection color */
+    ::selection {
+        @apply bg-primary-500 text-white;
+    }
+
+    ::-moz-selection {
+        @apply bg-primary-500 text-white;
+    }
+}
+
+/* Smooth transitions */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Dark mode specific styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        color-scheme: dark;
+    }
+}
+
+/* Animation utilities */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.animate-shimmer {
+    animation: shimmer 2s infinite;
+    background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.2) 20%,
+            rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 1000px 100%;
+}
+
+/* Contenteditable placeholder */
+[contenteditable][data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+    color: #a1a5ab;
+    pointer-events: none;
+    display: block;
+}
+
+/* Dark mode placeholder */
+@media (prefers-color-scheme: dark) {
+    [contenteditable][data-placeholder]:empty:before {
+        color: #6b7280;
+    }
+}

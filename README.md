@@ -1,6 +1,6 @@
 <div align="center">
-    <img alt="CatAI Logo" src="docs/demo/logo.png" width="360px"/>
-    <h1>CatAI</h1>
+    <img alt="Catai Logo" src="docs/demo/logo.webp" width="360px"/>
+    <h1>Catai</h1>
 </div>
 
 <div align="center">
@@ -12,6 +12,10 @@
 
 </div>
 <br />
+
+
+>🚀 **Exciting Updates Coming Soon!**<br><br>**New UI**, **Function Calling**, and **more amazing features** are on the way! Stay tuned for updates.
+
 
 Run GGUF models on your computer with a chat ui.
 
@@ -27,7 +31,7 @@ Make sure you have [Node.js](https://nodejs.org/en/) (**download current**) inst
 ```bash
 npm install -g catai
 
-catai install meta-llama-3-8b-q4_k_m
+catai install qwen3-4b-q4_k_m
 catai up
 ```
 
@@ -126,11 +130,11 @@ You can also use the development API to interact with the model.
 import {createChat, downloadModel, initCatAILlama, LlamaJsonSchemaGrammar} from "catai";
 
 // skip downloading the model if you already have it
-await downloadModel("meta-llama-3-8b-q4_k_m");
+await downloadModel("qwen3-4b-q4_k_m");
 
 const llama = await initCatAILlama();
 const chat = await createChat({
-    model: "meta-llama-3-8b-q4_k_m"
+    model: "qwen3-4b-q4_k_m"
 });
 
 const fullResponse = await chat.prompt("Give me array of random numbers (10 numbers)", {
@@ -155,19 +159,19 @@ console.log(fullResponse); // [10, 2, 3, 4, 6, 9, 8, 1, 7, 5]
 
 You can use the model with [node-llama-cpp@beta](https://github.com/withcatai/node-llama-cpp/pull/105)
 
-CatAI enables you to easily manage the models and chat with them.
+Catai enables you to easily manage the models and chat with them.
 
 ```ts
 import {downloadModel, getModelPath, initCatAILlama, LlamaChatSession} from 'catai';
 
 // download the model, skip if you already have the model
 await downloadModel(
-    "https://huggingface.co/QuantFactory/Meta-Llama-3-8B-Instruct-GGUF/resolve/main/Meta-Llama-3-8B-Instruct.Q2_K.gguf?download=true",
-    "llama3"
+    "https://huggingface.co/giladgd/Qwen3-Reranker-4B-GGUF/resolve/main/Qwen3-Reranker-4B.Q3_K_M.gguf?download=true",
+    "qwen3-reranker-4b"
 );
 
 // get the model path with catai
-const modelPath = getModelPath("llama3");
+const modelPath = getModelPath("qwen3-reranker-4b");
 
 const llama = await initCatAILlama();
 const model = await llama.loadModel({

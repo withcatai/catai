@@ -1,6 +1,8 @@
 import type ChatSocket from './chat-socket.js';
 
 export default class ChatActions {
+    private _thinkOn = false;
+
     get lastMessage() {
         return this.controls.messages.at(-1);
     }
@@ -24,6 +26,8 @@ export default class ChatActions {
 
     // client requests
     sendQuestion(question: string) {
+        this._thinkOn = false;
+
         this.controls.messages.push(
             {content: question, myMessage: true, active: true},
             {content: '', error: '', active: true}
@@ -37,7 +41,17 @@ export default class ChatActions {
     }
 
     // server responses
-    serverToken(value: string) {
+    serverToken(value: string, type: 'token' | 'think-token') {
+        if (type === 'think-token' && !this._thinkOn) {
+            this.lastMessage.content += '```text\nthinking: ';
+            this._thinkOn = true;
+        }
+
+        if (this._thinkOn && type === 'token') {
+            this._thinkOn = false;
+            this.lastMessage.content += '\n```\n';
+        }
+
         this.lastMessage.content += value;
         this.controls.updateUI();
     }

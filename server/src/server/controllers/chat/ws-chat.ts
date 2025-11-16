@@ -1,13 +1,14 @@
-import {WebSocket} from "ws";
-import createChat from "../../../manage-models/bind-class/bind-class.js";
-import {ChatContext} from "../../../manage-models/bind-class/chat-context.js";
+import {WebSocket} from 'ws';
+import createChat from '../../../manage-models/bind-class/bind-class.js';
+import {ChatContext, ResponseTypes} from '../../../manage-models/bind-class/chat-context.js';
 
 export default class WsChatController {
     private _loadChat?: ChatContext;
+
     public constructor(protected ws: WebSocket) {
     }
 
-    public async init(){
+    public async init() {
         this._loadChat = await createChat();
         this._initEvents();
     }
@@ -19,8 +20,8 @@ export default class WsChatController {
     }
 
     private _initEvents() {
-        this.ws.on("message", this._onWSMessage.bind(this));
-        this.ws.on("close", this._chat.abort.bind(this._chat));
+        this.ws.on('message', this._onWSMessage.bind(this));
+        this.ws.on('close', this._chat.close.bind(this._chat));
 
         this._chat.on('modelResponseEnd', () => {
             this._sendEvent('end', null);
@@ -32,6 +33,14 @@ export default class WsChatController {
             process.stdout.write(text);
             this._sendEvent('token', text);
         });
+        this._chat.on('think-token', (text) => {
+            process.stdout.write(text);
+            this._sendEvent('think-token', text);
+        });
+        this._chat.on('complete-token', (text) => {
+            process.stdout.write(text);
+            this._sendEvent('complete-token', text);
+        });
     }
 
     private async _onWSMessage(message: string) {
@@ -40,13 +49,19 @@ export default class WsChatController {
             case 'prompt':
                 await this._chat.prompt(value);
                 break;
+            case 'complete':
+                await this._chat.complete(value);
+                break;
+            case 'setChatHistory':
+                this._chat.setChatHistory(value);
+                break;
             case 'abort':
-                await this._chat.abort();
+                this._chat.abort();
                 break;
         }
     }
 
-    private _sendEvent(event: 'token' | 'error' | 'end', value: any) {
+    private _sendEvent(event: ResponseTypes | 'error' | 'end', value: any) {
         this.ws.send(JSON.stringify({event, value}));
     }
 }

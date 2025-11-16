@@ -15,7 +15,7 @@ export async function runMigrations() {
         if (semver.lte(toVersion, migration.version)) continue;
 
         if (semver.gte(migration.version, fromVersion)) {
-            console.log(`CatAI Migrated to v${migration.version}`);
+            console.log(`Catai Migrated to v${migration.version}`);
             await migration.migration();
         }
     }
