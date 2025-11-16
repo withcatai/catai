@@ -831,5 +831,36 @@
       }
     },
     "version": 1
+  },
+  "sorachio-1b-q4_k_m": {
+    "download": {
+      "files": {
+        "model": "Sorachio-1B.Q4_K_M.gguf"
+      },
+      "repo": "https://huggingface.co/mradermacher/Sorachio-1B-GGUF",
+      "commit": "61a5af80eb70142b485cc68e3d9ddbf288bd9652",
+      "branch": "main"
+    },
+    "hardwareCompatibility": {
+      "ramGB": 1.24,
+      "cpuCors": 1,
+      "compressions": "q4_k_m"
+    },
+    "compatibleCatAIVersionRange": [
+      "3.3.0"
+    ],
+    "settings": {
+      "bind": "node-llama-cpp-v2",
+      "contextSize": {
+        "max": 12288
+      },
+      "budgets": {
+        "thoughtTokens": 2048
+      },
+      "completion": {
+        "maxTokens": 10
+      }
+    },
+    "version": 1
   }
 }
